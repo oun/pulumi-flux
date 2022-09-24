@@ -1,0 +1,316 @@
+{
+    "name": "flux",
+    "description": "A Pulumi package for creating and managing flux cloud resources.",
+    "keywords": [
+        "pulumi",
+        "flux",
+        "category/cloud"
+    ],
+    "homepage": "https://www.pulumi.com",
+    "license": "Apache-2.0",
+    "attribution": "This Pulumi package is based on the [`flux` Terraform Provider](https://github.com/fluxcd/terraform-provider-flux).",
+    "repository": "https://github.com/oun/pulumi-flux",
+    "publisher": "Pulumi",
+    "meta": {
+        "moduleFormat": "(.*)(?:/[^/]*)"
+    },
+    "language": {
+        "csharp": {
+            "compatibility": "tfbridge20",
+            "namespaces": null,
+            "packageReferences": {
+                "Pulumi": "3.*"
+            }
+        },
+        "go": {
+            "generateExtraInputTypes": true,
+            "generateResourceContainerTypes": true,
+            "importBasePath": "github.com/oun/pulumi-flux/sdk/go/flux"
+        },
+        "nodejs": {
+            "compatibility": "tfbridge20",
+            "dependencies": {
+                "@pulumi/pulumi": "^3.0.0"
+            },
+            "devDependencies": {
+                "@types/mime": "^2.0.0",
+                "@types/node": "^10.0.0"
+            },
+            "disableUnionOutputTypes": true,
+            "packageDescription": "A Pulumi package for creating and managing flux cloud resources.",
+            "packageName": "",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/fluxcd/terraform-provider-flux)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-flux` repo](https://github.com/oun/pulumi-flux/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-flux` repo](https://github.com/fluxcd/terraform-provider-flux/issues).",
+            "typescriptVersion": ""
+        },
+        "python": {
+            "compatibility": "tfbridge20",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/fluxcd/terraform-provider-flux)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-flux` repo](https://github.com/oun/pulumi-flux/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-flux` repo](https://github.com/fluxcd/terraform-provider-flux/issues).",
+            "requires": {
+                "pulumi": "\u003e=3.0.0,\u003c4.0.0"
+            }
+        }
+    },
+    "config": {},
+    "provider": {
+        "description": "The provider type for the flux package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n"
+    },
+    "functions": {
+        "flux:index/getFluxInstall:getFluxInstall": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getFluxInstall.\n",
+                "properties": {
+                    "baseurl": {
+                        "type": "string"
+                    },
+                    "clusterDomain": {
+                        "type": "string"
+                    },
+                    "components": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "componentsExtras": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "imagePullSecrets": {
+                        "type": "string"
+                    },
+                    "logLevel": {
+                        "type": "string"
+                    },
+                    "namespace": {
+                        "type": "string"
+                    },
+                    "networkPolicy": {
+                        "type": "boolean"
+                    },
+                    "registry": {
+                        "type": "string"
+                    },
+                    "targetPath": {
+                        "type": "string"
+                    },
+                    "tolerationKeys": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "version": {
+                        "type": "string"
+                    },
+                    "watchAllNamespaces": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "targetPath"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getFluxInstall.\n",
+                "properties": {
+                    "baseurl": {
+                        "type": "string"
+                    },
+                    "clusterDomain": {
+                        "type": "string"
+                    },
+                    "components": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "componentsExtras": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "content": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "imagePullSecrets": {
+                        "type": "string"
+                    },
+                    "logLevel": {
+                        "type": "string"
+                    },
+                    "namespace": {
+                        "type": "string"
+                    },
+                    "networkPolicy": {
+                        "type": "boolean"
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "registry": {
+                        "type": "string"
+                    },
+                    "targetPath": {
+                        "type": "string"
+                    },
+                    "tolerationKeys": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "version": {
+                        "type": "string"
+                    },
+                    "watchAllNamespaces": {
+                        "type": "boolean"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "content",
+                    "path",
+                    "targetPath",
+                    "id"
+                ]
+            }
+        },
+        "flux:index/getFluxSync:getFluxSync": {
+            "inputs": {
+                "description": "A collection of arguments for invoking getFluxSync.\n",
+                "properties": {
+                    "branch": {
+                        "type": "string"
+                    },
+                    "commit": {
+                        "type": "string"
+                    },
+                    "gitImplementation": {
+                        "type": "string"
+                    },
+                    "interval": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "namespace": {
+                        "type": "string"
+                    },
+                    "patchNames": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "secret": {
+                        "type": "string"
+                    },
+                    "semver": {
+                        "type": "string"
+                    },
+                    "tag": {
+                        "type": "string"
+                    },
+                    "targetPath": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "targetPath",
+                    "url"
+                ]
+            },
+            "outputs": {
+                "description": "A collection of values returned by getFluxSync.\n",
+                "properties": {
+                    "branch": {
+                        "type": "string"
+                    },
+                    "commit": {
+                        "type": "string"
+                    },
+                    "content": {
+                        "type": "string"
+                    },
+                    "gitImplementation": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                    },
+                    "interval": {
+                        "type": "integer"
+                    },
+                    "kustomizeContent": {
+                        "type": "string"
+                    },
+                    "kustomizePath": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "namespace": {
+                        "type": "string"
+                    },
+                    "patchFilePaths": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        }
+                    },
+                    "patchNames": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "path": {
+                        "type": "string"
+                    },
+                    "secret": {
+                        "type": "string"
+                    },
+                    "semver": {
+                        "type": "string"
+                    },
+                    "tag": {
+                        "type": "string"
+                    },
+                    "targetPath": {
+                        "type": "string"
+                    },
+                    "url": {
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "content",
+                    "kustomizeContent",
+                    "kustomizePath",
+                    "patchFilePaths",
+                    "path",
+                    "targetPath",
+                    "url",
+                    "id"
+                ]
+            }
+        }
+    }
+}
