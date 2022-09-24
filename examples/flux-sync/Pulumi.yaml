@@ -1,0 +1,6 @@
+name: flux-sync-example
+runtime:
+  name: python
+#  options:
+#    virtualenv: venv
+description: A simple example using flux-sync
