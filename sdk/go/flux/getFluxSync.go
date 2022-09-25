@@ -11,6 +11,7 @@ import (
 )
 
 func GetFluxSync(ctx *pulumi.Context, args *GetFluxSyncArgs, opts ...pulumi.InvokeOption) (*GetFluxSyncResult, error) {
+	opts = pkgInvokeDefaultOpts(opts)
 	var rv GetFluxSyncResult
 	err := ctx.Invoke("flux:index/getFluxSync:getFluxSync", args, &rv, opts...)
 	if err != nil {

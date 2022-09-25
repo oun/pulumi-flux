@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Pulumi</Authors>
-    <Company>Pulumi</Company>
+    <Authors>oun</Authors>
+    <Company>oun</Company>
     <Description>A Pulumi package for creating and managing flux cloud resources.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://www.pulumi.com</PackageProjectUrl>

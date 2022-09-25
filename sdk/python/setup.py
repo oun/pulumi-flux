@@ -42,9 +42,9 @@ setup(name='pulumi_flux',
       description="A Pulumi package for creating and managing flux cloud resources.",
       long_description=readme(),
       long_description_content_type='text/markdown',
-#       cmdclass={
-#           'install': InstallPluginCommand,
-#       },
+      cmdclass={
+          'install': InstallPluginCommand,
+      },
       keywords='pulumi flux category/cloud',
       url='https://www.pulumi.com',
       project_urls={

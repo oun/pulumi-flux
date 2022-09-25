@@ -24,6 +24,7 @@
     },
     "pulumi": {
         "resource": true,
-        "name": "flux"
+        "name": "flux",
+        "server": "github://api.github.com/oun"
     }
 }

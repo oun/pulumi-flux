@@ -11,13 +11,13 @@ This package is available for several languages/platforms:
 To use from JavaScript or TypeScript in Node.js, install using either `npm`:
 
 ```bash
-npm install @pulumi/flux
+npm install @worawat/flux
 ```
 
 or `yarn`:
 
 ```bash
-yarn add @pulumi/flux
+yarn add @worawat/flux
 ```
 
 ### Python
@@ -43,6 +43,10 @@ To use from .NET, install using `dotnet add package`:
 ```bash
 dotnet add package Pulumi.Flux
 ```
+
+## Examples
+
+Find working Python code samples in the [`./examples`](https://github.com/oun/pulumi-flux/tree/main/examples) directory.
 
 ## Reference
 

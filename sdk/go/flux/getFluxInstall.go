@@ -11,6 +11,7 @@ import (
 )
 
 func GetFluxInstall(ctx *pulumi.Context, args *GetFluxInstallArgs, opts ...pulumi.InvokeOption) (*GetFluxInstallResult, error) {
+	opts = pkgInvokeDefaultOpts(opts)
 	var rv GetFluxInstallResult
 	err := ctx.Invoke("flux:index/getFluxInstall:getFluxInstall", args, &rv, opts...)
 	if err != nil {
