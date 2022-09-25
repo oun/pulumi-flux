@@ -114,6 +114,7 @@ func Provider() tfbridge.ProviderInfo {
 			"flux_sync": {Tok: tfbridge.MakeDataSource(mainPkg, mainMod, "getFluxSync")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
+		    PackageName: "@worawat/flux",
 			// List any npm dependencies and their versions
 			Dependencies: map[string]string{
 				"@pulumi/pulumi": "^3.0.0",

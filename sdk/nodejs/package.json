@@ -1,5 +1,5 @@
 {
-    "name": "@pulumi/flux",
+    "name": "@worawat/flux",
     "version": "${VERSION}",
     "description": "A Pulumi package for creating and managing flux cloud resources.",
     "keywords": [
