@@ -1,12 +1,12 @@
 ---
-title: FluxCD Setup
-meta_desc: Information on how to install the FluxCD provider.
+title: Flux Setup
+meta_desc: Information on how to install the Flux provider.
 layout: installation
 ---
 
 ## Installation
 
-The Pulumi FluxCD provider is available as a package in all Pulumi languages:
+The Pulumi Flux provider is available as a package in all Pulumi languages:
 
 * JavaScript/TypeScript: [`@worawat/flux`](https://www.npmjs.com/package/@worawat/flux)
 * Python: [`pulumi-flux`](https://pypi.org/project/pulumi-flux/)
@@ -15,10 +15,10 @@ The Pulumi FluxCD provider is available as a package in all Pulumi languages:
 
 ### Provider Binary
 
-The Pulumi provider binary is a third party binary. It can be installed using the `pulumi plugin` command.
+The Flux provider binary is a third party binary. If you use [Pulumi v3.35.3 or up](https://www.pulumi.com/docs/guides/pulumi-packages/how-to-author/#support-for-github-releases), the provider binary should install automatically when using one of the language SDKs. If you are using an older version or it fails to install, the binary can be installed using the `pulumi plugin` command:
 
 ```bash
-pulumi plugin install resource flux <version>
+pulumi plugin install resource flux <version> --server https://github.com/oun/pulumi-flux/releases/download/<version>
 ```
 
 Replace the version string with your desired version.
