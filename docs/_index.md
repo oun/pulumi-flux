@@ -1,27 +1,46 @@
 ---
-title: FluxCD
-meta_desc: The Flux Provider lets you manage FluxCD resources.
+title: Flux
+meta_desc: Provides an overview of the Flux provider for Pulumi.
 layout: overview
 ---
 
-This Pulumi provider wrap the Terraform provider for [Flux v2](https://fluxcd.io/). 
-The provider allows you to install Flux on Kubernetes and configure it to reconcile the cluster state from a Git repository.
+The Pulumi Flux provider lets you manage [Flux](https://fluxcd.io/) resources.
 
 ## Example
 
-{{< chooser language "python" >}}
-{{% choosable language python %}}
+{{< chooser language "typescript,python,go,csharp" >}}
+{{% choosable language typescript %}}
 
 ```typescript
-import pulumi_flux as flux
-from pulumi_kubernetes.yaml import ConfigGroup
-
-manifests = flux.get_flux_install(
-    target_path="clusters/my-cluster", network_policy=False
-)
-
-# Create kubernetes resource from generated manifests
-ConfigGroup("flux-install", yaml=[manifests.content])
+import * as flux from "@worawat/flux";
 ```
+
+{{% /choosable %}}
+{{% choosable language python %}}
+
+```python
+import pulumi_flux as flux
+```
+
+{{% /choosable %}}
+{{% choosable language go %}}
+
+```go
+import (
+ "fmt"
+ flux "github.com/oun/pulumi-flux/sdk/go/flux"
+ "github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+)
+```
+
+{{% /choosable %}}
+{{% choosable language csharp %}}
+
+```csharp
+using Pulumi;
+using Pulumi.Flux;
+
+```
+
 {{% /choosable %}}
 {{< /chooser >}}
