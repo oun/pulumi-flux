@@ -6,11 +6,11 @@ import pulumi_tls as tls
 import pulumi_kubernetes as k8s
 
 # Require export GITHUB_TOKEN=your-github-personal-access-token
-config = pulumi.Config()
-branch = config.require("branch")
-target_path = config.require("target_path")
-repository_name = config.require("repository")
-github_owner = pulumi.Config("github").require("owner")
+branch = "main"
+target_path = "clusters/my-cluster"
+repository_name = "flux-sample"
+github_owner = "oun"
+known_hosts = "github.com ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg="
 
 ssh_key = tls.PrivateKey("key", algorithm="ECDSA", ecdsa_curve="P256")
 
@@ -46,7 +46,7 @@ k8s.core.v1.Secret(
     string_data={
         "identity": ssh_key.private_key_pem,
         "identity.pub": ssh_key.public_key_pem,
-        "known_hosts": config.require("known_hosts"),
+        "known_hosts": known_hosts,
     },
     opts=pulumi.ResourceOptions(depends_on=install)
 )
