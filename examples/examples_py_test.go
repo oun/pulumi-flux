@@ -13,7 +13,7 @@ import (
 func TestFluxInstall(t *testing.T) {
 	test := getPythonBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:           filepath.Join(getCwd(t), "flux-install"),
+			Dir:           filepath.Join(getCwd(t), "python", "flux-install"),
 			RunUpdateTest: true,
 		})
 
@@ -23,7 +23,7 @@ func TestFluxInstall(t *testing.T) {
 func TestFluxSync(t *testing.T) {
 	test := getPythonBaseOptions(t).
 		With(integration.ProgramTestOptions{
-			Dir:           filepath.Join(getCwd(t), "flux-sync"),
+			Dir:           filepath.Join(getCwd(t), "python", "flux-sync"),
 			RunUpdateTest: true,
 		})
 

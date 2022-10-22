@@ -14,6 +14,7 @@ github_owner = pulumi.Config("github").require("owner")
 
 ssh_key = tls.PrivateKey("key", algorithm="ECDSA", ecdsa_curve="P256")
 
+# Create Github repository
 repository = github.Repository(
     "flux", name=repository_name, visibility="private", auto_init=True
 )
@@ -57,6 +58,7 @@ github.RepositoryFile(
     file=flux_install.path,
     content=flux_install.content,
     branch=branch,
+    opts=pulumi.ResourceOptions(depends_on=install)
 )
 github.RepositoryFile(
     "sync",
@@ -64,6 +66,7 @@ github.RepositoryFile(
     file=flux_sync.path,
     content=flux_sync.content,
     branch=branch,
+    opts=pulumi.ResourceOptions(depends_on=install)
 )
 github.RepositoryFile(
     "kustomize",
@@ -71,4 +74,5 @@ github.RepositoryFile(
     file=flux_sync.kustomize_path,
     content=flux_sync.kustomize_content,
     branch=branch,
+    opts=pulumi.ResourceOptions(depends_on=install)
 )
