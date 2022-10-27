@@ -1,6 +1,7 @@
-# Flux Resource Provider
+# Flux Pulumi Provider
 
-The Flux Resource Provider lets you manage [FluxCD](https://fluxcd.io) resources.
+The Flux Provider lets you manage [FluxCD](https://fluxcd.io) resources.
+This provider wraps the existing [Terraform Provider Flux](https://github.com/fluxcd/terraform-provider-flux).
 
 ## Installing
 
@@ -50,4 +51,4 @@ Find working Python code samples in the [`./examples`](https://github.com/oun/pu
 
 ## Reference
 
-For detailed reference documentation, please visit [the Pulumi registry](https://www.pulumi.com/registry/packages/foo/api-docs/).
+For detailed reference documentation, please visit the [the Pulumi registry](https://www.pulumi.com/registry/packages/flux/api-docs/).

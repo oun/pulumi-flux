@@ -51,4 +51,4 @@ Find working Python code samples in the [`./examples`](https://github.com/oun/pu
 
 ## Reference
 
-For detailed reference documentation, please visit the [Terraform Provider Flux](https://registry.terraform.io/providers/fluxcd/flux/latest/docs).
+For detailed reference documentation, please visit the [the Pulumi registry](https://www.pulumi.com/registry/packages/flux/api-docs/).
