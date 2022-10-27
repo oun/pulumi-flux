@@ -5,7 +5,9 @@ import pulumi_github as github
 import pulumi_tls as tls
 import pulumi_kubernetes as k8s
 
-# Require export GITHUB_TOKEN=your-github-personal-access-token
+# Require Github configurations
+# export GITHUB_TOKEN=your-github-personal-access-token
+# export GITHUB_OWNER=your-github-owner
 branch = "main"
 target_path = "clusters/my-cluster"
 repository_name = "flux-sample"
