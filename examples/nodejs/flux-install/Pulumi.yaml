@@ -1,0 +1,6 @@
+name: flux-install
+description: A simple nodejs example using flux-install
+runtime:
+  name: nodejs
+  options:
+    nodeargs: "--loader ts-node/esm --no-warnings"

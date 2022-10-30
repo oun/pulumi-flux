@@ -10,7 +10,7 @@
     "@pulumi/kubernetes": "^3.22.0",
     "@pulumi/pulumi": "^3.0.0",
     "@pulumi/tls": "^4.6.1",
-    "@worawat/flux": "^1.0.0",
+    "@worawat/flux": "^0.20.0",
     "ts-node": "^10.9.1"
   }
 }
