@@ -10,6 +10,7 @@
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`flux` Terraform Provider](https://github.com/fluxcd/terraform-provider-flux).",
     "repository": "https://github.com/oun/pulumi-flux",
+    "logoUrl": "https://raw.githubusercontent.com/oun/pulumi-flux/main/flux.svg",
     "pluginDownloadURL": "github://api.github.com/oun",
     "publisher": "oun",
     "meta": {
