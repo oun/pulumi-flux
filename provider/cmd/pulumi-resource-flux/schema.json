@@ -1,5 +1,6 @@
 {
     "name": "flux",
+    "displayName": "Flux",
     "description": "A Pulumi package for creating and managing flux cloud resources.",
     "keywords": [
         "pulumi",
