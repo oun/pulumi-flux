@@ -4,7 +4,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>oun</Authors>
     <Company>oun</Company>
-    <Description>A Pulumi package for creating and managing flux cloud resources.</Description>
+    <Description>A Pulumi package for creating and managing Flux cloud resources.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://www.pulumi.com</PackageProjectUrl>
     <RepositoryUrl>https://github.com/oun/pulumi-flux</RepositoryUrl>

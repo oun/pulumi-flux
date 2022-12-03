@@ -39,7 +39,7 @@ def readme():
 
 setup(name='pulumi_flux',
       version=VERSION,
-      description="A Pulumi package for creating and managing flux cloud resources.",
+      description="A Pulumi package for creating and managing Flux cloud resources.",
       long_description=readme(),
       long_description_content_type='text/markdown',
       cmdclass={
