@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## 0.22.2
+
+This prerelease includes flux2 [v0.38.2](https://github.com/fluxcd/flux2/releases/tag/v0.38.2).
+
 ## 0.21.1
 
 Add display name and seo fix.
