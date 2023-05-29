@@ -1,0 +1,6 @@
+name: flux-bootstrap-git-py
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: A minimal Python Pulumi program

@@ -1,0 +1,13 @@
+{
+    "name": "flux-bootstrap-git",
+    "main": "index.ts",
+    "devDependencies": {
+        "@types/node": "^16"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "^3.0.0",
+        "@pulumi/github": "^5.0.0",
+        "@worawat/flux": "^0.25.3",
+        "@pulumi/tls": "^4.6.1"
+    }
+}
