@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+## 0.25.3
+
+- Upgrade bridged provider to Terraform Plugin Framework
+- This prerelease includes flux2 [v0.41.2](https://github.com/fluxcd/flux2/releases/tag/v0.41.2).
+
 ## 0.22.2
 
 This prerelease includes flux2 [v0.38.2](https://github.com/fluxcd/flux2/releases/tag/v0.38.2).
