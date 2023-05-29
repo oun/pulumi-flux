@@ -51,7 +51,7 @@ func Provider() pf.ProviderInfo {
 	prov := tfbridge.ProviderInfo{
 		Name: "flux",
 		// Make sure Version is set, as it is now required.
-        Version: "0.25.3",
+        Version: version.Version,
 
         // This is now required.
         MetadataInfo: tfbridge.NewProviderMetadata(bridgeMetadata),
@@ -68,7 +68,7 @@ func Provider() pf.ProviderInfo {
 		//
 		// You may host a logo on a domain you control or add an SVG logo for your package
 		// in your repository and use the raw content URL for that file as your logo URL.
-		LogoURL: "https://raw.githubusercontent.com/oun/pulumi-flux/main/flux.svg",
+		LogoURL: "",
 		// PluginDownloadURL is an optional URL used to download the Provider
 		// for use in Pulumi programs
 		// e.g https://github.com/org/pulumi-provider-name/releases/
