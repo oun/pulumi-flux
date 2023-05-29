@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
@@ -37,6 +39,8 @@ export class Provider extends pulumi.ProviderResource {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         {
+            resourceInputs["git"] = pulumi.output(args ? args.git : undefined).apply(JSON.stringify);
+            resourceInputs["kubernetes"] = pulumi.output(args ? args.kubernetes : undefined).apply(JSON.stringify);
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(Provider.__pulumiType, name, resourceInputs, opts);
@@ -47,4 +51,12 @@ export class Provider extends pulumi.ProviderResource {
  * The set of arguments for constructing a Provider resource.
  */
 export interface ProviderArgs {
+    /**
+     * Configuration block with settings for Kubernetes.
+     */
+    git?: pulumi.Input<inputs.ProviderGit>;
+    /**
+     * Configuration block with settings for Kubernetes.
+     */
+    kubernetes?: pulumi.Input<inputs.ProviderKubernetes>;
 }

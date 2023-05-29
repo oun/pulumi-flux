@@ -11,24 +11,88 @@ namespace Pulumi.Flux
 {
     public static class GetFluxInstall
     {
+        /// <summary>
+        /// `flux.getFluxInstall` can be used to generate Kubernetes manifests for deploying Flux.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Flux = Pulumi.Flux;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var config = new Config();
+        ///     var targetPath = config.Require("targetPath");
+        ///     var main = Flux.GetFluxInstall.Invoke(new()
+        ///     {
+        ///         TargetPath = targetPath,
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
         public static Task<GetFluxInstallResult> InvokeAsync(GetFluxInstallArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.InvokeAsync<GetFluxInstallResult>("flux:index/getFluxInstall:getFluxInstall", args ?? new GetFluxInstallArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.InvokeAsync<GetFluxInstallResult>("flux:index/getFluxInstall:getFluxInstall", args ?? new GetFluxInstallArgs(), options.WithDefaults());
 
+        /// <summary>
+        /// `flux.getFluxInstall` can be used to generate Kubernetes manifests for deploying Flux.
+        /// 
+        /// {{% examples %}}
+        /// ## Example Usage
+        /// {{% example %}}
+        /// 
+        /// ```csharp
+        /// using System.Collections.Generic;
+        /// using System.Linq;
+        /// using Pulumi;
+        /// using Flux = Pulumi.Flux;
+        /// 
+        /// return await Deployment.RunAsync(() =&gt; 
+        /// {
+        ///     var config = new Config();
+        ///     var targetPath = config.Require("targetPath");
+        ///     var main = Flux.GetFluxInstall.Invoke(new()
+        ///     {
+        ///         TargetPath = targetPath,
+        ///     });
+        /// 
+        /// });
+        /// ```
+        /// {{% /example %}}
+        /// {{% /examples %}}
+        /// </summary>
         public static Output<GetFluxInstallResult> Invoke(GetFluxInstallInvokeArgs args, InvokeOptions? options = null)
-            => Pulumi.Deployment.Instance.Invoke<GetFluxInstallResult>("flux:index/getFluxInstall:getFluxInstall", args ?? new GetFluxInstallInvokeArgs(), options.WithDefaults());
+            => global::Pulumi.Deployment.Instance.Invoke<GetFluxInstallResult>("flux:index/getFluxInstall:getFluxInstall", args ?? new GetFluxInstallInvokeArgs(), options.WithDefaults());
     }
 
 
     public sealed class GetFluxInstallArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Base URL to get the install manifests from. When specifying this, `version` should also be set to the corresponding version to download from that URL, or the latest version associated with upstream flux will be requested. Defaults to `https://github.com/fluxcd/flux2/releases`.
+        /// </summary>
         [Input("baseurl")]
         public string? Baseurl { get; set; }
 
+        /// <summary>
+        /// The internal cluster domain. Defaults to `cluster.local`.
+        /// </summary>
         [Input("clusterDomain")]
         public string? ClusterDomain { get; set; }
 
         [Input("components")]
         private List<string>? _components;
+
+        /// <summary>
+        /// Toolkit components to include in the install manifests.
+        /// </summary>
         public List<string> Components
         {
             get => _components ?? (_components = new List<string>());
@@ -37,41 +101,73 @@ namespace Pulumi.Flux
 
         [Input("componentsExtras")]
         private List<string>? _componentsExtras;
+
+        /// <summary>
+        /// List of extra components to include in the install manifests.
+        /// </summary>
         public List<string> ComponentsExtras
         {
             get => _componentsExtras ?? (_componentsExtras = new List<string>());
             set => _componentsExtras = value;
         }
 
+        /// <summary>
+        /// Kubernetes secret name used for pulling the toolkit images from a private registry.
+        /// </summary>
         [Input("imagePullSecrets")]
         public string? ImagePullSecrets { get; set; }
 
+        /// <summary>
+        /// Log level for toolkit components. Defaults to `info`.
+        /// </summary>
         [Input("logLevel")]
         public string? LogLevel { get; set; }
 
+        /// <summary>
+        /// The namespace scope for install manifests. Defaults to `flux-system`.
+        /// </summary>
         [Input("namespace")]
         public string? Namespace { get; set; }
 
+        /// <summary>
+        /// Deny ingress access to the toolkit controllers from other namespaces using network policies. Defaults to `true`.
+        /// </summary>
         [Input("networkPolicy")]
         public bool? NetworkPolicy { get; set; }
 
+        /// <summary>
+        /// Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.
+        /// </summary>
         [Input("registry")]
         public string? Registry { get; set; }
 
+        /// <summary>
+        /// Relative path to the Git repository root where Flux manifests are committed.
+        /// </summary>
         [Input("targetPath", required: true)]
         public string TargetPath { get; set; } = null!;
 
         [Input("tolerationKeys")]
         private List<string>? _tolerationKeys;
+
+        /// <summary>
+        /// List of toleration keys used to schedule the components pods onto nodes with matching taints.
+        /// </summary>
         public List<string> TolerationKeys
         {
             get => _tolerationKeys ?? (_tolerationKeys = new List<string>());
             set => _tolerationKeys = value;
         }
 
+        /// <summary>
+        /// Flux version. Defaults to `v0.41.2`.
+        /// </summary>
         [Input("version")]
         public string? Version { get; set; }
 
+        /// <summary>
+        /// If true watch for custom resources in all namespaces. Defaults to `true`.
+        /// </summary>
         [Input("watchAllNamespaces")]
         public bool? WatchAllNamespaces { get; set; }
 
@@ -83,14 +179,24 @@ namespace Pulumi.Flux
 
     public sealed class GetFluxInstallInvokeArgs : global::Pulumi.InvokeArgs
     {
+        /// <summary>
+        /// Base URL to get the install manifests from. When specifying this, `version` should also be set to the corresponding version to download from that URL, or the latest version associated with upstream flux will be requested. Defaults to `https://github.com/fluxcd/flux2/releases`.
+        /// </summary>
         [Input("baseurl")]
         public Input<string>? Baseurl { get; set; }
 
+        /// <summary>
+        /// The internal cluster domain. Defaults to `cluster.local`.
+        /// </summary>
         [Input("clusterDomain")]
         public Input<string>? ClusterDomain { get; set; }
 
         [Input("components")]
         private InputList<string>? _components;
+
+        /// <summary>
+        /// Toolkit components to include in the install manifests.
+        /// </summary>
         public InputList<string> Components
         {
             get => _components ?? (_components = new InputList<string>());
@@ -99,41 +205,73 @@ namespace Pulumi.Flux
 
         [Input("componentsExtras")]
         private InputList<string>? _componentsExtras;
+
+        /// <summary>
+        /// List of extra components to include in the install manifests.
+        /// </summary>
         public InputList<string> ComponentsExtras
         {
             get => _componentsExtras ?? (_componentsExtras = new InputList<string>());
             set => _componentsExtras = value;
         }
 
+        /// <summary>
+        /// Kubernetes secret name used for pulling the toolkit images from a private registry.
+        /// </summary>
         [Input("imagePullSecrets")]
         public Input<string>? ImagePullSecrets { get; set; }
 
+        /// <summary>
+        /// Log level for toolkit components. Defaults to `info`.
+        /// </summary>
         [Input("logLevel")]
         public Input<string>? LogLevel { get; set; }
 
+        /// <summary>
+        /// The namespace scope for install manifests. Defaults to `flux-system`.
+        /// </summary>
         [Input("namespace")]
         public Input<string>? Namespace { get; set; }
 
+        /// <summary>
+        /// Deny ingress access to the toolkit controllers from other namespaces using network policies. Defaults to `true`.
+        /// </summary>
         [Input("networkPolicy")]
         public Input<bool>? NetworkPolicy { get; set; }
 
+        /// <summary>
+        /// Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.
+        /// </summary>
         [Input("registry")]
         public Input<string>? Registry { get; set; }
 
+        /// <summary>
+        /// Relative path to the Git repository root where Flux manifests are committed.
+        /// </summary>
         [Input("targetPath", required: true)]
         public Input<string> TargetPath { get; set; } = null!;
 
         [Input("tolerationKeys")]
         private InputList<string>? _tolerationKeys;
+
+        /// <summary>
+        /// List of toleration keys used to schedule the components pods onto nodes with matching taints.
+        /// </summary>
         public InputList<string> TolerationKeys
         {
             get => _tolerationKeys ?? (_tolerationKeys = new InputList<string>());
             set => _tolerationKeys = value;
         }
 
+        /// <summary>
+        /// Flux version. Defaults to `v0.41.2`.
+        /// </summary>
         [Input("version")]
         public Input<string>? Version { get; set; }
 
+        /// <summary>
+        /// If true watch for custom resources in all namespaces. Defaults to `true`.
+        /// </summary>
         [Input("watchAllNamespaces")]
         public Input<bool>? WatchAllNamespaces { get; set; }
 
@@ -147,24 +285,69 @@ namespace Pulumi.Flux
     [OutputType]
     public sealed class GetFluxInstallResult
     {
+        /// <summary>
+        /// Base URL to get the install manifests from. When specifying this, `version` should also be set to the corresponding version to download from that URL, or the latest version associated with upstream flux will be requested. Defaults to `https://github.com/fluxcd/flux2/releases`.
+        /// </summary>
         public readonly string? Baseurl;
+        /// <summary>
+        /// The internal cluster domain. Defaults to `cluster.local`.
+        /// </summary>
         public readonly string? ClusterDomain;
+        /// <summary>
+        /// Toolkit components to include in the install manifests.
+        /// </summary>
         public readonly ImmutableArray<string> Components;
+        /// <summary>
+        /// List of extra components to include in the install manifests.
+        /// </summary>
         public readonly ImmutableArray<string> ComponentsExtras;
+        /// <summary>
+        /// Manifests in multi-doc yaml format.
+        /// </summary>
         public readonly string Content;
         /// <summary>
-        /// The provider-assigned unique ID for this managed resource.
+        /// The ID of this resource.
         /// </summary>
         public readonly string Id;
+        /// <summary>
+        /// Kubernetes secret name used for pulling the toolkit images from a private registry.
+        /// </summary>
         public readonly string? ImagePullSecrets;
+        /// <summary>
+        /// Log level for toolkit components. Defaults to `info`.
+        /// </summary>
         public readonly string? LogLevel;
+        /// <summary>
+        /// The namespace scope for install manifests. Defaults to `flux-system`.
+        /// </summary>
         public readonly string? Namespace;
+        /// <summary>
+        /// Deny ingress access to the toolkit controllers from other namespaces using network policies. Defaults to `true`.
+        /// </summary>
         public readonly bool? NetworkPolicy;
+        /// <summary>
+        /// Expected path of content in git repository.
+        /// </summary>
         public readonly string Path;
+        /// <summary>
+        /// Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.
+        /// </summary>
         public readonly string? Registry;
+        /// <summary>
+        /// Relative path to the Git repository root where Flux manifests are committed.
+        /// </summary>
         public readonly string TargetPath;
+        /// <summary>
+        /// List of toleration keys used to schedule the components pods onto nodes with matching taints.
+        /// </summary>
         public readonly ImmutableArray<string> TolerationKeys;
+        /// <summary>
+        /// Flux version. Defaults to `v0.41.2`.
+        /// </summary>
         public readonly string? Version;
+        /// <summary>
+        /// If true watch for custom resources in all namespaces. Defaults to `true`.
+        /// </summary>
         public readonly bool? WatchAllNamespaces;
 
         [OutputConstructor]

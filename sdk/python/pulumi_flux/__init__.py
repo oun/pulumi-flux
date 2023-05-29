@@ -5,12 +5,31 @@
 from . import _utilities
 import typing
 # Export this package's modules as members:
+from .flux_bootstrap_git import *
 from .get_flux_install import *
 from .get_flux_sync import *
 from .provider import *
+from ._inputs import *
+
+# Make subpackages available:
+if typing.TYPE_CHECKING:
+    import pulumi_flux.config as __config
+    config = __config
+else:
+    config = _utilities.lazy_import('pulumi_flux.config')
+
 _utilities.register(
     resource_modules="""
-[]
+[
+ {
+  "pkg": "flux",
+  "mod": "index/fluxBootstrapGit",
+  "fqn": "pulumi_flux",
+  "classes": {
+   "flux:index/fluxBootstrapGit:FluxBootstrapGit": "FluxBootstrapGit"
+  }
+ }
+]
 """,
     resource_packages="""
 [

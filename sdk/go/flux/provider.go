@@ -35,10 +35,18 @@ func NewProvider(ctx *pulumi.Context,
 }
 
 type providerArgs struct {
+	// Configuration block with settings for Kubernetes.
+	Git *ProviderGit `pulumi:"git"`
+	// Configuration block with settings for Kubernetes.
+	Kubernetes *ProviderKubernetes `pulumi:"kubernetes"`
 }
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
+	// Configuration block with settings for Kubernetes.
+	Git ProviderGitPtrInput
+	// Configuration block with settings for Kubernetes.
+	Kubernetes ProviderKubernetesPtrInput
 }
 
 func (ProviderArgs) ElementType() reflect.Type {

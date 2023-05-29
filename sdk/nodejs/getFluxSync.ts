@@ -4,16 +4,30 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * `flux.getFluxSync` can be used to generate manifests for reconciling the specified repository path on the cluster.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as flux from "@pulumi/flux";
+ *
+ * const config = new pulumi.Config();
+ * const targetPath = config.require("targetPath");
+ * const cloneUrl = config.require("cloneUrl");
+ * const main = flux.getFluxSync({
+ *     targetPath: targetPath,
+ *     url: cloneUrl,
+ * });
+ * ```
+ */
 export function getFluxSync(args: GetFluxSyncArgs, opts?: pulumi.InvokeOptions): Promise<GetFluxSyncResult> {
-    if (!opts) {
-        opts = {}
-    }
 
-    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+    opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("flux:index/getFluxSync:getFluxSync", {
         "branch": args.branch,
         "commit": args.commit,
-        "gitImplementation": args.gitImplementation,
         "interval": args.interval,
         "name": args.name,
         "namespace": args.namespace,
@@ -30,17 +44,49 @@ export function getFluxSync(args: GetFluxSyncArgs, opts?: pulumi.InvokeOptions):
  * A collection of arguments for invoking getFluxSync.
  */
 export interface GetFluxSyncArgs {
+    /**
+     * Default branch to sync from. Defaults to `main`.
+     */
     branch?: string;
+    /**
+     * The Git commit SHA to checkout, if specified Tag filters will be ignored.
+     */
     commit?: string;
-    gitImplementation?: string;
+    /**
+     * Sync interval in minutes. Defaults to `1`.
+     */
     interval?: number;
+    /**
+     * The kubernetes resources name. Defaults to `flux-system`.
+     */
     name?: string;
+    /**
+     * The namespace scope for this operation. Defaults to `flux-system`.
+     */
     namespace?: string;
+    /**
+     * The names of patches to apply to the Kustomization. Used to generate the `patchFilePaths` output value.
+     */
     patchNames?: string[];
+    /**
+     * The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
+     */
     secret?: string;
+    /**
+     * The Git tag semver expression, takes precedence over `tag`.
+     */
     semver?: string;
+    /**
+     * The Git tag to checkout, takes precedence over `branch`.
+     */
     tag?: string;
+    /**
+     * Relative path to the Git repository root where the sync manifests are committed.
+     */
     targetPath: string;
+    /**
+     * Git repository clone url.
+     */
     url: string;
 }
 
@@ -48,47 +94,143 @@ export interface GetFluxSyncArgs {
  * A collection of values returned by getFluxSync.
  */
 export interface GetFluxSyncResult {
-    readonly branch?: string;
-    readonly commit?: string;
-    readonly content: string;
-    readonly gitImplementation?: string;
     /**
-     * The provider-assigned unique ID for this managed resource.
+     * Default branch to sync from. Defaults to `main`.
+     */
+    readonly branch?: string;
+    /**
+     * The Git commit SHA to checkout, if specified Tag filters will be ignored.
+     */
+    readonly commit?: string;
+    /**
+     * Manifests in multi-doc yaml format.
+     */
+    readonly content: string;
+    /**
+     * The ID of this resource.
      */
     readonly id: string;
+    /**
+     * Sync interval in minutes. Defaults to `1`.
+     */
     readonly interval?: number;
+    /**
+     * Kustomize yaml document.
+     */
     readonly kustomizeContent: string;
+    /**
+     * Expected path of kustomize content in git repository.
+     */
     readonly kustomizePath: string;
+    /**
+     * The kubernetes resources name. Defaults to `flux-system`.
+     */
     readonly name?: string;
+    /**
+     * The namespace scope for this operation. Defaults to `flux-system`.
+     */
     readonly namespace?: string;
+    /**
+     * Map of expected paths of kustomize patches in git repository, keyed by the `patchNames` input variable.
+     */
     readonly patchFilePaths: {[key: string]: string};
+    /**
+     * The names of patches to apply to the Kustomization. Used to generate the `patchFilePaths` output value.
+     */
     readonly patchNames?: string[];
+    /**
+     * Expected path of content in git repository.
+     */
     readonly path: string;
+    /**
+     * The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
+     */
     readonly secret?: string;
+    /**
+     * The Git tag semver expression, takes precedence over `tag`.
+     */
     readonly semver?: string;
+    /**
+     * The Git tag to checkout, takes precedence over `branch`.
+     */
     readonly tag?: string;
+    /**
+     * Relative path to the Git repository root where the sync manifests are committed.
+     */
     readonly targetPath: string;
+    /**
+     * Git repository clone url.
+     */
     readonly url: string;
 }
-
+/**
+ * `flux.getFluxSync` can be used to generate manifests for reconciling the specified repository path on the cluster.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as flux from "@pulumi/flux";
+ *
+ * const config = new pulumi.Config();
+ * const targetPath = config.require("targetPath");
+ * const cloneUrl = config.require("cloneUrl");
+ * const main = flux.getFluxSync({
+ *     targetPath: targetPath,
+ *     url: cloneUrl,
+ * });
+ * ```
+ */
 export function getFluxSyncOutput(args: GetFluxSyncOutputArgs, opts?: pulumi.InvokeOptions): pulumi.Output<GetFluxSyncResult> {
-    return pulumi.output(args).apply(a => getFluxSync(a, opts))
+    return pulumi.output(args).apply((a: any) => getFluxSync(a, opts))
 }
 
 /**
  * A collection of arguments for invoking getFluxSync.
  */
 export interface GetFluxSyncOutputArgs {
+    /**
+     * Default branch to sync from. Defaults to `main`.
+     */
     branch?: pulumi.Input<string>;
+    /**
+     * The Git commit SHA to checkout, if specified Tag filters will be ignored.
+     */
     commit?: pulumi.Input<string>;
-    gitImplementation?: pulumi.Input<string>;
+    /**
+     * Sync interval in minutes. Defaults to `1`.
+     */
     interval?: pulumi.Input<number>;
+    /**
+     * The kubernetes resources name. Defaults to `flux-system`.
+     */
     name?: pulumi.Input<string>;
+    /**
+     * The namespace scope for this operation. Defaults to `flux-system`.
+     */
     namespace?: pulumi.Input<string>;
+    /**
+     * The names of patches to apply to the Kustomization. Used to generate the `patchFilePaths` output value.
+     */
     patchNames?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
+     */
     secret?: pulumi.Input<string>;
+    /**
+     * The Git tag semver expression, takes precedence over `tag`.
+     */
     semver?: pulumi.Input<string>;
+    /**
+     * The Git tag to checkout, takes precedence over `branch`.
+     */
     tag?: pulumi.Input<string>;
+    /**
+     * Relative path to the Git repository root where the sync manifests are committed.
+     */
     targetPath: pulumi.Input<string>;
+    /**
+     * Git repository clone url.
+     */
     url: pulumi.Input<string>;
 }

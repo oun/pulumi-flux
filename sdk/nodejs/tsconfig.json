@@ -13,10 +13,16 @@
         "strict": true
     },
     "files": [
+        "config/index.ts",
+        "config/vars.ts",
+        "fluxBootstrapGit.ts",
         "getFluxInstall.ts",
         "getFluxSync.ts",
         "index.ts",
         "provider.ts",
+        "types/index.ts",
+        "types/input.ts",
+        "types/output.ts",
         "utilities.ts"
     ]
 }

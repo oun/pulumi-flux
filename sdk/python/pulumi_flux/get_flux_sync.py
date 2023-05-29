@@ -21,7 +21,7 @@ class GetFluxSyncResult:
     """
     A collection of values returned by getFluxSync.
     """
-    def __init__(__self__, branch=None, commit=None, content=None, git_implementation=None, id=None, interval=None, kustomize_content=None, kustomize_path=None, name=None, namespace=None, patch_file_paths=None, patch_names=None, path=None, secret=None, semver=None, tag=None, target_path=None, url=None):
+    def __init__(__self__, branch=None, commit=None, content=None, id=None, interval=None, kustomize_content=None, kustomize_path=None, name=None, namespace=None, patch_file_paths=None, patch_names=None, path=None, secret=None, semver=None, tag=None, target_path=None, url=None):
         if branch and not isinstance(branch, str):
             raise TypeError("Expected argument 'branch' to be a str")
         pulumi.set(__self__, "branch", branch)
@@ -31,9 +31,6 @@ class GetFluxSyncResult:
         if content and not isinstance(content, str):
             raise TypeError("Expected argument 'content' to be a str")
         pulumi.set(__self__, "content", content)
-        if git_implementation and not isinstance(git_implementation, str):
-            raise TypeError("Expected argument 'git_implementation' to be a str")
-        pulumi.set(__self__, "git_implementation", git_implementation)
         if id and not isinstance(id, str):
             raise TypeError("Expected argument 'id' to be a str")
         pulumi.set(__self__, "id", id)
@@ -80,94 +77,137 @@ class GetFluxSyncResult:
     @property
     @pulumi.getter
     def branch(self) -> Optional[str]:
+        """
+        Default branch to sync from. Defaults to `main`.
+        """
         return pulumi.get(self, "branch")
 
     @property
     @pulumi.getter
     def commit(self) -> Optional[str]:
+        """
+        The Git commit SHA to checkout, if specified Tag filters will be ignored.
+        """
         return pulumi.get(self, "commit")
 
     @property
     @pulumi.getter
     def content(self) -> str:
+        """
+        Manifests in multi-doc yaml format.
+        """
         return pulumi.get(self, "content")
-
-    @property
-    @pulumi.getter(name="gitImplementation")
-    def git_implementation(self) -> Optional[str]:
-        return pulumi.get(self, "git_implementation")
 
     @property
     @pulumi.getter
     def id(self) -> str:
         """
-        The provider-assigned unique ID for this managed resource.
+        The ID of this resource.
         """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter
     def interval(self) -> Optional[int]:
+        """
+        Sync interval in minutes. Defaults to `1`.
+        """
         return pulumi.get(self, "interval")
 
     @property
     @pulumi.getter(name="kustomizeContent")
     def kustomize_content(self) -> str:
+        """
+        Kustomize yaml document.
+        """
         return pulumi.get(self, "kustomize_content")
 
     @property
     @pulumi.getter(name="kustomizePath")
     def kustomize_path(self) -> str:
+        """
+        Expected path of kustomize content in git repository.
+        """
         return pulumi.get(self, "kustomize_path")
 
     @property
     @pulumi.getter
     def name(self) -> Optional[str]:
+        """
+        The kubernetes resources name. Defaults to `flux-system`.
+        """
         return pulumi.get(self, "name")
 
     @property
     @pulumi.getter
     def namespace(self) -> Optional[str]:
+        """
+        The namespace scope for this operation. Defaults to `flux-system`.
+        """
         return pulumi.get(self, "namespace")
 
     @property
     @pulumi.getter(name="patchFilePaths")
     def patch_file_paths(self) -> Mapping[str, str]:
+        """
+        Map of expected paths of kustomize patches in git repository, keyed by the `patch_names` input variable.
+        """
         return pulumi.get(self, "patch_file_paths")
 
     @property
     @pulumi.getter(name="patchNames")
     def patch_names(self) -> Optional[Sequence[str]]:
+        """
+        The names of patches to apply to the Kustomization. Used to generate the `patch_file_paths` output value.
+        """
         return pulumi.get(self, "patch_names")
 
     @property
     @pulumi.getter
     def path(self) -> str:
+        """
+        Expected path of content in git repository.
+        """
         return pulumi.get(self, "path")
 
     @property
     @pulumi.getter
     def secret(self) -> Optional[str]:
+        """
+        The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
+        """
         return pulumi.get(self, "secret")
 
     @property
     @pulumi.getter
     def semver(self) -> Optional[str]:
+        """
+        The Git tag semver expression, takes precedence over `tag`.
+        """
         return pulumi.get(self, "semver")
 
     @property
     @pulumi.getter
     def tag(self) -> Optional[str]:
+        """
+        The Git tag to checkout, takes precedence over `branch`.
+        """
         return pulumi.get(self, "tag")
 
     @property
     @pulumi.getter(name="targetPath")
     def target_path(self) -> str:
+        """
+        Relative path to the Git repository root where the sync manifests are committed.
+        """
         return pulumi.get(self, "target_path")
 
     @property
     @pulumi.getter
     def url(self) -> str:
+        """
+        Git repository clone url.
+        """
         return pulumi.get(self, "url")
 
 
@@ -180,7 +220,6 @@ class AwaitableGetFluxSyncResult(GetFluxSyncResult):
             branch=self.branch,
             commit=self.commit,
             content=self.content,
-            git_implementation=self.git_implementation,
             id=self.id,
             interval=self.interval,
             kustomize_content=self.kustomize_content,
@@ -199,7 +238,6 @@ class AwaitableGetFluxSyncResult(GetFluxSyncResult):
 
 def get_flux_sync(branch: Optional[str] = None,
                   commit: Optional[str] = None,
-                  git_implementation: Optional[str] = None,
                   interval: Optional[int] = None,
                   name: Optional[str] = None,
                   namespace: Optional[str] = None,
@@ -211,12 +249,37 @@ def get_flux_sync(branch: Optional[str] = None,
                   url: Optional[str] = None,
                   opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetFluxSyncResult:
     """
-    Use this data source to access information about an existing resource.
+    `get_flux_sync` can be used to generate manifests for reconciling the specified repository path on the cluster.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_flux as flux
+
+    config = pulumi.Config()
+    target_path = config.require("targetPath")
+    clone_url = config.require("cloneUrl")
+    main = flux.get_flux_sync(target_path=target_path,
+        url=clone_url)
+    ```
+
+
+    :param str branch: Default branch to sync from. Defaults to `main`.
+    :param str commit: The Git commit SHA to checkout, if specified Tag filters will be ignored.
+    :param int interval: Sync interval in minutes. Defaults to `1`.
+    :param str name: The kubernetes resources name. Defaults to `flux-system`.
+    :param str namespace: The namespace scope for this operation. Defaults to `flux-system`.
+    :param Sequence[str] patch_names: The names of patches to apply to the Kustomization. Used to generate the `patch_file_paths` output value.
+    :param str secret: The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
+    :param str semver: The Git tag semver expression, takes precedence over `tag`.
+    :param str tag: The Git tag to checkout, takes precedence over `branch`.
+    :param str target_path: Relative path to the Git repository root where the sync manifests are committed.
+    :param str url: Git repository clone url.
     """
     __args__ = dict()
     __args__['branch'] = branch
     __args__['commit'] = commit
-    __args__['gitImplementation'] = git_implementation
     __args__['interval'] = interval
     __args__['name'] = name
     __args__['namespace'] = namespace
@@ -233,7 +296,6 @@ def get_flux_sync(branch: Optional[str] = None,
         branch=__ret__.branch,
         commit=__ret__.commit,
         content=__ret__.content,
-        git_implementation=__ret__.git_implementation,
         id=__ret__.id,
         interval=__ret__.interval,
         kustomize_content=__ret__.kustomize_content,
@@ -253,7 +315,6 @@ def get_flux_sync(branch: Optional[str] = None,
 @_utilities.lift_output_func(get_flux_sync)
 def get_flux_sync_output(branch: Optional[pulumi.Input[Optional[str]]] = None,
                          commit: Optional[pulumi.Input[Optional[str]]] = None,
-                         git_implementation: Optional[pulumi.Input[Optional[str]]] = None,
                          interval: Optional[pulumi.Input[Optional[int]]] = None,
                          name: Optional[pulumi.Input[Optional[str]]] = None,
                          namespace: Optional[pulumi.Input[Optional[str]]] = None,
@@ -265,6 +326,32 @@ def get_flux_sync_output(branch: Optional[pulumi.Input[Optional[str]]] = None,
                          url: Optional[pulumi.Input[str]] = None,
                          opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetFluxSyncResult]:
     """
-    Use this data source to access information about an existing resource.
+    `get_flux_sync` can be used to generate manifests for reconciling the specified repository path on the cluster.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_flux as flux
+
+    config = pulumi.Config()
+    target_path = config.require("targetPath")
+    clone_url = config.require("cloneUrl")
+    main = flux.get_flux_sync(target_path=target_path,
+        url=clone_url)
+    ```
+
+
+    :param str branch: Default branch to sync from. Defaults to `main`.
+    :param str commit: The Git commit SHA to checkout, if specified Tag filters will be ignored.
+    :param int interval: Sync interval in minutes. Defaults to `1`.
+    :param str name: The kubernetes resources name. Defaults to `flux-system`.
+    :param str namespace: The namespace scope for this operation. Defaults to `flux-system`.
+    :param Sequence[str] patch_names: The names of patches to apply to the Kustomization. Used to generate the `patch_file_paths` output value.
+    :param str secret: The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
+    :param str semver: The Git tag semver expression, takes precedence over `tag`.
+    :param str tag: The Git tag to checkout, takes precedence over `branch`.
+    :param str target_path: Relative path to the Git repository root where the sync manifests are committed.
+    :param str url: Git repository clone url.
     """
     ...

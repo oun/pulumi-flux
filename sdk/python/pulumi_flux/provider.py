@@ -8,16 +8,48 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
+from ._inputs import *
 
 __all__ = ['ProviderArgs', 'Provider']
 
 @pulumi.input_type
 class ProviderArgs:
-    def __init__(__self__):
+    def __init__(__self__, *,
+                 git: Optional[pulumi.Input['ProviderGitArgs']] = None,
+                 kubernetes: Optional[pulumi.Input['ProviderKubernetesArgs']] = None):
         """
         The set of arguments for constructing a Provider resource.
+        :param pulumi.Input['ProviderGitArgs'] git: Configuration block with settings for Kubernetes.
+        :param pulumi.Input['ProviderKubernetesArgs'] kubernetes: Configuration block with settings for Kubernetes.
         """
-        pass
+        if git is not None:
+            pulumi.set(__self__, "git", git)
+        if kubernetes is not None:
+            pulumi.set(__self__, "kubernetes", kubernetes)
+
+    @property
+    @pulumi.getter
+    def git(self) -> Optional[pulumi.Input['ProviderGitArgs']]:
+        """
+        Configuration block with settings for Kubernetes.
+        """
+        return pulumi.get(self, "git")
+
+    @git.setter
+    def git(self, value: Optional[pulumi.Input['ProviderGitArgs']]):
+        pulumi.set(self, "git", value)
+
+    @property
+    @pulumi.getter
+    def kubernetes(self) -> Optional[pulumi.Input['ProviderKubernetesArgs']]:
+        """
+        Configuration block with settings for Kubernetes.
+        """
+        return pulumi.get(self, "kubernetes")
+
+    @kubernetes.setter
+    def kubernetes(self, value: Optional[pulumi.Input['ProviderKubernetesArgs']]):
+        pulumi.set(self, "kubernetes", value)
 
 
 class Provider(pulumi.ProviderResource):
@@ -25,6 +57,8 @@ class Provider(pulumi.ProviderResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 git: Optional[pulumi.Input[pulumi.InputType['ProviderGitArgs']]] = None,
+                 kubernetes: Optional[pulumi.Input[pulumi.InputType['ProviderKubernetesArgs']]] = None,
                  __props__=None):
         """
         The provider type for the flux package. By default, resources use package-wide configuration
@@ -34,6 +68,8 @@ class Provider(pulumi.ProviderResource):
 
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[pulumi.InputType['ProviderGitArgs']] git: Configuration block with settings for Kubernetes.
+        :param pulumi.Input[pulumi.InputType['ProviderKubernetesArgs']] kubernetes: Configuration block with settings for Kubernetes.
         """
         ...
     @overload
@@ -62,6 +98,8 @@ class Provider(pulumi.ProviderResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 git: Optional[pulumi.Input[pulumi.InputType['ProviderGitArgs']]] = None,
+                 kubernetes: Optional[pulumi.Input[pulumi.InputType['ProviderKubernetesArgs']]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -71,6 +109,8 @@ class Provider(pulumi.ProviderResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = ProviderArgs.__new__(ProviderArgs)
 
+            __props__.__dict__["git"] = pulumi.Output.from_input(git).apply(pulumi.runtime.to_json) if git is not None else None
+            __props__.__dict__["kubernetes"] = pulumi.Output.from_input(kubernetes).apply(pulumi.runtime.to_json) if kubernetes is not None else None
         super(Provider, __self__).__init__(
             'flux',
             resource_name,

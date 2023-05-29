@@ -46,6 +46,18 @@ namespace Pulumi.Flux
 
     public sealed class ProviderArgs : global::Pulumi.ResourceArgs
     {
+        /// <summary>
+        /// Configuration block with settings for Kubernetes.
+        /// </summary>
+        [Input("git", json: true)]
+        public Input<Inputs.ProviderGitArgs>? Git { get; set; }
+
+        /// <summary>
+        /// Configuration block with settings for Kubernetes.
+        /// </summary>
+        [Input("kubernetes", json: true)]
+        public Input<Inputs.ProviderKubernetesArgs>? Kubernetes { get; set; }
+
         public ProviderArgs()
         {
         }

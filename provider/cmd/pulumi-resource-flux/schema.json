@@ -53,62 +53,626 @@
             }
         }
     },
-    "config": {},
-    "provider": {
-        "description": "The provider type for the flux package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n"
+    "config": {
+        "variables": {
+            "git": {
+                "$ref": "#/types/flux:config/git:git",
+                "description": "Configuration block with settings for Kubernetes.\n"
+            },
+            "kubernetes": {
+                "$ref": "#/types/flux:config/kubernetes:kubernetes",
+                "description": "Configuration block with settings for Kubernetes.\n"
+            }
+        }
     },
-    "functions": {
-        "flux:index/getFluxInstall:getFluxInstall": {
-            "inputs": {
-                "description": "A collection of arguments for invoking getFluxInstall.\n",
-                "properties": {
-                    "baseurl": {
+    "types": {
+        "flux:config/git:git": {
+            "properties": {
+                "authorEmail": {
+                    "type": "string"
+                },
+                "authorName": {
+                    "type": "string"
+                },
+                "branch": {
+                    "type": "string"
+                },
+                "commitMessageAppendix": {
+                    "type": "string"
+                },
+                "gpgKeyId": {
+                    "type": "string"
+                },
+                "gpgKeyRing": {
+                    "type": "string"
+                },
+                "gpgPassphrase": {
+                    "type": "string",
+                    "secret": true
+                },
+                "http": {
+                    "$ref": "#/types/flux:config/gitHttp:gitHttp"
+                },
+                "ssh": {
+                    "$ref": "#/types/flux:config/gitSsh:gitSsh"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "url"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredInputs": []
+                }
+            }
+        },
+        "flux:config/gitHttp:gitHttp": {
+            "properties": {
+                "allowInsecureHttp": {
+                    "type": "boolean"
+                },
+                "certificateAuthority": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string",
+                    "secret": true
+                },
+                "username": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "flux:config/gitSsh:gitSsh": {
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "secret": true
+                },
+                "privateKey": {
+                    "type": "string",
+                    "secret": true
+                },
+                "username": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "flux:config/kubernetes:kubernetes": {
+            "properties": {
+                "clientCertificate": {
+                    "type": "string"
+                },
+                "clientKey": {
+                    "type": "string"
+                },
+                "clusterCaCertificate": {
+                    "type": "string"
+                },
+                "configContext": {
+                    "type": "string"
+                },
+                "configContextAuthInfo": {
+                    "type": "string"
+                },
+                "configContextCluster": {
+                    "type": "string"
+                },
+                "configPath": {
+                    "type": "string"
+                },
+                "configPaths": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "host": {
+                    "type": "string"
+                },
+                "insecure": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "proxyUrl": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "flux:index/ProviderGit:ProviderGit": {
+            "properties": {
+                "authorEmail": {
+                    "type": "string"
+                },
+                "authorName": {
+                    "type": "string"
+                },
+                "branch": {
+                    "type": "string"
+                },
+                "commitMessageAppendix": {
+                    "type": "string"
+                },
+                "gpgKeyId": {
+                    "type": "string"
+                },
+                "gpgKeyRing": {
+                    "type": "string"
+                },
+                "gpgPassphrase": {
+                    "type": "string",
+                    "secret": true
+                },
+                "http": {
+                    "$ref": "#/types/flux:index/ProviderGitHttp:ProviderGitHttp"
+                },
+                "ssh": {
+                    "$ref": "#/types/flux:index/ProviderGitSsh:ProviderGitSsh"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "required": [
+                "url"
+            ],
+            "language": {
+                "nodejs": {
+                    "requiredOutputs": []
+                }
+            }
+        },
+        "flux:index/ProviderGitHttp:ProviderGitHttp": {
+            "properties": {
+                "allowInsecureHttp": {
+                    "type": "boolean"
+                },
+                "certificateAuthority": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string",
+                    "secret": true
+                },
+                "username": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "flux:index/ProviderGitSsh:ProviderGitSsh": {
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "secret": true
+                },
+                "privateKey": {
+                    "type": "string",
+                    "secret": true
+                },
+                "username": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "flux:index/ProviderKubernetes:ProviderKubernetes": {
+            "properties": {
+                "clientCertificate": {
+                    "type": "string"
+                },
+                "clientKey": {
+                    "type": "string"
+                },
+                "clusterCaCertificate": {
+                    "type": "string"
+                },
+                "configContext": {
+                    "type": "string"
+                },
+                "configContextAuthInfo": {
+                    "type": "string"
+                },
+                "configContextCluster": {
+                    "type": "string"
+                },
+                "configPath": {
+                    "type": "string"
+                },
+                "configPaths": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "host": {
+                    "type": "string"
+                },
+                "insecure": {
+                    "type": "boolean"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "proxyUrl": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "provider": {
+        "description": "The provider type for the flux package. By default, resources use package-wide configuration\nsettings, however an explicit `Provider` instance may be created and passed during resource\nconstruction to achieve fine-grained programmatic control over provider settings. See the\n[documentation](https://www.pulumi.com/docs/reference/programming-model/#providers) for more information.\n",
+        "properties": {
+            "git": {
+                "$ref": "#/types/flux:index/ProviderGit:ProviderGit",
+                "description": "Configuration block with settings for Kubernetes.\n"
+            },
+            "kubernetes": {
+                "$ref": "#/types/flux:index/ProviderKubernetes:ProviderKubernetes",
+                "description": "Configuration block with settings for Kubernetes.\n"
+            }
+        },
+        "inputProperties": {
+            "git": {
+                "$ref": "#/types/flux:index/ProviderGit:ProviderGit",
+                "description": "Configuration block with settings for Kubernetes.\n"
+            },
+            "kubernetes": {
+                "$ref": "#/types/flux:index/ProviderKubernetes:ProviderKubernetes",
+                "description": "Configuration block with settings for Kubernetes.\n"
+            }
+        }
+    },
+    "resources": {
+        "flux:index/fluxBootstrapGit:FluxBootstrapGit": {
+            "description": "Commits Flux components to a Git repository and configures a Kubernetes cluster to synchronize with the same Git repository.\n\n\u003e **NOTE:** Checkout the GitHub bootstrap guide for a walkthrough over how to use this resource with GitHub.\n\n\u003e **NOTE:** A breaking change in the attributes have been made in this resource. Read the guide for information of the changes required.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\nGet Kubernetes credentials from a kubeconfig file. The current context set in the kubeconfig file will be used by default.\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as flux from \"@worawat/flux\";\n\nconst _this = new flux.FluxBootstrapGit(\"this\", {path: \"clusters/my-cluster\"});\n```\n```python\nimport pulumi\nimport pulumi_flux as flux\n\nthis = flux.FluxBootstrapGit(\"this\", path=\"clusters/my-cluster\")\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Flux = Pulumi.Flux;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var @this = new Flux.FluxBootstrapGit(\"this\", new()\n    {\n        Path = \"clusters/my-cluster\",\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/oun/pulumi-flux/sdk/go/flux\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\t_, err := flux.NewFluxBootstrapGit(ctx, \"this\", \u0026flux.FluxBootstrapGitArgs{\n\t\t\tPath: pulumi.String(\"clusters/my-cluster\"),\n\t\t})\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.flux.FluxBootstrapGit;\nimport com.pulumi.flux.FluxBootstrapGitArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        var this_ = new FluxBootstrapGit(\"this\", FluxBootstrapGitArgs.builder()        \n            .path(\"clusters/my-cluster\")\n            .build());\n\n    }\n}\n```\n```yaml\nresources:\n  this:\n    type: flux:FluxBootstrapGit\n    properties:\n      path: clusters/my-cluster\n```\n{{% /example %}}\n{{% /examples %}}\n\n## Import\n\nExisting Flux installations can be imported by passing the namespace where Flux is installed.\n\n```sh\n $ pulumi import flux:index/fluxBootstrapGit:FluxBootstrapGit this flux-system\n```\n\n ",
+            "properties": {
+                "clusterDomain": {
+                    "type": "string",
+                    "description": "The internal cluster domain. Defaults to `cluster.local`\n"
+                },
+                "components": {
+                    "type": "array",
+                    "items": {
                         "type": "string"
                     },
-                    "clusterDomain": {
+                    "description": "Toolkit components to include in the install manifests. Defaults to `[source-controller kustomize-controller helm-controller notification-controller]`\n"
+                },
+                "componentsExtras": {
+                    "type": "array",
+                    "items": {
                         "type": "string"
+                    },
+                    "description": "List of extra components to include in the install manifests.\n"
+                },
+                "imagePullSecret": {
+                    "type": "string",
+                    "description": "Kubernetes secret name used for pulling the toolkit images from a private registry.\n"
+                },
+                "interval": {
+                    "type": "string",
+                    "description": "Interval at which to reconcile from bootstrap repository. Defaults to `1m0s`.\n"
+                },
+                "kustomizationOverride": {
+                    "type": "string",
+                    "description": "Kustomization to override configuration set by default.\n"
+                },
+                "logLevel": {
+                    "type": "string",
+                    "description": "Log level for toolkit components. Defaults to `info`.\n"
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "The namespace scope for install manifests. Defaults to `flux-system`.\n"
+                },
+                "networkPolicy": {
+                    "type": "boolean",
+                    "description": "Deny ingress access to the toolkit controllers from other namespaces using network policies. Defaults to `true`.\n"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "Path relative to the repository root, when specified the cluster sync will be scoped to this path.\n"
+                },
+                "recurseSubmodules": {
+                    "type": "boolean",
+                    "description": "Configures the GitRepository source to initialize and include Git submodules in the artifact it produces.\n"
+                },
+                "registry": {
+                    "type": "string",
+                    "description": "Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.\n"
+                },
+                "repositoryFiles": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "description": "Git repository files created and managed by the provider.\n"
+                },
+                "secretName": {
+                    "type": "string",
+                    "description": "Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.\n"
+                },
+                "tolerationKeys": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of toleration keys used to schedule the components pods onto nodes with matching taints.\n"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Flux version. Defaults to `v0.41.2`.\n"
+                },
+                "watchAllNamespaces": {
+                    "type": "boolean",
+                    "description": "If true watch for custom resources in all namespaces. Defaults to `true`.\n"
+                }
+            },
+            "required": [
+                "clusterDomain",
+                "components",
+                "interval",
+                "logLevel",
+                "namespace",
+                "networkPolicy",
+                "registry",
+                "repositoryFiles",
+                "secretName",
+                "version",
+                "watchAllNamespaces"
+            ],
+            "inputProperties": {
+                "clusterDomain": {
+                    "type": "string",
+                    "description": "The internal cluster domain. Defaults to `cluster.local`\n"
+                },
+                "components": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Toolkit components to include in the install manifests. Defaults to `[source-controller kustomize-controller helm-controller notification-controller]`\n"
+                },
+                "componentsExtras": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of extra components to include in the install manifests.\n"
+                },
+                "imagePullSecret": {
+                    "type": "string",
+                    "description": "Kubernetes secret name used for pulling the toolkit images from a private registry.\n"
+                },
+                "interval": {
+                    "type": "string",
+                    "description": "Interval at which to reconcile from bootstrap repository. Defaults to `1m0s`.\n"
+                },
+                "kustomizationOverride": {
+                    "type": "string",
+                    "description": "Kustomization to override configuration set by default.\n"
+                },
+                "logLevel": {
+                    "type": "string",
+                    "description": "Log level for toolkit components. Defaults to `info`.\n"
+                },
+                "namespace": {
+                    "type": "string",
+                    "description": "The namespace scope for install manifests. Defaults to `flux-system`.\n"
+                },
+                "networkPolicy": {
+                    "type": "boolean",
+                    "description": "Deny ingress access to the toolkit controllers from other namespaces using network policies. Defaults to `true`.\n"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "Path relative to the repository root, when specified the cluster sync will be scoped to this path.\n"
+                },
+                "recurseSubmodules": {
+                    "type": "boolean",
+                    "description": "Configures the GitRepository source to initialize and include Git submodules in the artifact it produces.\n"
+                },
+                "registry": {
+                    "type": "string",
+                    "description": "Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.\n"
+                },
+                "secretName": {
+                    "type": "string",
+                    "description": "Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.\n"
+                },
+                "tolerationKeys": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of toleration keys used to schedule the components pods onto nodes with matching taints.\n"
+                },
+                "version": {
+                    "type": "string",
+                    "description": "Flux version. Defaults to `v0.41.2`.\n"
+                },
+                "watchAllNamespaces": {
+                    "type": "boolean",
+                    "description": "If true watch for custom resources in all namespaces. Defaults to `true`.\n"
+                }
+            },
+            "stateInputs": {
+                "description": "Input properties used for looking up and filtering FluxBootstrapGit resources.\n",
+                "properties": {
+                    "clusterDomain": {
+                        "type": "string",
+                        "description": "The internal cluster domain. Defaults to `cluster.local`\n"
                     },
                     "components": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "description": "Toolkit components to include in the install manifests. Defaults to `[source-controller kustomize-controller helm-controller notification-controller]`\n"
                     },
                     "componentsExtras": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "description": "List of extra components to include in the install manifests.\n"
                     },
-                    "imagePullSecrets": {
-                        "type": "string"
+                    "imagePullSecret": {
+                        "type": "string",
+                        "description": "Kubernetes secret name used for pulling the toolkit images from a private registry.\n"
+                    },
+                    "interval": {
+                        "type": "string",
+                        "description": "Interval at which to reconcile from bootstrap repository. Defaults to `1m0s`.\n"
+                    },
+                    "kustomizationOverride": {
+                        "type": "string",
+                        "description": "Kustomization to override configuration set by default.\n"
                     },
                     "logLevel": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Log level for toolkit components. Defaults to `info`.\n"
                     },
                     "namespace": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The namespace scope for install manifests. Defaults to `flux-system`.\n"
                     },
                     "networkPolicy": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Deny ingress access to the toolkit controllers from other namespaces using network policies. Defaults to `true`.\n"
+                    },
+                    "path": {
+                        "type": "string",
+                        "description": "Path relative to the repository root, when specified the cluster sync will be scoped to this path.\n"
+                    },
+                    "recurseSubmodules": {
+                        "type": "boolean",
+                        "description": "Configures the GitRepository source to initialize and include Git submodules in the artifact it produces.\n"
                     },
                     "registry": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.\n"
                     },
-                    "targetPath": {
-                        "type": "string"
+                    "repositoryFiles": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "type": "string"
+                        },
+                        "description": "Git repository files created and managed by the provider.\n"
+                    },
+                    "secretName": {
+                        "type": "string",
+                        "description": "Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.\n"
                     },
                     "tolerationKeys": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "description": "List of toleration keys used to schedule the components pods onto nodes with matching taints.\n"
                     },
                     "version": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Flux version. Defaults to `v0.41.2`.\n"
                     },
                     "watchAllNamespaces": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "If true watch for custom resources in all namespaces. Defaults to `true`.\n"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "functions": {
+        "flux:index/getFluxInstall:getFluxInstall": {
+            "description": "`flux.getFluxInstall` can be used to generate Kubernetes manifests for deploying Flux.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as flux from \"@pulumi/flux\";\n\nconst config = new pulumi.Config();\nconst targetPath = config.require(\"targetPath\");\nconst main = flux.getFluxInstall({\n    targetPath: targetPath,\n});\n```\n```python\nimport pulumi\nimport pulumi_flux as flux\n\nconfig = pulumi.Config()\ntarget_path = config.require(\"targetPath\")\nmain = flux.get_flux_install(target_path=target_path)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Flux = Pulumi.Flux;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var config = new Config();\n    var targetPath = config.Require(\"targetPath\");\n    var main = Flux.GetFluxInstall.Invoke(new()\n    {\n        TargetPath = targetPath,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/oun/pulumi-flux/sdk/go/flux\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tcfg := config.New(ctx, \"\")\n\t\ttargetPath := cfg.Require(\"targetPath\")\n\t\t_, err := flux.GetFluxInstall(ctx, \u0026flux.GetFluxInstallArgs{\n\t\t\tTargetPath: targetPath,\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.flux.FluxFunctions;\nimport com.pulumi.flux.inputs.GetFluxInstallArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var config = ctx.config();\n        final var targetPath = config.get(\"targetPath\");\n        final var main = FluxFunctions.getFluxInstall(GetFluxInstallArgs.builder()\n            .targetPath(targetPath)\n            .build());\n\n    }\n}\n```\n```yaml\nconfiguration:\n  targetPath:\n    type: string\nvariables:\n  main:\n    fn::invoke:\n      Function: flux:getFluxInstall\n      Arguments:\n        targetPath: ${targetPath}\n```\n{{% /example %}}\n{{% /examples %}}",
+            "inputs": {
+                "description": "A collection of arguments for invoking getFluxInstall.\n",
+                "properties": {
+                    "baseurl": {
+                        "type": "string",
+                        "description": "Base URL to get the install manifests from. When specifying this, `version` should also be set to the corresponding version to download from that URL, or the latest version associated with upstream flux will be requested. Defaults to `https://github.com/fluxcd/flux2/releases`.\n"
+                    },
+                    "clusterDomain": {
+                        "type": "string",
+                        "description": "The internal cluster domain. Defaults to `cluster.local`.\n"
+                    },
+                    "components": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Toolkit components to include in the install manifests.\n"
+                    },
+                    "componentsExtras": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of extra components to include in the install manifests.\n"
+                    },
+                    "imagePullSecrets": {
+                        "type": "string",
+                        "description": "Kubernetes secret name used for pulling the toolkit images from a private registry.\n"
+                    },
+                    "logLevel": {
+                        "type": "string",
+                        "description": "Log level for toolkit components. Defaults to `info`.\n"
+                    },
+                    "namespace": {
+                        "type": "string",
+                        "description": "The namespace scope for install manifests. Defaults to `flux-system`.\n"
+                    },
+                    "networkPolicy": {
+                        "type": "boolean",
+                        "description": "Deny ingress access to the toolkit controllers from other namespaces using network policies. Defaults to `true`.\n"
+                    },
+                    "registry": {
+                        "type": "string",
+                        "description": "Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.\n"
+                    },
+                    "targetPath": {
+                        "type": "string",
+                        "description": "Relative path to the Git repository root where Flux manifests are committed.\n"
+                    },
+                    "tolerationKeys": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "List of toleration keys used to schedule the components pods onto nodes with matching taints.\n"
+                    },
+                    "version": {
+                        "type": "string",
+                        "description": "Flux version. Defaults to `v0.41.2`.\n"
+                    },
+                    "watchAllNamespaces": {
+                        "type": "boolean",
+                        "description": "If true watch for custom resources in all namespaces. Defaults to `true`.\n"
                     }
                 },
                 "type": "object",
@@ -120,115 +684,139 @@
                 "description": "A collection of values returned by getFluxInstall.\n",
                 "properties": {
                     "baseurl": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Base URL to get the install manifests from. When specifying this, `version` should also be set to the corresponding version to download from that URL, or the latest version associated with upstream flux will be requested. Defaults to `https://github.com/fluxcd/flux2/releases`.\n"
                     },
                     "clusterDomain": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The internal cluster domain. Defaults to `cluster.local`.\n"
                     },
                     "components": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "description": "Toolkit components to include in the install manifests.\n"
                     },
                     "componentsExtras": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "description": "List of extra components to include in the install manifests.\n"
                     },
                     "content": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Manifests in multi-doc yaml format.\n"
                     },
                     "id": {
                         "type": "string",
-                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                        "description": "The ID of this resource.\n"
                     },
                     "imagePullSecrets": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Kubernetes secret name used for pulling the toolkit images from a private registry.\n"
                     },
                     "logLevel": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Log level for toolkit components. Defaults to `info`.\n"
                     },
                     "namespace": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The namespace scope for install manifests. Defaults to `flux-system`.\n"
                     },
                     "networkPolicy": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Deny ingress access to the toolkit controllers from other namespaces using network policies. Defaults to `true`.\n"
                     },
                     "path": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Expected path of content in git repository.\n"
                     },
                     "registry": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.\n"
                     },
                     "targetPath": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Relative path to the Git repository root where Flux manifests are committed.\n"
                     },
                     "tolerationKeys": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "description": "List of toleration keys used to schedule the components pods onto nodes with matching taints.\n"
                     },
                     "version": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Flux version. Defaults to `v0.41.2`.\n"
                     },
                     "watchAllNamespaces": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "If true watch for custom resources in all namespaces. Defaults to `true`.\n"
                     }
                 },
                 "type": "object",
                 "required": [
                     "content",
+                    "id",
                     "path",
-                    "targetPath",
-                    "id"
+                    "targetPath"
                 ]
             }
         },
         "flux:index/getFluxSync:getFluxSync": {
+            "description": "`flux.getFluxSync` can be used to generate manifests for reconciling the specified repository path on the cluster.\n\n{{% examples %}}\n## Example Usage\n{{% example %}}\n\n```typescript\nimport * as pulumi from \"@pulumi/pulumi\";\nimport * as flux from \"@pulumi/flux\";\n\nconst config = new pulumi.Config();\nconst targetPath = config.require(\"targetPath\");\nconst cloneUrl = config.require(\"cloneUrl\");\nconst main = flux.getFluxSync({\n    targetPath: targetPath,\n    url: cloneUrl,\n});\n```\n```python\nimport pulumi\nimport pulumi_flux as flux\n\nconfig = pulumi.Config()\ntarget_path = config.require(\"targetPath\")\nclone_url = config.require(\"cloneUrl\")\nmain = flux.get_flux_sync(target_path=target_path,\n    url=clone_url)\n```\n```csharp\nusing System.Collections.Generic;\nusing System.Linq;\nusing Pulumi;\nusing Flux = Pulumi.Flux;\n\nreturn await Deployment.RunAsync(() =\u003e \n{\n    var config = new Config();\n    var targetPath = config.Require(\"targetPath\");\n    var cloneUrl = config.Require(\"cloneUrl\");\n    var main = Flux.GetFluxSync.Invoke(new()\n    {\n        TargetPath = targetPath,\n        Url = cloneUrl,\n    });\n\n});\n```\n```go\npackage main\n\nimport (\n\t\"github.com/oun/pulumi-flux/sdk/go/flux\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi\"\n\t\"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config\"\n)\n\nfunc main() {\n\tpulumi.Run(func(ctx *pulumi.Context) error {\n\t\tcfg := config.New(ctx, \"\")\n\t\ttargetPath := cfg.Require(\"targetPath\")\n\t\tcloneUrl := cfg.Require(\"cloneUrl\")\n\t\t_, err := flux.GetFluxSync(ctx, \u0026flux.GetFluxSyncArgs{\n\t\t\tTargetPath: targetPath,\n\t\t\tUrl:        cloneUrl,\n\t\t}, nil)\n\t\tif err != nil {\n\t\t\treturn err\n\t\t}\n\t\treturn nil\n\t})\n}\n```\n```java\npackage generated_program;\n\nimport com.pulumi.Context;\nimport com.pulumi.Pulumi;\nimport com.pulumi.core.Output;\nimport com.pulumi.flux.FluxFunctions;\nimport com.pulumi.flux.inputs.GetFluxSyncArgs;\nimport java.util.List;\nimport java.util.ArrayList;\nimport java.util.Map;\nimport java.io.File;\nimport java.nio.file.Files;\nimport java.nio.file.Paths;\n\npublic class App {\n    public static void main(String[] args) {\n        Pulumi.run(App::stack);\n    }\n\n    public static void stack(Context ctx) {\n        final var config = ctx.config();\n        final var targetPath = config.get(\"targetPath\");\n        final var cloneUrl = config.get(\"cloneUrl\");\n        final var main = FluxFunctions.getFluxSync(GetFluxSyncArgs.builder()\n            .targetPath(targetPath)\n            .url(cloneUrl)\n            .build());\n\n    }\n}\n```\n```yaml\nconfiguration:\n  targetPath:\n    type: string\n  cloneUrl:\n    type: string\nvariables:\n  main:\n    fn::invoke:\n      Function: flux:getFluxSync\n      Arguments:\n        targetPath: ${targetPath}\n        url: ${cloneUrl}\n```\n{{% /example %}}\n{{% /examples %}}",
             "inputs": {
                 "description": "A collection of arguments for invoking getFluxSync.\n",
                 "properties": {
                     "branch": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Default branch to sync from. Defaults to `main`.\n"
                     },
                     "commit": {
-                        "type": "string"
-                    },
-                    "gitImplementation": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Git commit SHA to checkout, if specified Tag filters will be ignored.\n"
                     },
                     "interval": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Sync interval in minutes. Defaults to `1`.\n"
                     },
                     "name": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The kubernetes resources name. Defaults to `flux-system`.\n"
                     },
                     "namespace": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The namespace scope for this operation. Defaults to `flux-system`.\n"
                     },
                     "patchNames": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "description": "The names of patches to apply to the Kustomization. Used to generate the `patch_file_paths` output value.\n"
                     },
                     "secret": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.\n"
                     },
                     "semver": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Git tag semver expression, takes precedence over `tag`.\n"
                     },
                     "tag": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Git tag to checkout, takes precedence over `branch`.\n"
                     },
                     "targetPath": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Relative path to the Git repository root where the sync manifests are committed.\n"
                     },
                     "url": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Git repository clone url.\n"
                     }
                 },
                 "type": "object",
@@ -241,77 +829,90 @@
                 "description": "A collection of values returned by getFluxSync.\n",
                 "properties": {
                     "branch": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Default branch to sync from. Defaults to `main`.\n"
                     },
                     "commit": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Git commit SHA to checkout, if specified Tag filters will be ignored.\n"
                     },
                     "content": {
-                        "type": "string"
-                    },
-                    "gitImplementation": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Manifests in multi-doc yaml format.\n"
                     },
                     "id": {
                         "type": "string",
-                        "description": "The provider-assigned unique ID for this managed resource.\n"
+                        "description": "The ID of this resource.\n"
                     },
                     "interval": {
-                        "type": "integer"
+                        "type": "integer",
+                        "description": "Sync interval in minutes. Defaults to `1`.\n"
                     },
                     "kustomizeContent": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Kustomize yaml document.\n"
                     },
                     "kustomizePath": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Expected path of kustomize content in git repository.\n"
                     },
                     "name": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The kubernetes resources name. Defaults to `flux-system`.\n"
                     },
                     "namespace": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The namespace scope for this operation. Defaults to `flux-system`.\n"
                     },
                     "patchFilePaths": {
                         "type": "object",
                         "additionalProperties": {
                             "type": "string"
-                        }
+                        },
+                        "description": "Map of expected paths of kustomize patches in git repository, keyed by the `patch_names` input variable.\n"
                     },
                     "patchNames": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "description": "The names of patches to apply to the Kustomization. Used to generate the `patch_file_paths` output value.\n"
                     },
                     "path": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Expected path of content in git repository.\n"
                     },
                     "secret": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.\n"
                     },
                     "semver": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Git tag semver expression, takes precedence over `tag`.\n"
                     },
                     "tag": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Git tag to checkout, takes precedence over `branch`.\n"
                     },
                     "targetPath": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Relative path to the Git repository root where the sync manifests are committed.\n"
                     },
                     "url": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Git repository clone url.\n"
                     }
                 },
                 "type": "object",
                 "required": [
                     "content",
+                    "id",
                     "kustomizeContent",
                     "kustomizePath",
                     "patchFilePaths",
                     "path",
                     "targetPath",
-                    "url",
-                    "id"
+                    "url"
                 ]
             }
         }

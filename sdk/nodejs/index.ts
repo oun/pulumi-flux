@@ -5,12 +5,48 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 // Export members:
-export * from "./getFluxInstall";
-export * from "./getFluxSync";
-export * from "./provider";
+export { FluxBootstrapGitArgs, FluxBootstrapGitState } from "./fluxBootstrapGit";
+export type FluxBootstrapGit = import("./fluxBootstrapGit").FluxBootstrapGit;
+export const FluxBootstrapGit: typeof import("./fluxBootstrapGit").FluxBootstrapGit = null as any;
+utilities.lazyLoad(exports, ["FluxBootstrapGit"], () => require("./fluxBootstrapGit"));
 
-import { Provider } from "./provider";
+export { GetFluxInstallArgs, GetFluxInstallResult, GetFluxInstallOutputArgs } from "./getFluxInstall";
+export const getFluxInstall: typeof import("./getFluxInstall").getFluxInstall = null as any;
+export const getFluxInstallOutput: typeof import("./getFluxInstall").getFluxInstallOutput = null as any;
+utilities.lazyLoad(exports, ["getFluxInstall","getFluxInstallOutput"], () => require("./getFluxInstall"));
 
+export { GetFluxSyncArgs, GetFluxSyncResult, GetFluxSyncOutputArgs } from "./getFluxSync";
+export const getFluxSync: typeof import("./getFluxSync").getFluxSync = null as any;
+export const getFluxSyncOutput: typeof import("./getFluxSync").getFluxSyncOutput = null as any;
+utilities.lazyLoad(exports, ["getFluxSync","getFluxSyncOutput"], () => require("./getFluxSync"));
+
+export { ProviderArgs } from "./provider";
+export type Provider = import("./provider").Provider;
+export const Provider: typeof import("./provider").Provider = null as any;
+utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
+
+
+// Export sub-modules:
+import * as config from "./config";
+import * as types from "./types";
+
+export {
+    config,
+    types,
+};
+
+const _module = {
+    version: utilities.getVersion(),
+    construct: (name: string, type: string, urn: string): pulumi.Resource => {
+        switch (type) {
+            case "flux:index/fluxBootstrapGit:FluxBootstrapGit":
+                return new FluxBootstrapGit(name, <any>undefined, { urn })
+            default:
+                throw new Error(`unknown resource type ${type}`);
+        }
+    },
+};
+pulumi.runtime.registerResourceModule("flux", "index/fluxBootstrapGit", _module)
 pulumi.runtime.registerResourcePackage("flux", {
     version: utilities.getVersion(),
     constructProvider: (name: string, type: string, urn: string): pulumi.ProviderResource => {

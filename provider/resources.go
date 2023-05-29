@@ -15,15 +15,14 @@
 package flux
 
 import (
+    _ "embed"
 	"fmt"
 	"path/filepath"
 
+	pf "github.com/pulumi/pulumi-terraform-bridge/pf/tfbridge"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
-	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
-	shimv2 "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim/sdk-v2"
 	"github.com/oun/pulumi-flux/provider/pkg/version"
-	"github.com/pulumi/pulumi/sdk/v3/go/common/resource"
-	flux "github.com/fluxcd/terraform-provider-flux/pkg/provider"
+    "github.com/fluxcd/terraform-provider-flux/shim"
 )
 
 // all of the token components used below.
@@ -39,19 +38,23 @@ const (
 // It should validate that the provider can be configured, and provide actionable errors in the case
 // it cannot be. Configuration variables can be read from `vars` using the `stringValue` function -
 // for example `stringValue(vars, "accessKey")`.
-func preConfigureCallback(vars resource.PropertyMap, c shim.ResourceConfig) error {
-	return nil
-}
+// func preConfigureCallback(vars resource.PropertyMap, c shim.ResourceConfig) error {
+// 	return nil
+// }
+
+//go:embed cmd/pulumi-resource-flux/bridge-metadata.json
+var bridgeMetadata []byte
 
 // Provider returns additional overlaid schema and metadata associated with the provider..
-func Provider() tfbridge.ProviderInfo {
-	// Instantiate the Terraform provider
-	p := shimv2.NewProvider(flux.Provider())
-
+func Provider() pf.ProviderInfo {
 	// Create a Pulumi provider mapping
 	prov := tfbridge.ProviderInfo{
-		P:    p,
 		Name: "flux",
+		// Make sure Version is set, as it is now required.
+        Version: "0.25.3",
+
+        // This is now required.
+        MetadataInfo: tfbridge.NewProviderMetadata(bridgeMetadata),
 		// DisplayName is a way to be able to change the casing of the provider
 		// name when being displayed on the Pulumi registry
 		DisplayName: "Flux",
@@ -91,13 +94,14 @@ func Provider() tfbridge.ProviderInfo {
 			// 	},
 			// },
 		},
-		PreConfigureCallback: preConfigureCallback,
+// 		PreConfigureCallback: preConfigureCallback,
 		Resources:            map[string]*tfbridge.ResourceInfo{
 			// Map each resource in the Terraform provider to a Pulumi type. Two examples
 			// are below - the single line form is the common case. The multi-line form is
 			// needed only if you wish to override types or other default options.
 			//
 			// "aws_iam_role": {Tok: tfbridge.MakeResource(mainPkg, mainMod, "IamRole")}
+			"flux_bootstrap_git":      {Tok: tfbridge.MakeResource(mainPkg, mainMod, "FluxBootstrapGit")},
 			//
 			// "aws_acm_certificate": {
 			// 	Tok: tfbridge.MakeResource(mainPkg, mainMod, "Certificate"),
@@ -150,7 +154,8 @@ func Provider() tfbridge.ProviderInfo {
 		},
 	}
 
-	prov.SetAutonaming(255, "-")
-
-	return prov
+	return pf.ProviderInfo{
+        ProviderInfo: prov,
+        NewProvider:  shim.NewProvider,
+    }
 }

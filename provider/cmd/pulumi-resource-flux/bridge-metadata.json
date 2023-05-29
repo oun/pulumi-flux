@@ -1,0 +1,95 @@
+{
+    "renames": {
+        "resources": {
+            "flux:index/fluxBootstrapGit:FluxBootstrapGit": "flux_bootstrap_git"
+        },
+        "functions": {
+            "flux:index/getFluxInstall:getFluxInstall": "flux_install",
+            "flux:index/getFluxSync:getFluxSync": "flux_sync"
+        },
+        "renamedProperties": {
+            "flux:config/git:git": {
+                "authorEmail": "author_email",
+                "authorName": "author_name",
+                "commitMessageAppendix": "commit_message_appendix",
+                "gpgKeyId": "gpg_key_id",
+                "gpgKeyRing": "gpg_key_ring",
+                "gpgPassphrase": "gpg_passphrase"
+            },
+            "flux:config/gitHttp:gitHttp": {
+                "allowInsecureHttp": "allow_insecure_http",
+                "certificateAuthority": "certificate_authority"
+            },
+            "flux:config/gitSsh:gitSsh": {
+                "privateKey": "private_key"
+            },
+            "flux:config/kubernetes:kubernetes": {
+                "clientCertificate": "client_certificate",
+                "clientKey": "client_key",
+                "clusterCaCertificate": "cluster_ca_certificate",
+                "configContext": "config_context",
+                "configContextAuthInfo": "config_context_auth_info",
+                "configContextCluster": "config_context_cluster",
+                "configPath": "config_path",
+                "configPaths": "config_paths",
+                "proxyUrl": "proxy_url"
+            },
+            "flux:index/ProviderGit:ProviderGit": {
+                "authorEmail": "author_email",
+                "authorName": "author_name",
+                "commitMessageAppendix": "commit_message_appendix",
+                "gpgKeyId": "gpg_key_id",
+                "gpgKeyRing": "gpg_key_ring",
+                "gpgPassphrase": "gpg_passphrase"
+            },
+            "flux:index/ProviderGitHttp:ProviderGitHttp": {
+                "allowInsecureHttp": "allow_insecure_http",
+                "certificateAuthority": "certificate_authority"
+            },
+            "flux:index/ProviderGitSsh:ProviderGitSsh": {
+                "privateKey": "private_key"
+            },
+            "flux:index/ProviderKubernetes:ProviderKubernetes": {
+                "clientCertificate": "client_certificate",
+                "clientKey": "client_key",
+                "clusterCaCertificate": "cluster_ca_certificate",
+                "configContext": "config_context",
+                "configContextAuthInfo": "config_context_auth_info",
+                "configContextCluster": "config_context_cluster",
+                "configPath": "config_path",
+                "configPaths": "config_paths",
+                "proxyUrl": "proxy_url"
+            },
+            "flux:index/fluxBootstrapGit:FluxBootstrapGit": {
+                "clusterDomain": "cluster_domain",
+                "componentsExtras": "components_extra",
+                "imagePullSecret": "image_pull_secret",
+                "kustomizationOverride": "kustomization_override",
+                "logLevel": "log_level",
+                "networkPolicy": "network_policy",
+                "recurseSubmodules": "recurse_submodules",
+                "repositoryFiles": "repository_files",
+                "secretName": "secret_name",
+                "tolerationKeys": "toleration_keys",
+                "watchAllNamespaces": "watch_all_namespaces"
+            },
+            "flux:index/getFluxInstall:getFluxInstall": {
+                "clusterDomain": "cluster_domain",
+                "componentsExtras": "components_extra",
+                "imagePullSecrets": "image_pull_secrets",
+                "logLevel": "log_level",
+                "networkPolicy": "network_policy",
+                "targetPath": "target_path",
+                "tolerationKeys": "toleration_keys",
+                "watchAllNamespaces": "watch_all_namespaces"
+            },
+            "flux:index/getFluxSync:getFluxSync": {
+                "kustomizeContent": "kustomize_content",
+                "kustomizePath": "kustomize_path",
+                "patchFilePaths": "patch_file_paths",
+                "patchNames": "patch_names",
+                "targetPath": "target_path"
+            }
+        }
+    }
+}
