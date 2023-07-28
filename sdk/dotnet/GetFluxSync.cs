@@ -11,67 +11,9 @@ namespace Pulumi.Flux
 {
     public static class GetFluxSync
     {
-        /// <summary>
-        /// `flux.getFluxSync` can be used to generate manifests for reconciling the specified repository path on the cluster.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using Flux = Pulumi.Flux;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var config = new Config();
-        ///     var targetPath = config.Require("targetPath");
-        ///     var cloneUrl = config.Require("cloneUrl");
-        ///     var main = Flux.GetFluxSync.Invoke(new()
-        ///     {
-        ///         TargetPath = targetPath,
-        ///         Url = cloneUrl,
-        ///     });
-        /// 
-        /// });
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
-        /// </summary>
         public static Task<GetFluxSyncResult> InvokeAsync(GetFluxSyncArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.InvokeAsync<GetFluxSyncResult>("flux:index/getFluxSync:getFluxSync", args ?? new GetFluxSyncArgs(), options.WithDefaults());
 
-        /// <summary>
-        /// `flux.getFluxSync` can be used to generate manifests for reconciling the specified repository path on the cluster.
-        /// 
-        /// {{% examples %}}
-        /// ## Example Usage
-        /// {{% example %}}
-        /// 
-        /// ```csharp
-        /// using System.Collections.Generic;
-        /// using System.Linq;
-        /// using Pulumi;
-        /// using Flux = Pulumi.Flux;
-        /// 
-        /// return await Deployment.RunAsync(() =&gt; 
-        /// {
-        ///     var config = new Config();
-        ///     var targetPath = config.Require("targetPath");
-        ///     var cloneUrl = config.Require("cloneUrl");
-        ///     var main = Flux.GetFluxSync.Invoke(new()
-        ///     {
-        ///         TargetPath = targetPath,
-        ///         Url = cloneUrl,
-        ///     });
-        /// 
-        /// });
-        /// ```
-        /// {{% /example %}}
-        /// {{% /examples %}}
-        /// </summary>
         public static Output<GetFluxSyncResult> Invoke(GetFluxSyncInvokeArgs args, InvokeOptions? options = null)
             => global::Pulumi.Deployment.Instance.Invoke<GetFluxSyncResult>("flux:index/getFluxSync:getFluxSync", args ?? new GetFluxSyncInvokeArgs(), options.WithDefaults());
     }
@@ -79,75 +21,41 @@ namespace Pulumi.Flux
 
     public sealed class GetFluxSyncArgs : global::Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Default branch to sync from. Defaults to `main`.
-        /// </summary>
         [Input("branch")]
         public string? Branch { get; set; }
 
-        /// <summary>
-        /// The Git commit SHA to checkout, if specified Tag filters will be ignored.
-        /// </summary>
         [Input("commit")]
         public string? Commit { get; set; }
 
-        /// <summary>
-        /// Sync interval in minutes. Defaults to `1`.
-        /// </summary>
         [Input("interval")]
         public int? Interval { get; set; }
 
-        /// <summary>
-        /// The kubernetes resources name. Defaults to `flux-system`.
-        /// </summary>
         [Input("name")]
         public string? Name { get; set; }
 
-        /// <summary>
-        /// The namespace scope for this operation. Defaults to `flux-system`.
-        /// </summary>
         [Input("namespace")]
         public string? Namespace { get; set; }
 
         [Input("patchNames")]
         private List<string>? _patchNames;
-
-        /// <summary>
-        /// The names of patches to apply to the Kustomization. Used to generate the `patch_file_paths` output value.
-        /// </summary>
         public List<string> PatchNames
         {
             get => _patchNames ?? (_patchNames = new List<string>());
             set => _patchNames = value;
         }
 
-        /// <summary>
-        /// The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
-        /// </summary>
         [Input("secret")]
         public string? Secret { get; set; }
 
-        /// <summary>
-        /// The Git tag semver expression, takes precedence over `tag`.
-        /// </summary>
         [Input("semver")]
         public string? Semver { get; set; }
 
-        /// <summary>
-        /// The Git tag to checkout, takes precedence over `branch`.
-        /// </summary>
         [Input("tag")]
         public string? Tag { get; set; }
 
-        /// <summary>
-        /// Relative path to the Git repository root where the sync manifests are committed.
-        /// </summary>
         [Input("targetPath", required: true)]
         public string TargetPath { get; set; } = null!;
 
-        /// <summary>
-        /// Git repository clone url.
-        /// </summary>
         [Input("url", required: true)]
         public string Url { get; set; } = null!;
 
@@ -159,75 +67,41 @@ namespace Pulumi.Flux
 
     public sealed class GetFluxSyncInvokeArgs : global::Pulumi.InvokeArgs
     {
-        /// <summary>
-        /// Default branch to sync from. Defaults to `main`.
-        /// </summary>
         [Input("branch")]
         public Input<string>? Branch { get; set; }
 
-        /// <summary>
-        /// The Git commit SHA to checkout, if specified Tag filters will be ignored.
-        /// </summary>
         [Input("commit")]
         public Input<string>? Commit { get; set; }
 
-        /// <summary>
-        /// Sync interval in minutes. Defaults to `1`.
-        /// </summary>
         [Input("interval")]
         public Input<int>? Interval { get; set; }
 
-        /// <summary>
-        /// The kubernetes resources name. Defaults to `flux-system`.
-        /// </summary>
         [Input("name")]
         public Input<string>? Name { get; set; }
 
-        /// <summary>
-        /// The namespace scope for this operation. Defaults to `flux-system`.
-        /// </summary>
         [Input("namespace")]
         public Input<string>? Namespace { get; set; }
 
         [Input("patchNames")]
         private InputList<string>? _patchNames;
-
-        /// <summary>
-        /// The names of patches to apply to the Kustomization. Used to generate the `patch_file_paths` output value.
-        /// </summary>
         public InputList<string> PatchNames
         {
             get => _patchNames ?? (_patchNames = new InputList<string>());
             set => _patchNames = value;
         }
 
-        /// <summary>
-        /// The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
-        /// </summary>
         [Input("secret")]
         public Input<string>? Secret { get; set; }
 
-        /// <summary>
-        /// The Git tag semver expression, takes precedence over `tag`.
-        /// </summary>
         [Input("semver")]
         public Input<string>? Semver { get; set; }
 
-        /// <summary>
-        /// The Git tag to checkout, takes precedence over `branch`.
-        /// </summary>
         [Input("tag")]
         public Input<string>? Tag { get; set; }
 
-        /// <summary>
-        /// Relative path to the Git repository root where the sync manifests are committed.
-        /// </summary>
         [Input("targetPath", required: true)]
         public Input<string> TargetPath { get; set; } = null!;
 
-        /// <summary>
-        /// Git repository clone url.
-        /// </summary>
         [Input("url", required: true)]
         public Input<string> Url { get; set; } = null!;
 
@@ -241,73 +115,22 @@ namespace Pulumi.Flux
     [OutputType]
     public sealed class GetFluxSyncResult
     {
-        /// <summary>
-        /// Default branch to sync from. Defaults to `main`.
-        /// </summary>
         public readonly string? Branch;
-        /// <summary>
-        /// The Git commit SHA to checkout, if specified Tag filters will be ignored.
-        /// </summary>
         public readonly string? Commit;
-        /// <summary>
-        /// Manifests in multi-doc yaml format.
-        /// </summary>
         public readonly string Content;
-        /// <summary>
-        /// The ID of this resource.
-        /// </summary>
         public readonly string Id;
-        /// <summary>
-        /// Sync interval in minutes. Defaults to `1`.
-        /// </summary>
         public readonly int? Interval;
-        /// <summary>
-        /// Kustomize yaml document.
-        /// </summary>
         public readonly string KustomizeContent;
-        /// <summary>
-        /// Expected path of kustomize content in git repository.
-        /// </summary>
         public readonly string KustomizePath;
-        /// <summary>
-        /// The kubernetes resources name. Defaults to `flux-system`.
-        /// </summary>
         public readonly string? Name;
-        /// <summary>
-        /// The namespace scope for this operation. Defaults to `flux-system`.
-        /// </summary>
         public readonly string? Namespace;
-        /// <summary>
-        /// Map of expected paths of kustomize patches in git repository, keyed by the `patch_names` input variable.
-        /// </summary>
         public readonly ImmutableDictionary<string, string> PatchFilePaths;
-        /// <summary>
-        /// The names of patches to apply to the Kustomization. Used to generate the `patch_file_paths` output value.
-        /// </summary>
         public readonly ImmutableArray<string> PatchNames;
-        /// <summary>
-        /// Expected path of content in git repository.
-        /// </summary>
         public readonly string Path;
-        /// <summary>
-        /// The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
-        /// </summary>
         public readonly string? Secret;
-        /// <summary>
-        /// The Git tag semver expression, takes precedence over `tag`.
-        /// </summary>
         public readonly string? Semver;
-        /// <summary>
-        /// The Git tag to checkout, takes precedence over `branch`.
-        /// </summary>
         public readonly string? Tag;
-        /// <summary>
-        /// Relative path to the Git repository root where the sync manifests are committed.
-        /// </summary>
         public readonly string TargetPath;
-        /// <summary>
-        /// Git repository clone url.
-        /// </summary>
         public readonly string Url;
 
         [OutputConstructor]

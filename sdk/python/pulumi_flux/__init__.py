@@ -10,6 +10,7 @@ from .get_flux_install import *
 from .get_flux_sync import *
 from .provider import *
 from ._inputs import *
+from . import outputs
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:

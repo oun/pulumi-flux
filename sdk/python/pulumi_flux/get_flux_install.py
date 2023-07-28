@@ -74,129 +74,81 @@ class GetFluxInstallResult:
     @property
     @pulumi.getter
     def baseurl(self) -> Optional[str]:
-        """
-        Base URL to get the install manifests from. When specifying this, `version` should also be set to the corresponding version to download from that URL, or the latest version associated with upstream flux will be requested. Defaults to `https://github.com/fluxcd/flux2/releases`.
-        """
         return pulumi.get(self, "baseurl")
 
     @property
     @pulumi.getter(name="clusterDomain")
     def cluster_domain(self) -> Optional[str]:
-        """
-        The internal cluster domain. Defaults to `cluster.local`.
-        """
         return pulumi.get(self, "cluster_domain")
 
     @property
     @pulumi.getter
     def components(self) -> Optional[Sequence[str]]:
-        """
-        Toolkit components to include in the install manifests.
-        """
         return pulumi.get(self, "components")
 
     @property
     @pulumi.getter(name="componentsExtras")
     def components_extras(self) -> Optional[Sequence[str]]:
-        """
-        List of extra components to include in the install manifests.
-        """
         return pulumi.get(self, "components_extras")
 
     @property
     @pulumi.getter
     def content(self) -> str:
-        """
-        Manifests in multi-doc yaml format.
-        """
         return pulumi.get(self, "content")
 
     @property
     @pulumi.getter
     def id(self) -> str:
-        """
-        The ID of this resource.
-        """
         return pulumi.get(self, "id")
 
     @property
     @pulumi.getter(name="imagePullSecrets")
     def image_pull_secrets(self) -> Optional[str]:
-        """
-        Kubernetes secret name used for pulling the toolkit images from a private registry.
-        """
         return pulumi.get(self, "image_pull_secrets")
 
     @property
     @pulumi.getter(name="logLevel")
     def log_level(self) -> Optional[str]:
-        """
-        Log level for toolkit components. Defaults to `info`.
-        """
         return pulumi.get(self, "log_level")
 
     @property
     @pulumi.getter
     def namespace(self) -> Optional[str]:
-        """
-        The namespace scope for install manifests. Defaults to `flux-system`.
-        """
         return pulumi.get(self, "namespace")
 
     @property
     @pulumi.getter(name="networkPolicy")
     def network_policy(self) -> Optional[bool]:
-        """
-        Deny ingress access to the toolkit controllers from other namespaces using network policies. Defaults to `true`.
-        """
         return pulumi.get(self, "network_policy")
 
     @property
     @pulumi.getter
     def path(self) -> str:
-        """
-        Expected path of content in git repository.
-        """
         return pulumi.get(self, "path")
 
     @property
     @pulumi.getter
     def registry(self) -> Optional[str]:
-        """
-        Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.
-        """
         return pulumi.get(self, "registry")
 
     @property
     @pulumi.getter(name="targetPath")
     def target_path(self) -> str:
-        """
-        Relative path to the Git repository root where Flux manifests are committed.
-        """
         return pulumi.get(self, "target_path")
 
     @property
     @pulumi.getter(name="tolerationKeys")
     def toleration_keys(self) -> Optional[Sequence[str]]:
-        """
-        List of toleration keys used to schedule the components pods onto nodes with matching taints.
-        """
         return pulumi.get(self, "toleration_keys")
 
     @property
     @pulumi.getter
     def version(self) -> Optional[str]:
-        """
-        Flux version. Defaults to `v0.41.2`.
-        """
         return pulumi.get(self, "version")
 
     @property
     @pulumi.getter(name="watchAllNamespaces")
     def watch_all_namespaces(self) -> Optional[bool]:
-        """
-        If true watch for custom resources in all namespaces. Defaults to `true`.
-        """
         return pulumi.get(self, "watch_all_namespaces")
 
 
@@ -239,33 +191,7 @@ def get_flux_install(baseurl: Optional[str] = None,
                      watch_all_namespaces: Optional[bool] = None,
                      opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetFluxInstallResult:
     """
-    `get_flux_install` can be used to generate Kubernetes manifests for deploying Flux.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_flux as flux
-
-    config = pulumi.Config()
-    target_path = config.require("targetPath")
-    main = flux.get_flux_install(target_path=target_path)
-    ```
-
-
-    :param str baseurl: Base URL to get the install manifests from. When specifying this, `version` should also be set to the corresponding version to download from that URL, or the latest version associated with upstream flux will be requested. Defaults to `https://github.com/fluxcd/flux2/releases`.
-    :param str cluster_domain: The internal cluster domain. Defaults to `cluster.local`.
-    :param Sequence[str] components: Toolkit components to include in the install manifests.
-    :param Sequence[str] components_extras: List of extra components to include in the install manifests.
-    :param str image_pull_secrets: Kubernetes secret name used for pulling the toolkit images from a private registry.
-    :param str log_level: Log level for toolkit components. Defaults to `info`.
-    :param str namespace: The namespace scope for install manifests. Defaults to `flux-system`.
-    :param bool network_policy: Deny ingress access to the toolkit controllers from other namespaces using network policies. Defaults to `true`.
-    :param str registry: Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.
-    :param str target_path: Relative path to the Git repository root where Flux manifests are committed.
-    :param Sequence[str] toleration_keys: List of toleration keys used to schedule the components pods onto nodes with matching taints.
-    :param str version: Flux version. Defaults to `v0.41.2`.
-    :param bool watch_all_namespaces: If true watch for custom resources in all namespaces. Defaults to `true`.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['baseurl'] = baseurl
@@ -319,32 +245,6 @@ def get_flux_install_output(baseurl: Optional[pulumi.Input[Optional[str]]] = Non
                             watch_all_namespaces: Optional[pulumi.Input[Optional[bool]]] = None,
                             opts: Optional[pulumi.InvokeOptions] = None) -> pulumi.Output[GetFluxInstallResult]:
     """
-    `get_flux_install` can be used to generate Kubernetes manifests for deploying Flux.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_flux as flux
-
-    config = pulumi.Config()
-    target_path = config.require("targetPath")
-    main = flux.get_flux_install(target_path=target_path)
-    ```
-
-
-    :param str baseurl: Base URL to get the install manifests from. When specifying this, `version` should also be set to the corresponding version to download from that URL, or the latest version associated with upstream flux will be requested. Defaults to `https://github.com/fluxcd/flux2/releases`.
-    :param str cluster_domain: The internal cluster domain. Defaults to `cluster.local`.
-    :param Sequence[str] components: Toolkit components to include in the install manifests.
-    :param Sequence[str] components_extras: List of extra components to include in the install manifests.
-    :param str image_pull_secrets: Kubernetes secret name used for pulling the toolkit images from a private registry.
-    :param str log_level: Log level for toolkit components. Defaults to `info`.
-    :param str namespace: The namespace scope for install manifests. Defaults to `flux-system`.
-    :param bool network_policy: Deny ingress access to the toolkit controllers from other namespaces using network policies. Defaults to `true`.
-    :param str registry: Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.
-    :param str target_path: Relative path to the Git repository root where Flux manifests are committed.
-    :param Sequence[str] toleration_keys: List of toleration keys used to schedule the components pods onto nodes with matching taints.
-    :param str version: Flux version. Defaults to `v0.41.2`.
-    :param bool watch_all_namespaces: If true watch for custom resources in all namespaces. Defaults to `true`.
+    Use this data source to access information about an existing resource.
     """
     ...

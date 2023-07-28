@@ -2,14 +2,14 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputs from "./types/input";
+import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
 /**
  * Commits Flux components to a Git repository and configures a Kubernetes cluster to synchronize with the same Git repository.
  *
- * > **NOTE:** Checkout the GitHub bootstrap guide for a walkthrough over how to use this resource with GitHub.
- *
- * > **NOTE:** A breaking change in the attributes have been made in this resource. Read the guide for information of the changes required.
+ * > **NOTE:** Checkout the GitHub bootstrap guide for a detailed step by step guide.
  *
  * ## Example Usage
  *
@@ -71,6 +71,10 @@ export class FluxBootstrapGit extends pulumi.CustomResource {
      */
     public readonly componentsExtras!: pulumi.Output<string[] | undefined>;
     /**
+     * Use the existing secret for flux controller and don't create one from bootstrap
+     */
+    public readonly disableSecretCreation!: pulumi.Output<boolean | undefined>;
+    /**
      * Kubernetes secret name used for pulling the toolkit images from a private registry.
      */
     public readonly imagePullSecret!: pulumi.Output<string | undefined>;
@@ -114,12 +118,13 @@ export class FluxBootstrapGit extends pulumi.CustomResource {
      * Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.
      */
     public readonly secretName!: pulumi.Output<string>;
+    public readonly timeouts!: pulumi.Output<outputs.FluxBootstrapGitTimeouts | undefined>;
     /**
      * List of toleration keys used to schedule the components pods onto nodes with matching taints.
      */
     public readonly tolerationKeys!: pulumi.Output<string[] | undefined>;
     /**
-     * Flux version. Defaults to `v0.41.2`.
+     * Flux version. Defaults to `v2.0.1`.
      */
     public readonly version!: pulumi.Output<string>;
     /**
@@ -143,6 +148,7 @@ export class FluxBootstrapGit extends pulumi.CustomResource {
             resourceInputs["clusterDomain"] = state ? state.clusterDomain : undefined;
             resourceInputs["components"] = state ? state.components : undefined;
             resourceInputs["componentsExtras"] = state ? state.componentsExtras : undefined;
+            resourceInputs["disableSecretCreation"] = state ? state.disableSecretCreation : undefined;
             resourceInputs["imagePullSecret"] = state ? state.imagePullSecret : undefined;
             resourceInputs["interval"] = state ? state.interval : undefined;
             resourceInputs["kustomizationOverride"] = state ? state.kustomizationOverride : undefined;
@@ -154,6 +160,7 @@ export class FluxBootstrapGit extends pulumi.CustomResource {
             resourceInputs["registry"] = state ? state.registry : undefined;
             resourceInputs["repositoryFiles"] = state ? state.repositoryFiles : undefined;
             resourceInputs["secretName"] = state ? state.secretName : undefined;
+            resourceInputs["timeouts"] = state ? state.timeouts : undefined;
             resourceInputs["tolerationKeys"] = state ? state.tolerationKeys : undefined;
             resourceInputs["version"] = state ? state.version : undefined;
             resourceInputs["watchAllNamespaces"] = state ? state.watchAllNamespaces : undefined;
@@ -162,6 +169,7 @@ export class FluxBootstrapGit extends pulumi.CustomResource {
             resourceInputs["clusterDomain"] = args ? args.clusterDomain : undefined;
             resourceInputs["components"] = args ? args.components : undefined;
             resourceInputs["componentsExtras"] = args ? args.componentsExtras : undefined;
+            resourceInputs["disableSecretCreation"] = args ? args.disableSecretCreation : undefined;
             resourceInputs["imagePullSecret"] = args ? args.imagePullSecret : undefined;
             resourceInputs["interval"] = args ? args.interval : undefined;
             resourceInputs["kustomizationOverride"] = args ? args.kustomizationOverride : undefined;
@@ -172,6 +180,7 @@ export class FluxBootstrapGit extends pulumi.CustomResource {
             resourceInputs["recurseSubmodules"] = args ? args.recurseSubmodules : undefined;
             resourceInputs["registry"] = args ? args.registry : undefined;
             resourceInputs["secretName"] = args ? args.secretName : undefined;
+            resourceInputs["timeouts"] = args ? args.timeouts : undefined;
             resourceInputs["tolerationKeys"] = args ? args.tolerationKeys : undefined;
             resourceInputs["version"] = args ? args.version : undefined;
             resourceInputs["watchAllNamespaces"] = args ? args.watchAllNamespaces : undefined;
@@ -198,6 +207,10 @@ export interface FluxBootstrapGitState {
      * List of extra components to include in the install manifests.
      */
     componentsExtras?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Use the existing secret for flux controller and don't create one from bootstrap
+     */
+    disableSecretCreation?: pulumi.Input<boolean>;
     /**
      * Kubernetes secret name used for pulling the toolkit images from a private registry.
      */
@@ -242,12 +255,13 @@ export interface FluxBootstrapGitState {
      * Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.
      */
     secretName?: pulumi.Input<string>;
+    timeouts?: pulumi.Input<inputs.FluxBootstrapGitTimeouts>;
     /**
      * List of toleration keys used to schedule the components pods onto nodes with matching taints.
      */
     tolerationKeys?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Flux version. Defaults to `v0.41.2`.
+     * Flux version. Defaults to `v2.0.1`.
      */
     version?: pulumi.Input<string>;
     /**
@@ -272,6 +286,10 @@ export interface FluxBootstrapGitArgs {
      * List of extra components to include in the install manifests.
      */
     componentsExtras?: pulumi.Input<pulumi.Input<string>[]>;
+    /**
+     * Use the existing secret for flux controller and don't create one from bootstrap
+     */
+    disableSecretCreation?: pulumi.Input<boolean>;
     /**
      * Kubernetes secret name used for pulling the toolkit images from a private registry.
      */
@@ -312,12 +330,13 @@ export interface FluxBootstrapGitArgs {
      * Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.
      */
     secretName?: pulumi.Input<string>;
+    timeouts?: pulumi.Input<inputs.FluxBootstrapGitTimeouts>;
     /**
      * List of toleration keys used to schedule the components pods onto nodes with matching taints.
      */
     tolerationKeys?: pulumi.Input<pulumi.Input<string>[]>;
     /**
-     * Flux version. Defaults to `v0.41.2`.
+     * Flux version. Defaults to `v2.0.1`.
      */
     version?: pulumi.Input<string>;
     /**

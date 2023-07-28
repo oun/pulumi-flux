@@ -12,9 +12,7 @@ namespace Pulumi.Flux
     /// <summary>
     /// Commits Flux components to a Git repository and configures a Kubernetes cluster to synchronize with the same Git repository.
     /// 
-    /// &gt; **NOTE:** Checkout the GitHub bootstrap guide for a walkthrough over how to use this resource with GitHub.
-    /// 
-    /// &gt; **NOTE:** A breaking change in the attributes have been made in this resource. Read the guide for information of the changes required.
+    /// &gt; **NOTE:** Checkout the GitHub bootstrap guide for a detailed step by step guide.
     /// 
     /// ## Example Usage
     /// 
@@ -64,6 +62,12 @@ namespace Pulumi.Flux
         /// </summary>
         [Output("componentsExtras")]
         public Output<ImmutableArray<string>> ComponentsExtras { get; private set; } = null!;
+
+        /// <summary>
+        /// Use the existing secret for flux controller and don't create one from bootstrap
+        /// </summary>
+        [Output("disableSecretCreation")]
+        public Output<bool?> DisableSecretCreation { get; private set; } = null!;
 
         /// <summary>
         /// Kubernetes secret name used for pulling the toolkit images from a private registry.
@@ -131,6 +135,9 @@ namespace Pulumi.Flux
         [Output("secretName")]
         public Output<string> SecretName { get; private set; } = null!;
 
+        [Output("timeouts")]
+        public Output<Outputs.FluxBootstrapGitTimeouts?> Timeouts { get; private set; } = null!;
+
         /// <summary>
         /// List of toleration keys used to schedule the components pods onto nodes with matching taints.
         /// </summary>
@@ -138,7 +145,7 @@ namespace Pulumi.Flux
         public Output<ImmutableArray<string>> TolerationKeys { get; private set; } = null!;
 
         /// <summary>
-        /// Flux version. Defaults to `v0.41.2`.
+        /// Flux version. Defaults to `v2.0.1`.
         /// </summary>
         [Output("version")]
         public Output<string> Version { get; private set; } = null!;
@@ -227,6 +234,12 @@ namespace Pulumi.Flux
         }
 
         /// <summary>
+        /// Use the existing secret for flux controller and don't create one from bootstrap
+        /// </summary>
+        [Input("disableSecretCreation")]
+        public Input<bool>? DisableSecretCreation { get; set; }
+
+        /// <summary>
         /// Kubernetes secret name used for pulling the toolkit images from a private registry.
         /// </summary>
         [Input("imagePullSecret")]
@@ -286,6 +299,9 @@ namespace Pulumi.Flux
         [Input("secretName")]
         public Input<string>? SecretName { get; set; }
 
+        [Input("timeouts")]
+        public Input<Inputs.FluxBootstrapGitTimeoutsArgs>? Timeouts { get; set; }
+
         [Input("tolerationKeys")]
         private InputList<string>? _tolerationKeys;
 
@@ -299,7 +315,7 @@ namespace Pulumi.Flux
         }
 
         /// <summary>
-        /// Flux version. Defaults to `v0.41.2`.
+        /// Flux version. Defaults to `v2.0.1`.
         /// </summary>
         [Input("version")]
         public Input<string>? Version { get; set; }
@@ -347,6 +363,12 @@ namespace Pulumi.Flux
             get => _componentsExtras ?? (_componentsExtras = new InputList<string>());
             set => _componentsExtras = value;
         }
+
+        /// <summary>
+        /// Use the existing secret for flux controller and don't create one from bootstrap
+        /// </summary>
+        [Input("disableSecretCreation")]
+        public Input<bool>? DisableSecretCreation { get; set; }
 
         /// <summary>
         /// Kubernetes secret name used for pulling the toolkit images from a private registry.
@@ -420,6 +442,9 @@ namespace Pulumi.Flux
         [Input("secretName")]
         public Input<string>? SecretName { get; set; }
 
+        [Input("timeouts")]
+        public Input<Inputs.FluxBootstrapGitTimeoutsGetArgs>? Timeouts { get; set; }
+
         [Input("tolerationKeys")]
         private InputList<string>? _tolerationKeys;
 
@@ -433,7 +458,7 @@ namespace Pulumi.Flux
         }
 
         /// <summary>
-        /// Flux version. Defaults to `v0.41.2`.
+        /// Flux version. Defaults to `v2.0.1`.
         /// </summary>
         [Input("version")]
         public Input<string>? Version { get; set; }

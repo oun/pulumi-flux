@@ -5,6 +5,25 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface FluxBootstrapGitTimeouts {
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+     */
+    create?: string;
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs.
+     */
+    delete?: string;
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
+     */
+    read?: string;
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+     */
+    update?: string;
+}
+
 export namespace config {
     export interface Git {
         authorEmail?: string;
@@ -41,12 +60,20 @@ export namespace config {
         configContextCluster?: string;
         configPath?: string;
         configPaths?: string[];
+        exec?: outputs.config.KubernetesExec;
         host?: string;
         insecure?: boolean;
         password?: string;
         proxyUrl?: string;
         token?: string;
         username?: string;
+    }
+
+    export interface KubernetesExec {
+        apiVersion: string;
+        args?: string[];
+        command: string;
+        env?: {[key: string]: string};
     }
 
 }

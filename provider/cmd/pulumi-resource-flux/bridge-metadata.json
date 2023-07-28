@@ -34,6 +34,9 @@
                 "configPaths": "config_paths",
                 "proxyUrl": "proxy_url"
             },
+            "flux:config/kubernetesExec:kubernetesExec": {
+                "apiVersion": "api_version"
+            },
             "flux:index/ProviderGit:ProviderGit": {
                 "authorEmail": "author_email",
                 "authorName": "author_name",
@@ -60,9 +63,13 @@
                 "configPaths": "config_paths",
                 "proxyUrl": "proxy_url"
             },
+            "flux:index/ProviderKubernetesExec:ProviderKubernetesExec": {
+                "apiVersion": "api_version"
+            },
             "flux:index/fluxBootstrapGit:FluxBootstrapGit": {
                 "clusterDomain": "cluster_domain",
                 "componentsExtras": "components_extra",
+                "disableSecretCreation": "disable_secret_creation",
                 "imagePullSecret": "image_pull_secret",
                 "kustomizationOverride": "kustomization_override",
                 "logLevel": "log_level",

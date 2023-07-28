@@ -455,20 +455,21 @@ func (o GitSshPtrOutput) Username() pulumi.StringPtrOutput {
 }
 
 type Kubernetes struct {
-	ClientCertificate     *string  `pulumi:"clientCertificate"`
-	ClientKey             *string  `pulumi:"clientKey"`
-	ClusterCaCertificate  *string  `pulumi:"clusterCaCertificate"`
-	ConfigContext         *string  `pulumi:"configContext"`
-	ConfigContextAuthInfo *string  `pulumi:"configContextAuthInfo"`
-	ConfigContextCluster  *string  `pulumi:"configContextCluster"`
-	ConfigPath            *string  `pulumi:"configPath"`
-	ConfigPaths           []string `pulumi:"configPaths"`
-	Host                  *string  `pulumi:"host"`
-	Insecure              *bool    `pulumi:"insecure"`
-	Password              *string  `pulumi:"password"`
-	ProxyUrl              *string  `pulumi:"proxyUrl"`
-	Token                 *string  `pulumi:"token"`
-	Username              *string  `pulumi:"username"`
+	ClientCertificate     *string         `pulumi:"clientCertificate"`
+	ClientKey             *string         `pulumi:"clientKey"`
+	ClusterCaCertificate  *string         `pulumi:"clusterCaCertificate"`
+	ConfigContext         *string         `pulumi:"configContext"`
+	ConfigContextAuthInfo *string         `pulumi:"configContextAuthInfo"`
+	ConfigContextCluster  *string         `pulumi:"configContextCluster"`
+	ConfigPath            *string         `pulumi:"configPath"`
+	ConfigPaths           []string        `pulumi:"configPaths"`
+	Exec                  *KubernetesExec `pulumi:"exec"`
+	Host                  *string         `pulumi:"host"`
+	Insecure              *bool           `pulumi:"insecure"`
+	Password              *string         `pulumi:"password"`
+	ProxyUrl              *string         `pulumi:"proxyUrl"`
+	Token                 *string         `pulumi:"token"`
+	Username              *string         `pulumi:"username"`
 }
 
 // KubernetesInput is an input type that accepts KubernetesArgs and KubernetesOutput values.
@@ -491,6 +492,7 @@ type KubernetesArgs struct {
 	ConfigContextCluster  pulumi.StringPtrInput   `pulumi:"configContextCluster"`
 	ConfigPath            pulumi.StringPtrInput   `pulumi:"configPath"`
 	ConfigPaths           pulumi.StringArrayInput `pulumi:"configPaths"`
+	Exec                  KubernetesExecPtrInput  `pulumi:"exec"`
 	Host                  pulumi.StringPtrInput   `pulumi:"host"`
 	Insecure              pulumi.BoolPtrInput     `pulumi:"insecure"`
 	Password              pulumi.StringPtrInput   `pulumi:"password"`
@@ -557,6 +559,10 @@ func (o KubernetesOutput) ConfigPaths() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v Kubernetes) []string { return v.ConfigPaths }).(pulumi.StringArrayOutput)
 }
 
+func (o KubernetesOutput) Exec() KubernetesExecPtrOutput {
+	return o.ApplyT(func(v Kubernetes) *KubernetesExec { return v.Exec }).(KubernetesExecPtrOutput)
+}
+
 func (o KubernetesOutput) Host() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Kubernetes) *string { return v.Host }).(pulumi.StringPtrOutput)
 }
@@ -581,6 +587,184 @@ func (o KubernetesOutput) Username() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v Kubernetes) *string { return v.Username }).(pulumi.StringPtrOutput)
 }
 
+type KubernetesExec struct {
+	ApiVersion string            `pulumi:"apiVersion"`
+	Args       []string          `pulumi:"args"`
+	Command    string            `pulumi:"command"`
+	Env        map[string]string `pulumi:"env"`
+}
+
+// KubernetesExecInput is an input type that accepts KubernetesExecArgs and KubernetesExecOutput values.
+// You can construct a concrete instance of `KubernetesExecInput` via:
+//
+//	KubernetesExecArgs{...}
+type KubernetesExecInput interface {
+	pulumi.Input
+
+	ToKubernetesExecOutput() KubernetesExecOutput
+	ToKubernetesExecOutputWithContext(context.Context) KubernetesExecOutput
+}
+
+type KubernetesExecArgs struct {
+	ApiVersion pulumi.StringInput      `pulumi:"apiVersion"`
+	Args       pulumi.StringArrayInput `pulumi:"args"`
+	Command    pulumi.StringInput      `pulumi:"command"`
+	Env        pulumi.StringMapInput   `pulumi:"env"`
+}
+
+func (KubernetesExecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*KubernetesExec)(nil)).Elem()
+}
+
+func (i KubernetesExecArgs) ToKubernetesExecOutput() KubernetesExecOutput {
+	return i.ToKubernetesExecOutputWithContext(context.Background())
+}
+
+func (i KubernetesExecArgs) ToKubernetesExecOutputWithContext(ctx context.Context) KubernetesExecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(KubernetesExecOutput)
+}
+
+func (i KubernetesExecArgs) ToKubernetesExecPtrOutput() KubernetesExecPtrOutput {
+	return i.ToKubernetesExecPtrOutputWithContext(context.Background())
+}
+
+func (i KubernetesExecArgs) ToKubernetesExecPtrOutputWithContext(ctx context.Context) KubernetesExecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(KubernetesExecOutput).ToKubernetesExecPtrOutputWithContext(ctx)
+}
+
+// KubernetesExecPtrInput is an input type that accepts KubernetesExecArgs, KubernetesExecPtr and KubernetesExecPtrOutput values.
+// You can construct a concrete instance of `KubernetesExecPtrInput` via:
+//
+//	        KubernetesExecArgs{...}
+//
+//	or:
+//
+//	        nil
+type KubernetesExecPtrInput interface {
+	pulumi.Input
+
+	ToKubernetesExecPtrOutput() KubernetesExecPtrOutput
+	ToKubernetesExecPtrOutputWithContext(context.Context) KubernetesExecPtrOutput
+}
+
+type kubernetesExecPtrType KubernetesExecArgs
+
+func KubernetesExecPtr(v *KubernetesExecArgs) KubernetesExecPtrInput {
+	return (*kubernetesExecPtrType)(v)
+}
+
+func (*kubernetesExecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**KubernetesExec)(nil)).Elem()
+}
+
+func (i *kubernetesExecPtrType) ToKubernetesExecPtrOutput() KubernetesExecPtrOutput {
+	return i.ToKubernetesExecPtrOutputWithContext(context.Background())
+}
+
+func (i *kubernetesExecPtrType) ToKubernetesExecPtrOutputWithContext(ctx context.Context) KubernetesExecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(KubernetesExecPtrOutput)
+}
+
+type KubernetesExecOutput struct{ *pulumi.OutputState }
+
+func (KubernetesExecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*KubernetesExec)(nil)).Elem()
+}
+
+func (o KubernetesExecOutput) ToKubernetesExecOutput() KubernetesExecOutput {
+	return o
+}
+
+func (o KubernetesExecOutput) ToKubernetesExecOutputWithContext(ctx context.Context) KubernetesExecOutput {
+	return o
+}
+
+func (o KubernetesExecOutput) ToKubernetesExecPtrOutput() KubernetesExecPtrOutput {
+	return o.ToKubernetesExecPtrOutputWithContext(context.Background())
+}
+
+func (o KubernetesExecOutput) ToKubernetesExecPtrOutputWithContext(ctx context.Context) KubernetesExecPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v KubernetesExec) *KubernetesExec {
+		return &v
+	}).(KubernetesExecPtrOutput)
+}
+
+func (o KubernetesExecOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v KubernetesExec) string { return v.ApiVersion }).(pulumi.StringOutput)
+}
+
+func (o KubernetesExecOutput) Args() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v KubernetesExec) []string { return v.Args }).(pulumi.StringArrayOutput)
+}
+
+func (o KubernetesExecOutput) Command() pulumi.StringOutput {
+	return o.ApplyT(func(v KubernetesExec) string { return v.Command }).(pulumi.StringOutput)
+}
+
+func (o KubernetesExecOutput) Env() pulumi.StringMapOutput {
+	return o.ApplyT(func(v KubernetesExec) map[string]string { return v.Env }).(pulumi.StringMapOutput)
+}
+
+type KubernetesExecPtrOutput struct{ *pulumi.OutputState }
+
+func (KubernetesExecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**KubernetesExec)(nil)).Elem()
+}
+
+func (o KubernetesExecPtrOutput) ToKubernetesExecPtrOutput() KubernetesExecPtrOutput {
+	return o
+}
+
+func (o KubernetesExecPtrOutput) ToKubernetesExecPtrOutputWithContext(ctx context.Context) KubernetesExecPtrOutput {
+	return o
+}
+
+func (o KubernetesExecPtrOutput) Elem() KubernetesExecOutput {
+	return o.ApplyT(func(v *KubernetesExec) KubernetesExec {
+		if v != nil {
+			return *v
+		}
+		var ret KubernetesExec
+		return ret
+	}).(KubernetesExecOutput)
+}
+
+func (o KubernetesExecPtrOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *KubernetesExec) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ApiVersion
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o KubernetesExecPtrOutput) Args() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *KubernetesExec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Args
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o KubernetesExecPtrOutput) Command() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *KubernetesExec) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Command
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o KubernetesExecPtrOutput) Env() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *KubernetesExec) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Env
+	}).(pulumi.StringMapOutput)
+}
+
 func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GitInput)(nil)).Elem(), GitArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GitHttpInput)(nil)).Elem(), GitHttpArgs{})
@@ -588,10 +772,14 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GitSshInput)(nil)).Elem(), GitSshArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GitSshPtrInput)(nil)).Elem(), GitSshArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*KubernetesInput)(nil)).Elem(), KubernetesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*KubernetesExecInput)(nil)).Elem(), KubernetesExecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*KubernetesExecPtrInput)(nil)).Elem(), KubernetesExecArgs{})
 	pulumi.RegisterOutputType(GitOutput{})
 	pulumi.RegisterOutputType(GitHttpOutput{})
 	pulumi.RegisterOutputType(GitHttpPtrOutput{})
 	pulumi.RegisterOutputType(GitSshOutput{})
 	pulumi.RegisterOutputType(GitSshPtrOutput{})
 	pulumi.RegisterOutputType(KubernetesOutput{})
+	pulumi.RegisterOutputType(KubernetesExecOutput{})
+	pulumi.RegisterOutputType(KubernetesExecPtrOutput{})
 }

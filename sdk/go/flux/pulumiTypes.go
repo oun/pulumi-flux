@@ -10,6 +10,200 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
+type FluxBootstrapGitTimeouts struct {
+	// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+	Create *string `pulumi:"create"`
+	// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs.
+	Delete *string `pulumi:"delete"`
+	// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
+	Read *string `pulumi:"read"`
+	// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+	Update *string `pulumi:"update"`
+}
+
+// FluxBootstrapGitTimeoutsInput is an input type that accepts FluxBootstrapGitTimeoutsArgs and FluxBootstrapGitTimeoutsOutput values.
+// You can construct a concrete instance of `FluxBootstrapGitTimeoutsInput` via:
+//
+//	FluxBootstrapGitTimeoutsArgs{...}
+type FluxBootstrapGitTimeoutsInput interface {
+	pulumi.Input
+
+	ToFluxBootstrapGitTimeoutsOutput() FluxBootstrapGitTimeoutsOutput
+	ToFluxBootstrapGitTimeoutsOutputWithContext(context.Context) FluxBootstrapGitTimeoutsOutput
+}
+
+type FluxBootstrapGitTimeoutsArgs struct {
+	// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+	Create pulumi.StringPtrInput `pulumi:"create"`
+	// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs.
+	Delete pulumi.StringPtrInput `pulumi:"delete"`
+	// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
+	Read pulumi.StringPtrInput `pulumi:"read"`
+	// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+	Update pulumi.StringPtrInput `pulumi:"update"`
+}
+
+func (FluxBootstrapGitTimeoutsArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*FluxBootstrapGitTimeouts)(nil)).Elem()
+}
+
+func (i FluxBootstrapGitTimeoutsArgs) ToFluxBootstrapGitTimeoutsOutput() FluxBootstrapGitTimeoutsOutput {
+	return i.ToFluxBootstrapGitTimeoutsOutputWithContext(context.Background())
+}
+
+func (i FluxBootstrapGitTimeoutsArgs) ToFluxBootstrapGitTimeoutsOutputWithContext(ctx context.Context) FluxBootstrapGitTimeoutsOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FluxBootstrapGitTimeoutsOutput)
+}
+
+func (i FluxBootstrapGitTimeoutsArgs) ToFluxBootstrapGitTimeoutsPtrOutput() FluxBootstrapGitTimeoutsPtrOutput {
+	return i.ToFluxBootstrapGitTimeoutsPtrOutputWithContext(context.Background())
+}
+
+func (i FluxBootstrapGitTimeoutsArgs) ToFluxBootstrapGitTimeoutsPtrOutputWithContext(ctx context.Context) FluxBootstrapGitTimeoutsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FluxBootstrapGitTimeoutsOutput).ToFluxBootstrapGitTimeoutsPtrOutputWithContext(ctx)
+}
+
+// FluxBootstrapGitTimeoutsPtrInput is an input type that accepts FluxBootstrapGitTimeoutsArgs, FluxBootstrapGitTimeoutsPtr and FluxBootstrapGitTimeoutsPtrOutput values.
+// You can construct a concrete instance of `FluxBootstrapGitTimeoutsPtrInput` via:
+//
+//	        FluxBootstrapGitTimeoutsArgs{...}
+//
+//	or:
+//
+//	        nil
+type FluxBootstrapGitTimeoutsPtrInput interface {
+	pulumi.Input
+
+	ToFluxBootstrapGitTimeoutsPtrOutput() FluxBootstrapGitTimeoutsPtrOutput
+	ToFluxBootstrapGitTimeoutsPtrOutputWithContext(context.Context) FluxBootstrapGitTimeoutsPtrOutput
+}
+
+type fluxBootstrapGitTimeoutsPtrType FluxBootstrapGitTimeoutsArgs
+
+func FluxBootstrapGitTimeoutsPtr(v *FluxBootstrapGitTimeoutsArgs) FluxBootstrapGitTimeoutsPtrInput {
+	return (*fluxBootstrapGitTimeoutsPtrType)(v)
+}
+
+func (*fluxBootstrapGitTimeoutsPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**FluxBootstrapGitTimeouts)(nil)).Elem()
+}
+
+func (i *fluxBootstrapGitTimeoutsPtrType) ToFluxBootstrapGitTimeoutsPtrOutput() FluxBootstrapGitTimeoutsPtrOutput {
+	return i.ToFluxBootstrapGitTimeoutsPtrOutputWithContext(context.Background())
+}
+
+func (i *fluxBootstrapGitTimeoutsPtrType) ToFluxBootstrapGitTimeoutsPtrOutputWithContext(ctx context.Context) FluxBootstrapGitTimeoutsPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(FluxBootstrapGitTimeoutsPtrOutput)
+}
+
+type FluxBootstrapGitTimeoutsOutput struct{ *pulumi.OutputState }
+
+func (FluxBootstrapGitTimeoutsOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*FluxBootstrapGitTimeouts)(nil)).Elem()
+}
+
+func (o FluxBootstrapGitTimeoutsOutput) ToFluxBootstrapGitTimeoutsOutput() FluxBootstrapGitTimeoutsOutput {
+	return o
+}
+
+func (o FluxBootstrapGitTimeoutsOutput) ToFluxBootstrapGitTimeoutsOutputWithContext(ctx context.Context) FluxBootstrapGitTimeoutsOutput {
+	return o
+}
+
+func (o FluxBootstrapGitTimeoutsOutput) ToFluxBootstrapGitTimeoutsPtrOutput() FluxBootstrapGitTimeoutsPtrOutput {
+	return o.ToFluxBootstrapGitTimeoutsPtrOutputWithContext(context.Background())
+}
+
+func (o FluxBootstrapGitTimeoutsOutput) ToFluxBootstrapGitTimeoutsPtrOutputWithContext(ctx context.Context) FluxBootstrapGitTimeoutsPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v FluxBootstrapGitTimeouts) *FluxBootstrapGitTimeouts {
+		return &v
+	}).(FluxBootstrapGitTimeoutsPtrOutput)
+}
+
+// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+func (o FluxBootstrapGitTimeoutsOutput) Create() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FluxBootstrapGitTimeouts) *string { return v.Create }).(pulumi.StringPtrOutput)
+}
+
+// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs.
+func (o FluxBootstrapGitTimeoutsOutput) Delete() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FluxBootstrapGitTimeouts) *string { return v.Delete }).(pulumi.StringPtrOutput)
+}
+
+// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
+func (o FluxBootstrapGitTimeoutsOutput) Read() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FluxBootstrapGitTimeouts) *string { return v.Read }).(pulumi.StringPtrOutput)
+}
+
+// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+func (o FluxBootstrapGitTimeoutsOutput) Update() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v FluxBootstrapGitTimeouts) *string { return v.Update }).(pulumi.StringPtrOutput)
+}
+
+type FluxBootstrapGitTimeoutsPtrOutput struct{ *pulumi.OutputState }
+
+func (FluxBootstrapGitTimeoutsPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**FluxBootstrapGitTimeouts)(nil)).Elem()
+}
+
+func (o FluxBootstrapGitTimeoutsPtrOutput) ToFluxBootstrapGitTimeoutsPtrOutput() FluxBootstrapGitTimeoutsPtrOutput {
+	return o
+}
+
+func (o FluxBootstrapGitTimeoutsPtrOutput) ToFluxBootstrapGitTimeoutsPtrOutputWithContext(ctx context.Context) FluxBootstrapGitTimeoutsPtrOutput {
+	return o
+}
+
+func (o FluxBootstrapGitTimeoutsPtrOutput) Elem() FluxBootstrapGitTimeoutsOutput {
+	return o.ApplyT(func(v *FluxBootstrapGitTimeouts) FluxBootstrapGitTimeouts {
+		if v != nil {
+			return *v
+		}
+		var ret FluxBootstrapGitTimeouts
+		return ret
+	}).(FluxBootstrapGitTimeoutsOutput)
+}
+
+// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+func (o FluxBootstrapGitTimeoutsPtrOutput) Create() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FluxBootstrapGitTimeouts) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Create
+	}).(pulumi.StringPtrOutput)
+}
+
+// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs.
+func (o FluxBootstrapGitTimeoutsPtrOutput) Delete() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FluxBootstrapGitTimeouts) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Delete
+	}).(pulumi.StringPtrOutput)
+}
+
+// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
+func (o FluxBootstrapGitTimeoutsPtrOutput) Read() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FluxBootstrapGitTimeouts) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Read
+	}).(pulumi.StringPtrOutput)
+}
+
+// A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+func (o FluxBootstrapGitTimeoutsPtrOutput) Update() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *FluxBootstrapGitTimeouts) *string {
+		if v == nil {
+			return nil
+		}
+		return v.Update
+	}).(pulumi.StringPtrOutput)
+}
+
 type ProviderGit struct {
 	AuthorEmail           *string          `pulumi:"authorEmail"`
 	AuthorName            *string          `pulumi:"authorName"`
@@ -620,20 +814,21 @@ func (o ProviderGitSshPtrOutput) Username() pulumi.StringPtrOutput {
 }
 
 type ProviderKubernetes struct {
-	ClientCertificate     *string  `pulumi:"clientCertificate"`
-	ClientKey             *string  `pulumi:"clientKey"`
-	ClusterCaCertificate  *string  `pulumi:"clusterCaCertificate"`
-	ConfigContext         *string  `pulumi:"configContext"`
-	ConfigContextAuthInfo *string  `pulumi:"configContextAuthInfo"`
-	ConfigContextCluster  *string  `pulumi:"configContextCluster"`
-	ConfigPath            *string  `pulumi:"configPath"`
-	ConfigPaths           []string `pulumi:"configPaths"`
-	Host                  *string  `pulumi:"host"`
-	Insecure              *bool    `pulumi:"insecure"`
-	Password              *string  `pulumi:"password"`
-	ProxyUrl              *string  `pulumi:"proxyUrl"`
-	Token                 *string  `pulumi:"token"`
-	Username              *string  `pulumi:"username"`
+	ClientCertificate     *string                 `pulumi:"clientCertificate"`
+	ClientKey             *string                 `pulumi:"clientKey"`
+	ClusterCaCertificate  *string                 `pulumi:"clusterCaCertificate"`
+	ConfigContext         *string                 `pulumi:"configContext"`
+	ConfigContextAuthInfo *string                 `pulumi:"configContextAuthInfo"`
+	ConfigContextCluster  *string                 `pulumi:"configContextCluster"`
+	ConfigPath            *string                 `pulumi:"configPath"`
+	ConfigPaths           []string                `pulumi:"configPaths"`
+	Exec                  *ProviderKubernetesExec `pulumi:"exec"`
+	Host                  *string                 `pulumi:"host"`
+	Insecure              *bool                   `pulumi:"insecure"`
+	Password              *string                 `pulumi:"password"`
+	ProxyUrl              *string                 `pulumi:"proxyUrl"`
+	Token                 *string                 `pulumi:"token"`
+	Username              *string                 `pulumi:"username"`
 }
 
 // ProviderKubernetesInput is an input type that accepts ProviderKubernetesArgs and ProviderKubernetesOutput values.
@@ -648,20 +843,21 @@ type ProviderKubernetesInput interface {
 }
 
 type ProviderKubernetesArgs struct {
-	ClientCertificate     pulumi.StringPtrInput   `pulumi:"clientCertificate"`
-	ClientKey             pulumi.StringPtrInput   `pulumi:"clientKey"`
-	ClusterCaCertificate  pulumi.StringPtrInput   `pulumi:"clusterCaCertificate"`
-	ConfigContext         pulumi.StringPtrInput   `pulumi:"configContext"`
-	ConfigContextAuthInfo pulumi.StringPtrInput   `pulumi:"configContextAuthInfo"`
-	ConfigContextCluster  pulumi.StringPtrInput   `pulumi:"configContextCluster"`
-	ConfigPath            pulumi.StringPtrInput   `pulumi:"configPath"`
-	ConfigPaths           pulumi.StringArrayInput `pulumi:"configPaths"`
-	Host                  pulumi.StringPtrInput   `pulumi:"host"`
-	Insecure              pulumi.BoolPtrInput     `pulumi:"insecure"`
-	Password              pulumi.StringPtrInput   `pulumi:"password"`
-	ProxyUrl              pulumi.StringPtrInput   `pulumi:"proxyUrl"`
-	Token                 pulumi.StringPtrInput   `pulumi:"token"`
-	Username              pulumi.StringPtrInput   `pulumi:"username"`
+	ClientCertificate     pulumi.StringPtrInput          `pulumi:"clientCertificate"`
+	ClientKey             pulumi.StringPtrInput          `pulumi:"clientKey"`
+	ClusterCaCertificate  pulumi.StringPtrInput          `pulumi:"clusterCaCertificate"`
+	ConfigContext         pulumi.StringPtrInput          `pulumi:"configContext"`
+	ConfigContextAuthInfo pulumi.StringPtrInput          `pulumi:"configContextAuthInfo"`
+	ConfigContextCluster  pulumi.StringPtrInput          `pulumi:"configContextCluster"`
+	ConfigPath            pulumi.StringPtrInput          `pulumi:"configPath"`
+	ConfigPaths           pulumi.StringArrayInput        `pulumi:"configPaths"`
+	Exec                  ProviderKubernetesExecPtrInput `pulumi:"exec"`
+	Host                  pulumi.StringPtrInput          `pulumi:"host"`
+	Insecure              pulumi.BoolPtrInput            `pulumi:"insecure"`
+	Password              pulumi.StringPtrInput          `pulumi:"password"`
+	ProxyUrl              pulumi.StringPtrInput          `pulumi:"proxyUrl"`
+	Token                 pulumi.StringPtrInput          `pulumi:"token"`
+	Username              pulumi.StringPtrInput          `pulumi:"username"`
 }
 
 func (ProviderKubernetesArgs) ElementType() reflect.Type {
@@ -771,6 +967,10 @@ func (o ProviderKubernetesOutput) ConfigPath() pulumi.StringPtrOutput {
 
 func (o ProviderKubernetesOutput) ConfigPaths() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v ProviderKubernetes) []string { return v.ConfigPaths }).(pulumi.StringArrayOutput)
+}
+
+func (o ProviderKubernetesOutput) Exec() ProviderKubernetesExecPtrOutput {
+	return o.ApplyT(func(v ProviderKubernetes) *ProviderKubernetesExec { return v.Exec }).(ProviderKubernetesExecPtrOutput)
 }
 
 func (o ProviderKubernetesOutput) Host() pulumi.StringPtrOutput {
@@ -893,6 +1093,15 @@ func (o ProviderKubernetesPtrOutput) ConfigPaths() pulumi.StringArrayOutput {
 	}).(pulumi.StringArrayOutput)
 }
 
+func (o ProviderKubernetesPtrOutput) Exec() ProviderKubernetesExecPtrOutput {
+	return o.ApplyT(func(v *ProviderKubernetes) *ProviderKubernetesExec {
+		if v == nil {
+			return nil
+		}
+		return v.Exec
+	}).(ProviderKubernetesExecPtrOutput)
+}
+
 func (o ProviderKubernetesPtrOutput) Host() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *ProviderKubernetes) *string {
 		if v == nil {
@@ -947,7 +1156,187 @@ func (o ProviderKubernetesPtrOutput) Username() pulumi.StringPtrOutput {
 	}).(pulumi.StringPtrOutput)
 }
 
+type ProviderKubernetesExec struct {
+	ApiVersion string            `pulumi:"apiVersion"`
+	Args       []string          `pulumi:"args"`
+	Command    string            `pulumi:"command"`
+	Env        map[string]string `pulumi:"env"`
+}
+
+// ProviderKubernetesExecInput is an input type that accepts ProviderKubernetesExecArgs and ProviderKubernetesExecOutput values.
+// You can construct a concrete instance of `ProviderKubernetesExecInput` via:
+//
+//	ProviderKubernetesExecArgs{...}
+type ProviderKubernetesExecInput interface {
+	pulumi.Input
+
+	ToProviderKubernetesExecOutput() ProviderKubernetesExecOutput
+	ToProviderKubernetesExecOutputWithContext(context.Context) ProviderKubernetesExecOutput
+}
+
+type ProviderKubernetesExecArgs struct {
+	ApiVersion pulumi.StringInput      `pulumi:"apiVersion"`
+	Args       pulumi.StringArrayInput `pulumi:"args"`
+	Command    pulumi.StringInput      `pulumi:"command"`
+	Env        pulumi.StringMapInput   `pulumi:"env"`
+}
+
+func (ProviderKubernetesExecArgs) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProviderKubernetesExec)(nil)).Elem()
+}
+
+func (i ProviderKubernetesExecArgs) ToProviderKubernetesExecOutput() ProviderKubernetesExecOutput {
+	return i.ToProviderKubernetesExecOutputWithContext(context.Background())
+}
+
+func (i ProviderKubernetesExecArgs) ToProviderKubernetesExecOutputWithContext(ctx context.Context) ProviderKubernetesExecOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProviderKubernetesExecOutput)
+}
+
+func (i ProviderKubernetesExecArgs) ToProviderKubernetesExecPtrOutput() ProviderKubernetesExecPtrOutput {
+	return i.ToProviderKubernetesExecPtrOutputWithContext(context.Background())
+}
+
+func (i ProviderKubernetesExecArgs) ToProviderKubernetesExecPtrOutputWithContext(ctx context.Context) ProviderKubernetesExecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProviderKubernetesExecOutput).ToProviderKubernetesExecPtrOutputWithContext(ctx)
+}
+
+// ProviderKubernetesExecPtrInput is an input type that accepts ProviderKubernetesExecArgs, ProviderKubernetesExecPtr and ProviderKubernetesExecPtrOutput values.
+// You can construct a concrete instance of `ProviderKubernetesExecPtrInput` via:
+//
+//	        ProviderKubernetesExecArgs{...}
+//
+//	or:
+//
+//	        nil
+type ProviderKubernetesExecPtrInput interface {
+	pulumi.Input
+
+	ToProviderKubernetesExecPtrOutput() ProviderKubernetesExecPtrOutput
+	ToProviderKubernetesExecPtrOutputWithContext(context.Context) ProviderKubernetesExecPtrOutput
+}
+
+type providerKubernetesExecPtrType ProviderKubernetesExecArgs
+
+func ProviderKubernetesExecPtr(v *ProviderKubernetesExecArgs) ProviderKubernetesExecPtrInput {
+	return (*providerKubernetesExecPtrType)(v)
+}
+
+func (*providerKubernetesExecPtrType) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProviderKubernetesExec)(nil)).Elem()
+}
+
+func (i *providerKubernetesExecPtrType) ToProviderKubernetesExecPtrOutput() ProviderKubernetesExecPtrOutput {
+	return i.ToProviderKubernetesExecPtrOutputWithContext(context.Background())
+}
+
+func (i *providerKubernetesExecPtrType) ToProviderKubernetesExecPtrOutputWithContext(ctx context.Context) ProviderKubernetesExecPtrOutput {
+	return pulumi.ToOutputWithContext(ctx, i).(ProviderKubernetesExecPtrOutput)
+}
+
+type ProviderKubernetesExecOutput struct{ *pulumi.OutputState }
+
+func (ProviderKubernetesExecOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((*ProviderKubernetesExec)(nil)).Elem()
+}
+
+func (o ProviderKubernetesExecOutput) ToProviderKubernetesExecOutput() ProviderKubernetesExecOutput {
+	return o
+}
+
+func (o ProviderKubernetesExecOutput) ToProviderKubernetesExecOutputWithContext(ctx context.Context) ProviderKubernetesExecOutput {
+	return o
+}
+
+func (o ProviderKubernetesExecOutput) ToProviderKubernetesExecPtrOutput() ProviderKubernetesExecPtrOutput {
+	return o.ToProviderKubernetesExecPtrOutputWithContext(context.Background())
+}
+
+func (o ProviderKubernetesExecOutput) ToProviderKubernetesExecPtrOutputWithContext(ctx context.Context) ProviderKubernetesExecPtrOutput {
+	return o.ApplyTWithContext(ctx, func(_ context.Context, v ProviderKubernetesExec) *ProviderKubernetesExec {
+		return &v
+	}).(ProviderKubernetesExecPtrOutput)
+}
+
+func (o ProviderKubernetesExecOutput) ApiVersion() pulumi.StringOutput {
+	return o.ApplyT(func(v ProviderKubernetesExec) string { return v.ApiVersion }).(pulumi.StringOutput)
+}
+
+func (o ProviderKubernetesExecOutput) Args() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v ProviderKubernetesExec) []string { return v.Args }).(pulumi.StringArrayOutput)
+}
+
+func (o ProviderKubernetesExecOutput) Command() pulumi.StringOutput {
+	return o.ApplyT(func(v ProviderKubernetesExec) string { return v.Command }).(pulumi.StringOutput)
+}
+
+func (o ProviderKubernetesExecOutput) Env() pulumi.StringMapOutput {
+	return o.ApplyT(func(v ProviderKubernetesExec) map[string]string { return v.Env }).(pulumi.StringMapOutput)
+}
+
+type ProviderKubernetesExecPtrOutput struct{ *pulumi.OutputState }
+
+func (ProviderKubernetesExecPtrOutput) ElementType() reflect.Type {
+	return reflect.TypeOf((**ProviderKubernetesExec)(nil)).Elem()
+}
+
+func (o ProviderKubernetesExecPtrOutput) ToProviderKubernetesExecPtrOutput() ProviderKubernetesExecPtrOutput {
+	return o
+}
+
+func (o ProviderKubernetesExecPtrOutput) ToProviderKubernetesExecPtrOutputWithContext(ctx context.Context) ProviderKubernetesExecPtrOutput {
+	return o
+}
+
+func (o ProviderKubernetesExecPtrOutput) Elem() ProviderKubernetesExecOutput {
+	return o.ApplyT(func(v *ProviderKubernetesExec) ProviderKubernetesExec {
+		if v != nil {
+			return *v
+		}
+		var ret ProviderKubernetesExec
+		return ret
+	}).(ProviderKubernetesExecOutput)
+}
+
+func (o ProviderKubernetesExecPtrOutput) ApiVersion() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProviderKubernetesExec) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.ApiVersion
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ProviderKubernetesExecPtrOutput) Args() pulumi.StringArrayOutput {
+	return o.ApplyT(func(v *ProviderKubernetesExec) []string {
+		if v == nil {
+			return nil
+		}
+		return v.Args
+	}).(pulumi.StringArrayOutput)
+}
+
+func (o ProviderKubernetesExecPtrOutput) Command() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *ProviderKubernetesExec) *string {
+		if v == nil {
+			return nil
+		}
+		return &v.Command
+	}).(pulumi.StringPtrOutput)
+}
+
+func (o ProviderKubernetesExecPtrOutput) Env() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *ProviderKubernetesExec) map[string]string {
+		if v == nil {
+			return nil
+		}
+		return v.Env
+	}).(pulumi.StringMapOutput)
+}
+
 func init() {
+	pulumi.RegisterInputType(reflect.TypeOf((*FluxBootstrapGitTimeoutsInput)(nil)).Elem(), FluxBootstrapGitTimeoutsArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*FluxBootstrapGitTimeoutsPtrInput)(nil)).Elem(), FluxBootstrapGitTimeoutsArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProviderGitInput)(nil)).Elem(), ProviderGitArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProviderGitPtrInput)(nil)).Elem(), ProviderGitArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProviderGitHttpInput)(nil)).Elem(), ProviderGitHttpArgs{})
@@ -956,6 +1345,10 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*ProviderGitSshPtrInput)(nil)).Elem(), ProviderGitSshArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProviderKubernetesInput)(nil)).Elem(), ProviderKubernetesArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*ProviderKubernetesPtrInput)(nil)).Elem(), ProviderKubernetesArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProviderKubernetesExecInput)(nil)).Elem(), ProviderKubernetesExecArgs{})
+	pulumi.RegisterInputType(reflect.TypeOf((*ProviderKubernetesExecPtrInput)(nil)).Elem(), ProviderKubernetesExecArgs{})
+	pulumi.RegisterOutputType(FluxBootstrapGitTimeoutsOutput{})
+	pulumi.RegisterOutputType(FluxBootstrapGitTimeoutsPtrOutput{})
 	pulumi.RegisterOutputType(ProviderGitOutput{})
 	pulumi.RegisterOutputType(ProviderGitPtrOutput{})
 	pulumi.RegisterOutputType(ProviderGitHttpOutput{})
@@ -964,4 +1357,6 @@ func init() {
 	pulumi.RegisterOutputType(ProviderGitSshPtrOutput{})
 	pulumi.RegisterOutputType(ProviderKubernetesOutput{})
 	pulumi.RegisterOutputType(ProviderKubernetesPtrOutput{})
+	pulumi.RegisterOutputType(ProviderKubernetesExecOutput{})
+	pulumi.RegisterOutputType(ProviderKubernetesExecPtrOutput{})
 }

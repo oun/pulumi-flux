@@ -94,12 +94,21 @@ namespace Pulumi.Flux
                 public string? ConfigContextCluster { get; set; } = null!;
                 public string? ConfigPath { get; set; } = null!;
                 public ImmutableArray<string> ConfigPaths { get; set; }
+                public Pulumi.Flux.Config.Types.KubernetesExec? Exec { get; set; } = null!;
                 public string? Host { get; set; } = null!;
                 public bool? Insecure { get; set; }
                 public string? Password { get; set; } = null!;
                 public string? ProxyUrl { get; set; } = null!;
                 public string? Token { get; set; } = null!;
                 public string? Username { get; set; } = null!;
+            }
+
+             public class KubernetesExec
+             {
+                public string ApiVersion { get; set; }
+                public ImmutableArray<string> Args { get; set; }
+                public string Command { get; set; }
+                public ImmutableDictionary<string, string>? Env { get; set; } = null!;
             }
         }
     }

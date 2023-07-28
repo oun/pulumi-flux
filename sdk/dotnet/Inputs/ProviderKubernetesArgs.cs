@@ -41,6 +41,9 @@ namespace Pulumi.Flux.Inputs
             set => _configPaths = value;
         }
 
+        [Input("exec")]
+        public Input<Inputs.ProviderKubernetesExecArgs>? Exec { get; set; }
+
         [Input("host")]
         public Input<string>? Host { get; set; }
 

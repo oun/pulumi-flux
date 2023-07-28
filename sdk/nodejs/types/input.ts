@@ -5,6 +5,25 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface FluxBootstrapGitTimeouts {
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+     */
+    create?: pulumi.Input<string>;
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs.
+     */
+    delete?: pulumi.Input<string>;
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
+     */
+    read?: pulumi.Input<string>;
+    /**
+     * A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+     */
+    update?: pulumi.Input<string>;
+}
+
 export interface ProviderGit {
     authorEmail?: pulumi.Input<string>;
     authorName?: pulumi.Input<string>;
@@ -40,12 +59,20 @@ export interface ProviderKubernetes {
     configContextCluster?: pulumi.Input<string>;
     configPath?: pulumi.Input<string>;
     configPaths?: pulumi.Input<pulumi.Input<string>[]>;
+    exec?: pulumi.Input<inputs.ProviderKubernetesExec>;
     host?: pulumi.Input<string>;
     insecure?: pulumi.Input<boolean>;
     password?: pulumi.Input<string>;
     proxyUrl?: pulumi.Input<string>;
     token?: pulumi.Input<string>;
     username?: pulumi.Input<string>;
+}
+
+export interface ProviderKubernetesExec {
+    apiVersion: pulumi.Input<string>;
+    args?: pulumi.Input<pulumi.Input<string>[]>;
+    command: pulumi.Input<string>;
+    env?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
 }
 export namespace config {
 }

@@ -6,5 +6,5 @@ import (
 )
 
 func NewProvider() provider.Provider {
-	return p.New("0.24.0")()
+	return p.New("1.0.1")()
 }

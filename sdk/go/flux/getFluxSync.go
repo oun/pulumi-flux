@@ -10,38 +10,6 @@ import (
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
-// `getFluxSync` can be used to generate manifests for reconciling the specified repository path on the cluster.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/oun/pulumi-flux/sdk/go/flux"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			cfg := config.New(ctx, "")
-//			targetPath := cfg.Require("targetPath")
-//			cloneUrl := cfg.Require("cloneUrl")
-//			_, err := flux.GetFluxSync(ctx, &flux.GetFluxSyncArgs{
-//				TargetPath: targetPath,
-//				Url:        cloneUrl,
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 func GetFluxSync(ctx *pulumi.Context, args *GetFluxSyncArgs, opts ...pulumi.InvokeOption) (*GetFluxSyncResult, error) {
 	opts = pkgInvokeDefaultOpts(opts)
 	var rv GetFluxSyncResult
@@ -54,66 +22,38 @@ func GetFluxSync(ctx *pulumi.Context, args *GetFluxSyncArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getFluxSync.
 type GetFluxSyncArgs struct {
-	// Default branch to sync from. Defaults to `main`.
-	Branch *string `pulumi:"branch"`
-	// The Git commit SHA to checkout, if specified Tag filters will be ignored.
-	Commit *string `pulumi:"commit"`
-	// Sync interval in minutes. Defaults to `1`.
-	Interval *int `pulumi:"interval"`
-	// The kubernetes resources name. Defaults to `flux-system`.
-	Name *string `pulumi:"name"`
-	// The namespace scope for this operation. Defaults to `flux-system`.
-	Namespace *string `pulumi:"namespace"`
-	// The names of patches to apply to the Kustomization. Used to generate the `patchFilePaths` output value.
+	Branch     *string  `pulumi:"branch"`
+	Commit     *string  `pulumi:"commit"`
+	Interval   *int     `pulumi:"interval"`
+	Name       *string  `pulumi:"name"`
+	Namespace  *string  `pulumi:"namespace"`
 	PatchNames []string `pulumi:"patchNames"`
-	// The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
-	Secret *string `pulumi:"secret"`
-	// The Git tag semver expression, takes precedence over `tag`.
-	Semver *string `pulumi:"semver"`
-	// The Git tag to checkout, takes precedence over `branch`.
-	Tag *string `pulumi:"tag"`
-	// Relative path to the Git repository root where the sync manifests are committed.
-	TargetPath string `pulumi:"targetPath"`
-	// Git repository clone url.
-	Url string `pulumi:"url"`
+	Secret     *string  `pulumi:"secret"`
+	Semver     *string  `pulumi:"semver"`
+	Tag        *string  `pulumi:"tag"`
+	TargetPath string   `pulumi:"targetPath"`
+	Url        string   `pulumi:"url"`
 }
 
 // A collection of values returned by getFluxSync.
 type GetFluxSyncResult struct {
-	// Default branch to sync from. Defaults to `main`.
-	Branch *string `pulumi:"branch"`
-	// The Git commit SHA to checkout, if specified Tag filters will be ignored.
-	Commit *string `pulumi:"commit"`
-	// Manifests in multi-doc yaml format.
-	Content string `pulumi:"content"`
-	// The ID of this resource.
-	Id string `pulumi:"id"`
-	// Sync interval in minutes. Defaults to `1`.
-	Interval *int `pulumi:"interval"`
-	// Kustomize yaml document.
-	KustomizeContent string `pulumi:"kustomizeContent"`
-	// Expected path of kustomize content in git repository.
-	KustomizePath string `pulumi:"kustomizePath"`
-	// The kubernetes resources name. Defaults to `flux-system`.
-	Name *string `pulumi:"name"`
-	// The namespace scope for this operation. Defaults to `flux-system`.
-	Namespace *string `pulumi:"namespace"`
-	// Map of expected paths of kustomize patches in git repository, keyed by the `patchNames` input variable.
-	PatchFilePaths map[string]string `pulumi:"patchFilePaths"`
-	// The names of patches to apply to the Kustomization. Used to generate the `patchFilePaths` output value.
-	PatchNames []string `pulumi:"patchNames"`
-	// Expected path of content in git repository.
-	Path string `pulumi:"path"`
-	// The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
-	Secret *string `pulumi:"secret"`
-	// The Git tag semver expression, takes precedence over `tag`.
-	Semver *string `pulumi:"semver"`
-	// The Git tag to checkout, takes precedence over `branch`.
-	Tag *string `pulumi:"tag"`
-	// Relative path to the Git repository root where the sync manifests are committed.
-	TargetPath string `pulumi:"targetPath"`
-	// Git repository clone url.
-	Url string `pulumi:"url"`
+	Branch           *string           `pulumi:"branch"`
+	Commit           *string           `pulumi:"commit"`
+	Content          string            `pulumi:"content"`
+	Id               string            `pulumi:"id"`
+	Interval         *int              `pulumi:"interval"`
+	KustomizeContent string            `pulumi:"kustomizeContent"`
+	KustomizePath    string            `pulumi:"kustomizePath"`
+	Name             *string           `pulumi:"name"`
+	Namespace        *string           `pulumi:"namespace"`
+	PatchFilePaths   map[string]string `pulumi:"patchFilePaths"`
+	PatchNames       []string          `pulumi:"patchNames"`
+	Path             string            `pulumi:"path"`
+	Secret           *string           `pulumi:"secret"`
+	Semver           *string           `pulumi:"semver"`
+	Tag              *string           `pulumi:"tag"`
+	TargetPath       string            `pulumi:"targetPath"`
+	Url              string            `pulumi:"url"`
 }
 
 func GetFluxSyncOutput(ctx *pulumi.Context, args GetFluxSyncOutputArgs, opts ...pulumi.InvokeOption) GetFluxSyncResultOutput {
@@ -131,28 +71,17 @@ func GetFluxSyncOutput(ctx *pulumi.Context, args GetFluxSyncOutputArgs, opts ...
 
 // A collection of arguments for invoking getFluxSync.
 type GetFluxSyncOutputArgs struct {
-	// Default branch to sync from. Defaults to `main`.
-	Branch pulumi.StringPtrInput `pulumi:"branch"`
-	// The Git commit SHA to checkout, if specified Tag filters will be ignored.
-	Commit pulumi.StringPtrInput `pulumi:"commit"`
-	// Sync interval in minutes. Defaults to `1`.
-	Interval pulumi.IntPtrInput `pulumi:"interval"`
-	// The kubernetes resources name. Defaults to `flux-system`.
-	Name pulumi.StringPtrInput `pulumi:"name"`
-	// The namespace scope for this operation. Defaults to `flux-system`.
-	Namespace pulumi.StringPtrInput `pulumi:"namespace"`
-	// The names of patches to apply to the Kustomization. Used to generate the `patchFilePaths` output value.
+	Branch     pulumi.StringPtrInput   `pulumi:"branch"`
+	Commit     pulumi.StringPtrInput   `pulumi:"commit"`
+	Interval   pulumi.IntPtrInput      `pulumi:"interval"`
+	Name       pulumi.StringPtrInput   `pulumi:"name"`
+	Namespace  pulumi.StringPtrInput   `pulumi:"namespace"`
 	PatchNames pulumi.StringArrayInput `pulumi:"patchNames"`
-	// The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
-	Secret pulumi.StringPtrInput `pulumi:"secret"`
-	// The Git tag semver expression, takes precedence over `tag`.
-	Semver pulumi.StringPtrInput `pulumi:"semver"`
-	// The Git tag to checkout, takes precedence over `branch`.
-	Tag pulumi.StringPtrInput `pulumi:"tag"`
-	// Relative path to the Git repository root where the sync manifests are committed.
-	TargetPath pulumi.StringInput `pulumi:"targetPath"`
-	// Git repository clone url.
-	Url pulumi.StringInput `pulumi:"url"`
+	Secret     pulumi.StringPtrInput   `pulumi:"secret"`
+	Semver     pulumi.StringPtrInput   `pulumi:"semver"`
+	Tag        pulumi.StringPtrInput   `pulumi:"tag"`
+	TargetPath pulumi.StringInput      `pulumi:"targetPath"`
+	Url        pulumi.StringInput      `pulumi:"url"`
 }
 
 func (GetFluxSyncOutputArgs) ElementType() reflect.Type {
@@ -174,87 +103,70 @@ func (o GetFluxSyncResultOutput) ToGetFluxSyncResultOutputWithContext(ctx contex
 	return o
 }
 
-// Default branch to sync from. Defaults to `main`.
 func (o GetFluxSyncResultOutput) Branch() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) *string { return v.Branch }).(pulumi.StringPtrOutput)
 }
 
-// The Git commit SHA to checkout, if specified Tag filters will be ignored.
 func (o GetFluxSyncResultOutput) Commit() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) *string { return v.Commit }).(pulumi.StringPtrOutput)
 }
 
-// Manifests in multi-doc yaml format.
 func (o GetFluxSyncResultOutput) Content() pulumi.StringOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) string { return v.Content }).(pulumi.StringOutput)
 }
 
-// The ID of this resource.
 func (o GetFluxSyncResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// Sync interval in minutes. Defaults to `1`.
 func (o GetFluxSyncResultOutput) Interval() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) *int { return v.Interval }).(pulumi.IntPtrOutput)
 }
 
-// Kustomize yaml document.
 func (o GetFluxSyncResultOutput) KustomizeContent() pulumi.StringOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) string { return v.KustomizeContent }).(pulumi.StringOutput)
 }
 
-// Expected path of kustomize content in git repository.
 func (o GetFluxSyncResultOutput) KustomizePath() pulumi.StringOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) string { return v.KustomizePath }).(pulumi.StringOutput)
 }
 
-// The kubernetes resources name. Defaults to `flux-system`.
 func (o GetFluxSyncResultOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// The namespace scope for this operation. Defaults to `flux-system`.
 func (o GetFluxSyncResultOutput) Namespace() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) *string { return v.Namespace }).(pulumi.StringPtrOutput)
 }
 
-// Map of expected paths of kustomize patches in git repository, keyed by the `patchNames` input variable.
 func (o GetFluxSyncResultOutput) PatchFilePaths() pulumi.StringMapOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) map[string]string { return v.PatchFilePaths }).(pulumi.StringMapOutput)
 }
 
-// The names of patches to apply to the Kustomization. Used to generate the `patchFilePaths` output value.
 func (o GetFluxSyncResultOutput) PatchNames() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) []string { return v.PatchNames }).(pulumi.StringArrayOutput)
 }
 
-// Expected path of content in git repository.
 func (o GetFluxSyncResultOutput) Path() pulumi.StringOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) string { return v.Path }).(pulumi.StringOutput)
 }
 
-// The name of the secret that is referenced by GitRepository as SecretRef. Defaults to `flux-system`.
 func (o GetFluxSyncResultOutput) Secret() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) *string { return v.Secret }).(pulumi.StringPtrOutput)
 }
 
-// The Git tag semver expression, takes precedence over `tag`.
 func (o GetFluxSyncResultOutput) Semver() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) *string { return v.Semver }).(pulumi.StringPtrOutput)
 }
 
-// The Git tag to checkout, takes precedence over `branch`.
 func (o GetFluxSyncResultOutput) Tag() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) *string { return v.Tag }).(pulumi.StringPtrOutput)
 }
 
-// Relative path to the Git repository root where the sync manifests are committed.
 func (o GetFluxSyncResultOutput) TargetPath() pulumi.StringOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) string { return v.TargetPath }).(pulumi.StringOutput)
 }
 
-// Git repository clone url.
 func (o GetFluxSyncResultOutput) Url() pulumi.StringOutput {
 	return o.ApplyT(func(v GetFluxSyncResult) string { return v.Url }).(pulumi.StringOutput)
 }

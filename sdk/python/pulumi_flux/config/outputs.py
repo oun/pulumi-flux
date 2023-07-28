@@ -15,6 +15,7 @@ __all__ = [
     'GitHttp',
     'GitSsh',
     'Kubernetes',
+    'KubernetesExec',
 ]
 
 @pulumi.output_type
@@ -178,6 +179,7 @@ class Kubernetes(dict):
                  config_context_cluster: Optional[str] = None,
                  config_path: Optional[str] = None,
                  config_paths: Optional[Sequence[str]] = None,
+                 exec_: Optional['outputs.KubernetesExec'] = None,
                  host: Optional[str] = None,
                  insecure: Optional[bool] = None,
                  password: Optional[str] = None,
@@ -200,6 +202,8 @@ class Kubernetes(dict):
             pulumi.set(__self__, "config_path", config_path)
         if config_paths is not None:
             pulumi.set(__self__, "config_paths", config_paths)
+        if exec_ is not None:
+            pulumi.set(__self__, "exec_", exec_)
         if host is not None:
             pulumi.set(__self__, "host", host)
         if insecure is not None:
@@ -254,6 +258,11 @@ class Kubernetes(dict):
         return pulumi.get(self, "config_paths")
 
     @property
+    @pulumi.getter(name="exec")
+    def exec_(self) -> Optional['outputs.KubernetesExec']:
+        return pulumi.get(self, "exec_")
+
+    @property
     @pulumi.getter
     def host(self) -> Optional[str]:
         return pulumi.get(self, "host")
@@ -282,5 +291,40 @@ class Kubernetes(dict):
     @pulumi.getter
     def username(self) -> Optional[str]:
         return pulumi.get(self, "username")
+
+
+@pulumi.output_type
+class KubernetesExec(dict):
+    def __init__(__self__, *,
+                 api_version: str,
+                 command: str,
+                 args: Optional[Sequence[str]] = None,
+                 env: Optional[Mapping[str, str]] = None):
+        pulumi.set(__self__, "api_version", api_version)
+        pulumi.set(__self__, "command", command)
+        if args is not None:
+            pulumi.set(__self__, "args", args)
+        if env is not None:
+            pulumi.set(__self__, "env", env)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> str:
+        return pulumi.get(self, "api_version")
+
+    @property
+    @pulumi.getter
+    def command(self) -> str:
+        return pulumi.get(self, "command")
+
+    @property
+    @pulumi.getter
+    def args(self) -> Optional[Sequence[str]]:
+        return pulumi.get(self, "args")
+
+    @property
+    @pulumi.getter
+    def env(self) -> Optional[Mapping[str, str]]:
+        return pulumi.get(self, "env")
 
 

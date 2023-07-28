@@ -10,11 +10,84 @@ from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
 
 __all__ = [
+    'FluxBootstrapGitTimeoutsArgs',
     'ProviderGitArgs',
     'ProviderGitHttpArgs',
     'ProviderGitSshArgs',
     'ProviderKubernetesArgs',
+    'ProviderKubernetesExecArgs',
 ]
+
+@pulumi.input_type
+class FluxBootstrapGitTimeoutsArgs:
+    def __init__(__self__, *,
+                 create: Optional[pulumi.Input[str]] = None,
+                 delete: Optional[pulumi.Input[str]] = None,
+                 read: Optional[pulumi.Input[str]] = None,
+                 update: Optional[pulumi.Input[str]] = None):
+        """
+        :param pulumi.Input[str] create: A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+        :param pulumi.Input[str] delete: A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs.
+        :param pulumi.Input[str] read: A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
+        :param pulumi.Input[str] update: A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+        """
+        if create is not None:
+            pulumi.set(__self__, "create", create)
+        if delete is not None:
+            pulumi.set(__self__, "delete", delete)
+        if read is not None:
+            pulumi.set(__self__, "read", read)
+        if update is not None:
+            pulumi.set(__self__, "update", update)
+
+    @property
+    @pulumi.getter
+    def create(self) -> Optional[pulumi.Input[str]]:
+        """
+        A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+        """
+        return pulumi.get(self, "create")
+
+    @create.setter
+    def create(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "create", value)
+
+    @property
+    @pulumi.getter
+    def delete(self) -> Optional[pulumi.Input[str]]:
+        """
+        A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Setting a timeout for a Delete operation is only applicable if changes are saved into state before the destroy operation occurs.
+        """
+        return pulumi.get(self, "delete")
+
+    @delete.setter
+    def delete(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "delete", value)
+
+    @property
+    @pulumi.getter
+    def read(self) -> Optional[pulumi.Input[str]]:
+        """
+        A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours). Read operations occur during any refresh or planning operation when refresh is enabled.
+        """
+        return pulumi.get(self, "read")
+
+    @read.setter
+    def read(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "read", value)
+
+    @property
+    @pulumi.getter
+    def update(self) -> Optional[pulumi.Input[str]]:
+        """
+        A string that can be [parsed as a duration](https://pkg.go.dev/time#ParseDuration) consisting of numbers and unit suffixes, such as "30s" or "2h45m". Valid time units are "s" (seconds), "m" (minutes), "h" (hours).
+        """
+        return pulumi.get(self, "update")
+
+    @update.setter
+    def update(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "update", value)
+
 
 @pulumi.input_type
 class ProviderGitArgs:
@@ -245,6 +318,7 @@ class ProviderKubernetesArgs:
                  config_context_cluster: Optional[pulumi.Input[str]] = None,
                  config_path: Optional[pulumi.Input[str]] = None,
                  config_paths: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 exec_: Optional[pulumi.Input['ProviderKubernetesExecArgs']] = None,
                  host: Optional[pulumi.Input[str]] = None,
                  insecure: Optional[pulumi.Input[bool]] = None,
                  password: Optional[pulumi.Input[str]] = None,
@@ -267,6 +341,8 @@ class ProviderKubernetesArgs:
             pulumi.set(__self__, "config_path", config_path)
         if config_paths is not None:
             pulumi.set(__self__, "config_paths", config_paths)
+        if exec_ is not None:
+            pulumi.set(__self__, "exec_", exec_)
         if host is not None:
             pulumi.set(__self__, "host", host)
         if insecure is not None:
@@ -353,6 +429,15 @@ class ProviderKubernetesArgs:
         pulumi.set(self, "config_paths", value)
 
     @property
+    @pulumi.getter(name="exec")
+    def exec_(self) -> Optional[pulumi.Input['ProviderKubernetesExecArgs']]:
+        return pulumi.get(self, "exec_")
+
+    @exec_.setter
+    def exec_(self, value: Optional[pulumi.Input['ProviderKubernetesExecArgs']]):
+        pulumi.set(self, "exec_", value)
+
+    @property
     @pulumi.getter
     def host(self) -> Optional[pulumi.Input[str]]:
         return pulumi.get(self, "host")
@@ -405,5 +490,56 @@ class ProviderKubernetesArgs:
     @username.setter
     def username(self, value: Optional[pulumi.Input[str]]):
         pulumi.set(self, "username", value)
+
+
+@pulumi.input_type
+class ProviderKubernetesExecArgs:
+    def __init__(__self__, *,
+                 api_version: pulumi.Input[str],
+                 command: pulumi.Input[str],
+                 args: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 env: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
+        pulumi.set(__self__, "api_version", api_version)
+        pulumi.set(__self__, "command", command)
+        if args is not None:
+            pulumi.set(__self__, "args", args)
+        if env is not None:
+            pulumi.set(__self__, "env", env)
+
+    @property
+    @pulumi.getter(name="apiVersion")
+    def api_version(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "api_version")
+
+    @api_version.setter
+    def api_version(self, value: pulumi.Input[str]):
+        pulumi.set(self, "api_version", value)
+
+    @property
+    @pulumi.getter
+    def command(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "command")
+
+    @command.setter
+    def command(self, value: pulumi.Input[str]):
+        pulumi.set(self, "command", value)
+
+    @property
+    @pulumi.getter
+    def args(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
+        return pulumi.get(self, "args")
+
+    @args.setter
+    def args(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
+        pulumi.set(self, "args", value)
+
+    @property
+    @pulumi.getter
+    def env(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        return pulumi.get(self, "env")
+
+    @env.setter
+    def env(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "env", value)
 
 

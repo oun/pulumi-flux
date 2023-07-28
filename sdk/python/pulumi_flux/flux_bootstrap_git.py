@@ -8,6 +8,8 @@ import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
 from . import _utilities
+from . import outputs
+from ._inputs import *
 
 __all__ = ['FluxBootstrapGitArgs', 'FluxBootstrapGit']
 
@@ -17,6 +19,7 @@ class FluxBootstrapGitArgs:
                  cluster_domain: Optional[pulumi.Input[str]] = None,
                  components: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  components_extras: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 disable_secret_creation: Optional[pulumi.Input[bool]] = None,
                  image_pull_secret: Optional[pulumi.Input[str]] = None,
                  interval: Optional[pulumi.Input[str]] = None,
                  kustomization_override: Optional[pulumi.Input[str]] = None,
@@ -27,6 +30,7 @@ class FluxBootstrapGitArgs:
                  recurse_submodules: Optional[pulumi.Input[bool]] = None,
                  registry: Optional[pulumi.Input[str]] = None,
                  secret_name: Optional[pulumi.Input[str]] = None,
+                 timeouts: Optional[pulumi.Input['FluxBootstrapGitTimeoutsArgs']] = None,
                  toleration_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  watch_all_namespaces: Optional[pulumi.Input[bool]] = None):
@@ -35,6 +39,7 @@ class FluxBootstrapGitArgs:
         :param pulumi.Input[str] cluster_domain: The internal cluster domain. Defaults to `cluster.local`
         :param pulumi.Input[Sequence[pulumi.Input[str]]] components: Toolkit components to include in the install manifests. Defaults to `[source-controller kustomize-controller helm-controller notification-controller]`
         :param pulumi.Input[Sequence[pulumi.Input[str]]] components_extras: List of extra components to include in the install manifests.
+        :param pulumi.Input[bool] disable_secret_creation: Use the existing secret for flux controller and don't create one from bootstrap
         :param pulumi.Input[str] image_pull_secret: Kubernetes secret name used for pulling the toolkit images from a private registry.
         :param pulumi.Input[str] interval: Interval at which to reconcile from bootstrap repository. Defaults to `1m0s`.
         :param pulumi.Input[str] kustomization_override: Kustomization to override configuration set by default.
@@ -46,7 +51,7 @@ class FluxBootstrapGitArgs:
         :param pulumi.Input[str] registry: Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.
         :param pulumi.Input[str] secret_name: Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] toleration_keys: List of toleration keys used to schedule the components pods onto nodes with matching taints.
-        :param pulumi.Input[str] version: Flux version. Defaults to `v0.41.2`.
+        :param pulumi.Input[str] version: Flux version. Defaults to `v2.0.1`.
         :param pulumi.Input[bool] watch_all_namespaces: If true watch for custom resources in all namespaces. Defaults to `true`.
         """
         if cluster_domain is not None:
@@ -55,6 +60,8 @@ class FluxBootstrapGitArgs:
             pulumi.set(__self__, "components", components)
         if components_extras is not None:
             pulumi.set(__self__, "components_extras", components_extras)
+        if disable_secret_creation is not None:
+            pulumi.set(__self__, "disable_secret_creation", disable_secret_creation)
         if image_pull_secret is not None:
             pulumi.set(__self__, "image_pull_secret", image_pull_secret)
         if interval is not None:
@@ -75,6 +82,8 @@ class FluxBootstrapGitArgs:
             pulumi.set(__self__, "registry", registry)
         if secret_name is not None:
             pulumi.set(__self__, "secret_name", secret_name)
+        if timeouts is not None:
+            pulumi.set(__self__, "timeouts", timeouts)
         if toleration_keys is not None:
             pulumi.set(__self__, "toleration_keys", toleration_keys)
         if version is not None:
@@ -117,6 +126,18 @@ class FluxBootstrapGitArgs:
     @components_extras.setter
     def components_extras(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "components_extras", value)
+
+    @property
+    @pulumi.getter(name="disableSecretCreation")
+    def disable_secret_creation(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Use the existing secret for flux controller and don't create one from bootstrap
+        """
+        return pulumi.get(self, "disable_secret_creation")
+
+    @disable_secret_creation.setter
+    def disable_secret_creation(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "disable_secret_creation", value)
 
     @property
     @pulumi.getter(name="imagePullSecret")
@@ -239,6 +260,15 @@ class FluxBootstrapGitArgs:
         pulumi.set(self, "secret_name", value)
 
     @property
+    @pulumi.getter
+    def timeouts(self) -> Optional[pulumi.Input['FluxBootstrapGitTimeoutsArgs']]:
+        return pulumi.get(self, "timeouts")
+
+    @timeouts.setter
+    def timeouts(self, value: Optional[pulumi.Input['FluxBootstrapGitTimeoutsArgs']]):
+        pulumi.set(self, "timeouts", value)
+
+    @property
     @pulumi.getter(name="tolerationKeys")
     def toleration_keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
@@ -254,7 +284,7 @@ class FluxBootstrapGitArgs:
     @pulumi.getter
     def version(self) -> Optional[pulumi.Input[str]]:
         """
-        Flux version. Defaults to `v0.41.2`.
+        Flux version. Defaults to `v2.0.1`.
         """
         return pulumi.get(self, "version")
 
@@ -281,6 +311,7 @@ class _FluxBootstrapGitState:
                  cluster_domain: Optional[pulumi.Input[str]] = None,
                  components: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  components_extras: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 disable_secret_creation: Optional[pulumi.Input[bool]] = None,
                  image_pull_secret: Optional[pulumi.Input[str]] = None,
                  interval: Optional[pulumi.Input[str]] = None,
                  kustomization_override: Optional[pulumi.Input[str]] = None,
@@ -292,6 +323,7 @@ class _FluxBootstrapGitState:
                  registry: Optional[pulumi.Input[str]] = None,
                  repository_files: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
                  secret_name: Optional[pulumi.Input[str]] = None,
+                 timeouts: Optional[pulumi.Input['FluxBootstrapGitTimeoutsArgs']] = None,
                  toleration_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  watch_all_namespaces: Optional[pulumi.Input[bool]] = None):
@@ -300,6 +332,7 @@ class _FluxBootstrapGitState:
         :param pulumi.Input[str] cluster_domain: The internal cluster domain. Defaults to `cluster.local`
         :param pulumi.Input[Sequence[pulumi.Input[str]]] components: Toolkit components to include in the install manifests. Defaults to `[source-controller kustomize-controller helm-controller notification-controller]`
         :param pulumi.Input[Sequence[pulumi.Input[str]]] components_extras: List of extra components to include in the install manifests.
+        :param pulumi.Input[bool] disable_secret_creation: Use the existing secret for flux controller and don't create one from bootstrap
         :param pulumi.Input[str] image_pull_secret: Kubernetes secret name used for pulling the toolkit images from a private registry.
         :param pulumi.Input[str] interval: Interval at which to reconcile from bootstrap repository. Defaults to `1m0s`.
         :param pulumi.Input[str] kustomization_override: Kustomization to override configuration set by default.
@@ -312,7 +345,7 @@ class _FluxBootstrapGitState:
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] repository_files: Git repository files created and managed by the provider.
         :param pulumi.Input[str] secret_name: Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] toleration_keys: List of toleration keys used to schedule the components pods onto nodes with matching taints.
-        :param pulumi.Input[str] version: Flux version. Defaults to `v0.41.2`.
+        :param pulumi.Input[str] version: Flux version. Defaults to `v2.0.1`.
         :param pulumi.Input[bool] watch_all_namespaces: If true watch for custom resources in all namespaces. Defaults to `true`.
         """
         if cluster_domain is not None:
@@ -321,6 +354,8 @@ class _FluxBootstrapGitState:
             pulumi.set(__self__, "components", components)
         if components_extras is not None:
             pulumi.set(__self__, "components_extras", components_extras)
+        if disable_secret_creation is not None:
+            pulumi.set(__self__, "disable_secret_creation", disable_secret_creation)
         if image_pull_secret is not None:
             pulumi.set(__self__, "image_pull_secret", image_pull_secret)
         if interval is not None:
@@ -343,6 +378,8 @@ class _FluxBootstrapGitState:
             pulumi.set(__self__, "repository_files", repository_files)
         if secret_name is not None:
             pulumi.set(__self__, "secret_name", secret_name)
+        if timeouts is not None:
+            pulumi.set(__self__, "timeouts", timeouts)
         if toleration_keys is not None:
             pulumi.set(__self__, "toleration_keys", toleration_keys)
         if version is not None:
@@ -385,6 +422,18 @@ class _FluxBootstrapGitState:
     @components_extras.setter
     def components_extras(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]):
         pulumi.set(self, "components_extras", value)
+
+    @property
+    @pulumi.getter(name="disableSecretCreation")
+    def disable_secret_creation(self) -> Optional[pulumi.Input[bool]]:
+        """
+        Use the existing secret for flux controller and don't create one from bootstrap
+        """
+        return pulumi.get(self, "disable_secret_creation")
+
+    @disable_secret_creation.setter
+    def disable_secret_creation(self, value: Optional[pulumi.Input[bool]]):
+        pulumi.set(self, "disable_secret_creation", value)
 
     @property
     @pulumi.getter(name="imagePullSecret")
@@ -519,6 +568,15 @@ class _FluxBootstrapGitState:
         pulumi.set(self, "secret_name", value)
 
     @property
+    @pulumi.getter
+    def timeouts(self) -> Optional[pulumi.Input['FluxBootstrapGitTimeoutsArgs']]:
+        return pulumi.get(self, "timeouts")
+
+    @timeouts.setter
+    def timeouts(self, value: Optional[pulumi.Input['FluxBootstrapGitTimeoutsArgs']]):
+        pulumi.set(self, "timeouts", value)
+
+    @property
     @pulumi.getter(name="tolerationKeys")
     def toleration_keys(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[str]]]]:
         """
@@ -534,7 +592,7 @@ class _FluxBootstrapGitState:
     @pulumi.getter
     def version(self) -> Optional[pulumi.Input[str]]:
         """
-        Flux version. Defaults to `v0.41.2`.
+        Flux version. Defaults to `v2.0.1`.
         """
         return pulumi.get(self, "version")
 
@@ -563,6 +621,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
                  cluster_domain: Optional[pulumi.Input[str]] = None,
                  components: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  components_extras: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 disable_secret_creation: Optional[pulumi.Input[bool]] = None,
                  image_pull_secret: Optional[pulumi.Input[str]] = None,
                  interval: Optional[pulumi.Input[str]] = None,
                  kustomization_override: Optional[pulumi.Input[str]] = None,
@@ -573,6 +632,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
                  recurse_submodules: Optional[pulumi.Input[bool]] = None,
                  registry: Optional[pulumi.Input[str]] = None,
                  secret_name: Optional[pulumi.Input[str]] = None,
+                 timeouts: Optional[pulumi.Input[pulumi.InputType['FluxBootstrapGitTimeoutsArgs']]] = None,
                  toleration_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  watch_all_namespaces: Optional[pulumi.Input[bool]] = None,
@@ -580,9 +640,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
         """
         Commits Flux components to a Git repository and configures a Kubernetes cluster to synchronize with the same Git repository.
 
-        > **NOTE:** Checkout the GitHub bootstrap guide for a walkthrough over how to use this resource with GitHub.
-
-        > **NOTE:** A breaking change in the attributes have been made in this resource. Read the guide for information of the changes required.
+        > **NOTE:** Checkout the GitHub bootstrap guide for a detailed step by step guide.
 
         ## Example Usage
 
@@ -608,6 +666,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
         :param pulumi.Input[str] cluster_domain: The internal cluster domain. Defaults to `cluster.local`
         :param pulumi.Input[Sequence[pulumi.Input[str]]] components: Toolkit components to include in the install manifests. Defaults to `[source-controller kustomize-controller helm-controller notification-controller]`
         :param pulumi.Input[Sequence[pulumi.Input[str]]] components_extras: List of extra components to include in the install manifests.
+        :param pulumi.Input[bool] disable_secret_creation: Use the existing secret for flux controller and don't create one from bootstrap
         :param pulumi.Input[str] image_pull_secret: Kubernetes secret name used for pulling the toolkit images from a private registry.
         :param pulumi.Input[str] interval: Interval at which to reconcile from bootstrap repository. Defaults to `1m0s`.
         :param pulumi.Input[str] kustomization_override: Kustomization to override configuration set by default.
@@ -619,7 +678,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
         :param pulumi.Input[str] registry: Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.
         :param pulumi.Input[str] secret_name: Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] toleration_keys: List of toleration keys used to schedule the components pods onto nodes with matching taints.
-        :param pulumi.Input[str] version: Flux version. Defaults to `v0.41.2`.
+        :param pulumi.Input[str] version: Flux version. Defaults to `v2.0.1`.
         :param pulumi.Input[bool] watch_all_namespaces: If true watch for custom resources in all namespaces. Defaults to `true`.
         """
         ...
@@ -631,9 +690,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
         """
         Commits Flux components to a Git repository and configures a Kubernetes cluster to synchronize with the same Git repository.
 
-        > **NOTE:** Checkout the GitHub bootstrap guide for a walkthrough over how to use this resource with GitHub.
-
-        > **NOTE:** A breaking change in the attributes have been made in this resource. Read the guide for information of the changes required.
+        > **NOTE:** Checkout the GitHub bootstrap guide for a detailed step by step guide.
 
         ## Example Usage
 
@@ -672,6 +729,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
                  cluster_domain: Optional[pulumi.Input[str]] = None,
                  components: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  components_extras: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+                 disable_secret_creation: Optional[pulumi.Input[bool]] = None,
                  image_pull_secret: Optional[pulumi.Input[str]] = None,
                  interval: Optional[pulumi.Input[str]] = None,
                  kustomization_override: Optional[pulumi.Input[str]] = None,
@@ -682,6 +740,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
                  recurse_submodules: Optional[pulumi.Input[bool]] = None,
                  registry: Optional[pulumi.Input[str]] = None,
                  secret_name: Optional[pulumi.Input[str]] = None,
+                 timeouts: Optional[pulumi.Input[pulumi.InputType['FluxBootstrapGitTimeoutsArgs']]] = None,
                  toleration_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
                  version: Optional[pulumi.Input[str]] = None,
                  watch_all_namespaces: Optional[pulumi.Input[bool]] = None,
@@ -697,6 +756,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
             __props__.__dict__["cluster_domain"] = cluster_domain
             __props__.__dict__["components"] = components
             __props__.__dict__["components_extras"] = components_extras
+            __props__.__dict__["disable_secret_creation"] = disable_secret_creation
             __props__.__dict__["image_pull_secret"] = image_pull_secret
             __props__.__dict__["interval"] = interval
             __props__.__dict__["kustomization_override"] = kustomization_override
@@ -707,6 +767,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
             __props__.__dict__["recurse_submodules"] = recurse_submodules
             __props__.__dict__["registry"] = registry
             __props__.__dict__["secret_name"] = secret_name
+            __props__.__dict__["timeouts"] = timeouts
             __props__.__dict__["toleration_keys"] = toleration_keys
             __props__.__dict__["version"] = version
             __props__.__dict__["watch_all_namespaces"] = watch_all_namespaces
@@ -724,6 +785,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
             cluster_domain: Optional[pulumi.Input[str]] = None,
             components: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             components_extras: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
+            disable_secret_creation: Optional[pulumi.Input[bool]] = None,
             image_pull_secret: Optional[pulumi.Input[str]] = None,
             interval: Optional[pulumi.Input[str]] = None,
             kustomization_override: Optional[pulumi.Input[str]] = None,
@@ -735,6 +797,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
             registry: Optional[pulumi.Input[str]] = None,
             repository_files: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
             secret_name: Optional[pulumi.Input[str]] = None,
+            timeouts: Optional[pulumi.Input[pulumi.InputType['FluxBootstrapGitTimeoutsArgs']]] = None,
             toleration_keys: Optional[pulumi.Input[Sequence[pulumi.Input[str]]]] = None,
             version: Optional[pulumi.Input[str]] = None,
             watch_all_namespaces: Optional[pulumi.Input[bool]] = None) -> 'FluxBootstrapGit':
@@ -748,6 +811,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
         :param pulumi.Input[str] cluster_domain: The internal cluster domain. Defaults to `cluster.local`
         :param pulumi.Input[Sequence[pulumi.Input[str]]] components: Toolkit components to include in the install manifests. Defaults to `[source-controller kustomize-controller helm-controller notification-controller]`
         :param pulumi.Input[Sequence[pulumi.Input[str]]] components_extras: List of extra components to include in the install manifests.
+        :param pulumi.Input[bool] disable_secret_creation: Use the existing secret for flux controller and don't create one from bootstrap
         :param pulumi.Input[str] image_pull_secret: Kubernetes secret name used for pulling the toolkit images from a private registry.
         :param pulumi.Input[str] interval: Interval at which to reconcile from bootstrap repository. Defaults to `1m0s`.
         :param pulumi.Input[str] kustomization_override: Kustomization to override configuration set by default.
@@ -760,7 +824,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
         :param pulumi.Input[Mapping[str, pulumi.Input[str]]] repository_files: Git repository files created and managed by the provider.
         :param pulumi.Input[str] secret_name: Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.
         :param pulumi.Input[Sequence[pulumi.Input[str]]] toleration_keys: List of toleration keys used to schedule the components pods onto nodes with matching taints.
-        :param pulumi.Input[str] version: Flux version. Defaults to `v0.41.2`.
+        :param pulumi.Input[str] version: Flux version. Defaults to `v2.0.1`.
         :param pulumi.Input[bool] watch_all_namespaces: If true watch for custom resources in all namespaces. Defaults to `true`.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -770,6 +834,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
         __props__.__dict__["cluster_domain"] = cluster_domain
         __props__.__dict__["components"] = components
         __props__.__dict__["components_extras"] = components_extras
+        __props__.__dict__["disable_secret_creation"] = disable_secret_creation
         __props__.__dict__["image_pull_secret"] = image_pull_secret
         __props__.__dict__["interval"] = interval
         __props__.__dict__["kustomization_override"] = kustomization_override
@@ -781,6 +846,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
         __props__.__dict__["registry"] = registry
         __props__.__dict__["repository_files"] = repository_files
         __props__.__dict__["secret_name"] = secret_name
+        __props__.__dict__["timeouts"] = timeouts
         __props__.__dict__["toleration_keys"] = toleration_keys
         __props__.__dict__["version"] = version
         __props__.__dict__["watch_all_namespaces"] = watch_all_namespaces
@@ -809,6 +875,14 @@ class FluxBootstrapGit(pulumi.CustomResource):
         List of extra components to include in the install manifests.
         """
         return pulumi.get(self, "components_extras")
+
+    @property
+    @pulumi.getter(name="disableSecretCreation")
+    def disable_secret_creation(self) -> pulumi.Output[Optional[bool]]:
+        """
+        Use the existing secret for flux controller and don't create one from bootstrap
+        """
+        return pulumi.get(self, "disable_secret_creation")
 
     @property
     @pulumi.getter(name="imagePullSecret")
@@ -899,6 +973,11 @@ class FluxBootstrapGit(pulumi.CustomResource):
         return pulumi.get(self, "secret_name")
 
     @property
+    @pulumi.getter
+    def timeouts(self) -> pulumi.Output[Optional['outputs.FluxBootstrapGitTimeouts']]:
+        return pulumi.get(self, "timeouts")
+
+    @property
     @pulumi.getter(name="tolerationKeys")
     def toleration_keys(self) -> pulumi.Output[Optional[Sequence[str]]]:
         """
@@ -910,7 +989,7 @@ class FluxBootstrapGit(pulumi.CustomResource):
     @pulumi.getter
     def version(self) -> pulumi.Output[str]:
         """
-        Flux version. Defaults to `v0.41.2`.
+        Flux version. Defaults to `v2.0.1`.
         """
         return pulumi.get(self, "version")
 

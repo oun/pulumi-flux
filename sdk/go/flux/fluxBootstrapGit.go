@@ -12,9 +12,7 @@ import (
 
 // Commits Flux components to a Git repository and configures a Kubernetes cluster to synchronize with the same Git repository.
 //
-// > **NOTE:** Checkout the GitHub bootstrap guide for a walkthrough over how to use this resource with GitHub.
-//
-// > **NOTE:** A breaking change in the attributes have been made in this resource. Read the guide for information of the changes required.
+// > **NOTE:** Checkout the GitHub bootstrap guide for a detailed step by step guide.
 //
 // ## Example Usage
 //
@@ -62,6 +60,8 @@ type FluxBootstrapGit struct {
 	Components pulumi.StringArrayOutput `pulumi:"components"`
 	// List of extra components to include in the install manifests.
 	ComponentsExtras pulumi.StringArrayOutput `pulumi:"componentsExtras"`
+	// Use the existing secret for flux controller and don't create one from bootstrap
+	DisableSecretCreation pulumi.BoolPtrOutput `pulumi:"disableSecretCreation"`
 	// Kubernetes secret name used for pulling the toolkit images from a private registry.
 	ImagePullSecret pulumi.StringPtrOutput `pulumi:"imagePullSecret"`
 	// Interval at which to reconcile from bootstrap repository. Defaults to `1m0s`.
@@ -83,10 +83,11 @@ type FluxBootstrapGit struct {
 	// Git repository files created and managed by the provider.
 	RepositoryFiles pulumi.StringMapOutput `pulumi:"repositoryFiles"`
 	// Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.
-	SecretName pulumi.StringOutput `pulumi:"secretName"`
+	SecretName pulumi.StringOutput               `pulumi:"secretName"`
+	Timeouts   FluxBootstrapGitTimeoutsPtrOutput `pulumi:"timeouts"`
 	// List of toleration keys used to schedule the components pods onto nodes with matching taints.
 	TolerationKeys pulumi.StringArrayOutput `pulumi:"tolerationKeys"`
-	// Flux version. Defaults to `v0.41.2`.
+	// Flux version. Defaults to `v2.0.1`.
 	Version pulumi.StringOutput `pulumi:"version"`
 	// If true watch for custom resources in all namespaces. Defaults to `true`.
 	WatchAllNamespaces pulumi.BoolOutput `pulumi:"watchAllNamespaces"`
@@ -128,6 +129,8 @@ type fluxBootstrapGitState struct {
 	Components []string `pulumi:"components"`
 	// List of extra components to include in the install manifests.
 	ComponentsExtras []string `pulumi:"componentsExtras"`
+	// Use the existing secret for flux controller and don't create one from bootstrap
+	DisableSecretCreation *bool `pulumi:"disableSecretCreation"`
 	// Kubernetes secret name used for pulling the toolkit images from a private registry.
 	ImagePullSecret *string `pulumi:"imagePullSecret"`
 	// Interval at which to reconcile from bootstrap repository. Defaults to `1m0s`.
@@ -149,10 +152,11 @@ type fluxBootstrapGitState struct {
 	// Git repository files created and managed by the provider.
 	RepositoryFiles map[string]string `pulumi:"repositoryFiles"`
 	// Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.
-	SecretName *string `pulumi:"secretName"`
+	SecretName *string                   `pulumi:"secretName"`
+	Timeouts   *FluxBootstrapGitTimeouts `pulumi:"timeouts"`
 	// List of toleration keys used to schedule the components pods onto nodes with matching taints.
 	TolerationKeys []string `pulumi:"tolerationKeys"`
-	// Flux version. Defaults to `v0.41.2`.
+	// Flux version. Defaults to `v2.0.1`.
 	Version *string `pulumi:"version"`
 	// If true watch for custom resources in all namespaces. Defaults to `true`.
 	WatchAllNamespaces *bool `pulumi:"watchAllNamespaces"`
@@ -165,6 +169,8 @@ type FluxBootstrapGitState struct {
 	Components pulumi.StringArrayInput
 	// List of extra components to include in the install manifests.
 	ComponentsExtras pulumi.StringArrayInput
+	// Use the existing secret for flux controller and don't create one from bootstrap
+	DisableSecretCreation pulumi.BoolPtrInput
 	// Kubernetes secret name used for pulling the toolkit images from a private registry.
 	ImagePullSecret pulumi.StringPtrInput
 	// Interval at which to reconcile from bootstrap repository. Defaults to `1m0s`.
@@ -187,9 +193,10 @@ type FluxBootstrapGitState struct {
 	RepositoryFiles pulumi.StringMapInput
 	// Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.
 	SecretName pulumi.StringPtrInput
+	Timeouts   FluxBootstrapGitTimeoutsPtrInput
 	// List of toleration keys used to schedule the components pods onto nodes with matching taints.
 	TolerationKeys pulumi.StringArrayInput
-	// Flux version. Defaults to `v0.41.2`.
+	// Flux version. Defaults to `v2.0.1`.
 	Version pulumi.StringPtrInput
 	// If true watch for custom resources in all namespaces. Defaults to `true`.
 	WatchAllNamespaces pulumi.BoolPtrInput
@@ -206,6 +213,8 @@ type fluxBootstrapGitArgs struct {
 	Components []string `pulumi:"components"`
 	// List of extra components to include in the install manifests.
 	ComponentsExtras []string `pulumi:"componentsExtras"`
+	// Use the existing secret for flux controller and don't create one from bootstrap
+	DisableSecretCreation *bool `pulumi:"disableSecretCreation"`
 	// Kubernetes secret name used for pulling the toolkit images from a private registry.
 	ImagePullSecret *string `pulumi:"imagePullSecret"`
 	// Interval at which to reconcile from bootstrap repository. Defaults to `1m0s`.
@@ -225,10 +234,11 @@ type fluxBootstrapGitArgs struct {
 	// Container registry where the toolkit images are published. Defaults to `ghcr.io/fluxcd`.
 	Registry *string `pulumi:"registry"`
 	// Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.
-	SecretName *string `pulumi:"secretName"`
+	SecretName *string                   `pulumi:"secretName"`
+	Timeouts   *FluxBootstrapGitTimeouts `pulumi:"timeouts"`
 	// List of toleration keys used to schedule the components pods onto nodes with matching taints.
 	TolerationKeys []string `pulumi:"tolerationKeys"`
-	// Flux version. Defaults to `v0.41.2`.
+	// Flux version. Defaults to `v2.0.1`.
 	Version *string `pulumi:"version"`
 	// If true watch for custom resources in all namespaces. Defaults to `true`.
 	WatchAllNamespaces *bool `pulumi:"watchAllNamespaces"`
@@ -242,6 +252,8 @@ type FluxBootstrapGitArgs struct {
 	Components pulumi.StringArrayInput
 	// List of extra components to include in the install manifests.
 	ComponentsExtras pulumi.StringArrayInput
+	// Use the existing secret for flux controller and don't create one from bootstrap
+	DisableSecretCreation pulumi.BoolPtrInput
 	// Kubernetes secret name used for pulling the toolkit images from a private registry.
 	ImagePullSecret pulumi.StringPtrInput
 	// Interval at which to reconcile from bootstrap repository. Defaults to `1m0s`.
@@ -262,9 +274,10 @@ type FluxBootstrapGitArgs struct {
 	Registry pulumi.StringPtrInput
 	// Name of the secret the sync credentials can be found in or stored to. Defaults to `flux-system`.
 	SecretName pulumi.StringPtrInput
+	Timeouts   FluxBootstrapGitTimeoutsPtrInput
 	// List of toleration keys used to schedule the components pods onto nodes with matching taints.
 	TolerationKeys pulumi.StringArrayInput
-	// Flux version. Defaults to `v0.41.2`.
+	// Flux version. Defaults to `v2.0.1`.
 	Version pulumi.StringPtrInput
 	// If true watch for custom resources in all namespaces. Defaults to `true`.
 	WatchAllNamespaces pulumi.BoolPtrInput
@@ -372,6 +385,11 @@ func (o FluxBootstrapGitOutput) ComponentsExtras() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *FluxBootstrapGit) pulumi.StringArrayOutput { return v.ComponentsExtras }).(pulumi.StringArrayOutput)
 }
 
+// Use the existing secret for flux controller and don't create one from bootstrap
+func (o FluxBootstrapGitOutput) DisableSecretCreation() pulumi.BoolPtrOutput {
+	return o.ApplyT(func(v *FluxBootstrapGit) pulumi.BoolPtrOutput { return v.DisableSecretCreation }).(pulumi.BoolPtrOutput)
+}
+
 // Kubernetes secret name used for pulling the toolkit images from a private registry.
 func (o FluxBootstrapGitOutput) ImagePullSecret() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *FluxBootstrapGit) pulumi.StringPtrOutput { return v.ImagePullSecret }).(pulumi.StringPtrOutput)
@@ -427,12 +445,16 @@ func (o FluxBootstrapGitOutput) SecretName() pulumi.StringOutput {
 	return o.ApplyT(func(v *FluxBootstrapGit) pulumi.StringOutput { return v.SecretName }).(pulumi.StringOutput)
 }
 
+func (o FluxBootstrapGitOutput) Timeouts() FluxBootstrapGitTimeoutsPtrOutput {
+	return o.ApplyT(func(v *FluxBootstrapGit) FluxBootstrapGitTimeoutsPtrOutput { return v.Timeouts }).(FluxBootstrapGitTimeoutsPtrOutput)
+}
+
 // List of toleration keys used to schedule the components pods onto nodes with matching taints.
 func (o FluxBootstrapGitOutput) TolerationKeys() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *FluxBootstrapGit) pulumi.StringArrayOutput { return v.TolerationKeys }).(pulumi.StringArrayOutput)
 }
 
-// Flux version. Defaults to `v0.41.2`.
+// Flux version. Defaults to `v2.0.1`.
 func (o FluxBootstrapGitOutput) Version() pulumi.StringOutput {
 	return o.ApplyT(func(v *FluxBootstrapGit) pulumi.StringOutput { return v.Version }).(pulumi.StringOutput)
 }

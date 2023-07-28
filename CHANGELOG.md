@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## 1.0.1
+
+This release includes flux2 [v2.0.1](https://github.com/fluxcd/flux2/releases/tag/v2.0.1).
+
 ## 0.25.3
 
 - Upgrade bridged provider to Terraform Plugin Framework

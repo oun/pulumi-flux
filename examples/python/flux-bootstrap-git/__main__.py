@@ -4,10 +4,6 @@ import pulumi_flux as flux
 import pulumi_github as github
 import pulumi_tls as tls
 
-# Require Github configurations
-# export GITHUB_TOKEN=your-github-personal-access-token
-# export GITHUB_OWNER=your-github-owner
-
 branch = "main"
 target_path = "clusters/dev"
 repo_name = "pulumi-flux-python-sample"
